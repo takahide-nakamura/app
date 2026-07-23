@@ -15,8 +15,8 @@ import Header from '../components/Header.astro';
       </p>
 
       <div class="buttons">
-        <a href="/policy" class="primary">政策を見る</a>
-        <a href="/activity" class="secondary">活動を見る</a>
+        <a href="/policy" class="btn btn-primary">政策を見る</a>
+        <a href="/activity" class="btn btn-outline">活動を見る</a>
       </div>
     </section>
   </main>
@@ -36,14 +36,10 @@ main {
 }
 
 .hero h1 {
-  font-size: clamp(2.2rem, 6vw, 4rem);
-  margin-bottom: 1rem;
-  color: #003f88;
 }
 
 .hero p {
   font-size: 1.2rem;
-  line-height: 1.8;
   margin-bottom: 2rem;
 }
 
@@ -54,20 +50,5 @@ main {
   flex-wrap: wrap;
 }
 
-.buttons a {
-  text-decoration: none;
-  padding: 0.9rem 1.6rem;
-  border-radius: 12px;
-  font-weight: bold;
-}
 
-.primary {
-  background: #003f88;
-  color: white;
-}
-
-.secondary {
-  border: 2px solid #003f88;
-  color: #003f88;
-}
 </style>

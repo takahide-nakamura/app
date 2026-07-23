@@ -1,0 +1,63 @@
+:root {
+  --color-primary: #003f88;
+  --color-accent: #fabe00;
+
+  --color-text: #222222;
+  --color-background: #ffffff;
+  --color-border: #e5e7eb;
+
+  --container-width: 1200px;
+
+  --radius: 12px;
+
+  --font-base:
+    "Noto Sans JP",
+    "BIZ UDPゴシック",
+    sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-base);
+  color: var(--color-text);
+  background: var(--color-background);
+}
+
+/* ===== Buttons ===== */
+
+.btn {
+  display: inline-block;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 0.9rem 1.6rem;
+  border-radius: var(--radius);
+  transition: 0.2s;
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: white;
+}
+
+.btn-outline {
+  border: 2px solid var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* ===== Typography ===== */
+
+h1 {
+  color: var(--color-primary);
+  font-size: clamp(2.2rem, 6vw, 4rem);
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+p {
+  line-height: 1.8;
+}
+
