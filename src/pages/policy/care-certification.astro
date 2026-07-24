@@ -28,6 +28,20 @@ import Footer from '../../components/Footer.astro';
       </p>
     </section>
 
+   <section class="importance">
+      <h2>なぜ重要なのか</h2>
+
+     <div class="evidence field">
+      <h3>🟢 現場から見えること</h3>
+
+     <p>
+      要介護認定は介護保険サービスを利用するための入口です。
+      認定が遅れると、退院後すぐに必要な介護サービスや福祉用具を利用できず、
+      本人や家族の負担が大きくなる場合があります。
+      </p>
+     </div>
+    </section>
+
     <section class="status">
      <h2>現状</h2>
 
@@ -60,17 +74,33 @@ import Footer from '../../components/Footer.astro';
       <h2>私の提案</h2>
 
       <ul>
-        <li>末期がんなど急激に状態が変化する方への迅速な対応</li>
-        <li>認定調査体制の充実</li>
-        <li>ICT活用による事務負担の軽減</li>
+        <li>緊急性が高いケースでは認定調査を優先して実施する</li>
+        <li>認定調査を担当する体制を強化する</li>
+        <li>ICTを活用し事務負担を減らすことで、認定までの期間短縮を目指す</li>
       </ul>
+    </section>
+
+    <section class="effect">
+     <h2>期待される効果</h2>
+
+       <div class="evidence effect-box">
+         <h3>🌱 この政策で目指すこと</h3>
+
+         <ul>
+         <li>必要な人が早く介護サービスを利用できる</li>
+         <li>本人・家族の不安や負担を軽減できる</li>
+         <li>退院後も安心して在宅生活を始められる</li>
+        </ul>
+      </div>
+
     </section>
 
     <section class="references">
       <h2>参考資料</h2>
 
       <p>
-        今後、高槻市・厚生労働省などの資料を掲載予定です。
+        令和7年度 高槻市包括外部監査結果報告書
+        （高齢者福祉事業及び介護保険事業）
       </p>
     </section>
 
@@ -111,4 +141,13 @@ import Footer from '../../components/Footer.astro';
   margin-top:0;
   color:#003f88;
 }
+
+.field{
+  border-left-color:#2e8b57;
+}
+
+.effect-box{
+  border-left-color:#4caf50;
+}
+
 </style>
