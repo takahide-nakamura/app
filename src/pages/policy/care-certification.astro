@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import EvidenceBox from '../../components/EvidenceBox.astro';
 ---
 
 <Layout>
@@ -31,43 +32,44 @@ import Footer from '../../components/Footer.astro';
    <section class="importance">
       <h2>なぜ重要なのか</h2>
 
-     <div class="evidence field">
-      <h3>🟢 現場から見えること</h3>
-
-     <p>
-      要介護認定は介護保険サービスを利用するための入口です。
-      認定が遅れると、退院後すぐに必要な介護サービスや福祉用具を利用できず、
-      本人や家族の負担が大きくなる場合があります。
-      </p>
-     </div>
+     <EvidenceBox
+     type="field"
+     title="🟢 現場から見えること"
+     >
+         <p>
+         要介護認定は介護保険サービスを利用するための入口です。
+         認定が遅れると、退院後すぐに必要な介護サービスや福祉用具を利用できず、
+         本人や家族の負担が大きくなる場合があります。
+         </p>
+     </EvidenceBox>
     </section>
 
     <section class="status">
      <h2>現状</h2>
 
-     <div class="evidence official">
-     <h3>🔵 公的資料</h3>
+     <EvidenceBox
+     type="official"
+     title="🔵 公的資料"
+     >
+         <p>
+            高槻市では、令和5年4〜9月の要介護認定までの平均日数は
+            <strong>39.2日</strong>でした。
+         </p>
+         <p>
+            介護保険法では、原則30日以内の認定が求められています。
+         </p>
+     </EvidenceBox>
 
-     <p>
-      高槻市では、令和5年4〜9月の要介護認定までの平均日数は
-      <strong>39.2日</strong>でした。
-     </p>
-
-     <p>
-      介護保険法では、原則30日以内の認定が求められています。
-     </p>
-     </div>
-
-     <div class="evidence reason">
-     <h3>📊 主な要因</h3>
-
-     <p>
-      主治医意見書は比較的早く取得できていますが、
-      認定調査（訪問調査）の実施まで時間を要していることが、
-      監査報告書で指摘されています。
-     </p>
-     </div>
-
+     <EvidenceBox
+     type="reason"
+     title="📊 主な要因"
+     >
+         <p>
+         主治医意見書は比較的早く取得できていますが、
+         認定調査（訪問調査）の実施まで時間を要していることが、
+         監査報告書で指摘されています。
+         </p>
+     </EvidenceBox>
     </section>
 
     <section class="proposal">
@@ -83,15 +85,16 @@ import Footer from '../../components/Footer.astro';
     <section class="effect">
      <h2>期待される効果</h2>
 
-       <div class="evidence effect-box">
-         <h3>🌱 この政策で目指すこと</h3>
-
-         <ul>
-         <li>必要な人が早く介護サービスを利用できる</li>
-         <li>本人・家族の不安や負担を軽減できる</li>
-         <li>退院後も安心して在宅生活を始められる</li>
-        </ul>
-      </div>
+        <EvidenceBox
+        type="effect"
+        title="🌱 この政策で目指すこと"
+        >
+             <ul>
+             <li>必要な人が早く介護サービスを利用できる</li>
+             <li>本人・家族の不安や負担を軽減できる</li>
+             <li>退院後も安心して在宅生活を始められる</li>
+             </ul>
+        </EvidenceBox>
 
     </section>
 
@@ -126,19 +129,6 @@ import Footer from '../../components/Footer.astro';
 }
 
 .policy-detail h2{
-  color:#003f88;
-}
-
-.evidence{
-  border-left:5px solid #003f88;
-  background:#f8fbff;
-  padding:1rem 1.25rem;
-  margin:1.5rem 0;
-  border-radius:10px;
-}
-
-.evidence h3{
-  margin-top:0;
   color:#003f88;
 }
 

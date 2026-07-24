@@ -1,0 +1,69 @@
+---
+interface Props {
+  title: string;
+  type?: "official" | "field" | "reason" | "effect";
+}
+
+const {
+  title,
+  type = "official"
+} = Astro.props;
+---
+
+<div class={`evidence ${type}`}>
+  <h3>{title}</h3>
+
+  <div class="content">
+    <slot />
+  </div>
+</div>
+
+<style>
+.evidence{
+  border-left:5px solid #003f88;
+  background:#f8fbff;
+  padding:1rem 1.25rem;
+  margin:1.5rem 0;
+  border-radius:10px;
+}
+
+.evidence h3{
+  margin-top:0;
+}
+
+.content{
+  line-height:1.8;
+}
+
+.official{
+  border-left-color:#003f88;
+}
+
+.official h3{
+  color:#003f88;
+}
+
+.field{
+  border-left-color:#2e8b57;
+}
+
+.field h3{
+  color:#2e8b57;
+}
+
+.reason{
+  border-left-color:#f39c12;
+}
+
+.reason h3{
+  color:#f39c12;
+}
+
+.effect{
+  border-left-color:#4caf50;
+}
+
+.effect h3{
+  color:#4caf50;
+}
+</style>
