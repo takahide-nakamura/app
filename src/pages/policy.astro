@@ -1,0 +1,65 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PolicyCard from '../components/PolicyCard.astro';
+---
+
+<Layout>
+  <Header />
+
+  <main class="policy-page">
+
+    <section class="hero">
+      <h1>政策</h1>
+
+      <p>
+        事実と対話を大切にし、
+        データや現場経験をもとに政策を考えています。
+      </p>
+    </section>
+
+    <PolicyCard
+      title="🏥 医療・介護"
+      summary="現場経験と公開データをもとに、安心して暮らせる地域づくりを目指します。"
+     />
+
+    <PolicyCard
+      title="👨‍👩‍👧 子育て・教育"
+      summary="子育て世代の声や公開データをもとに、安心して子育てできる環境づくりを目指します。"
+     />
+
+    <PolicyCard
+      title="🏡 安心して暮らせるまち"
+      summary="防災・防犯・福祉など、誰もが安心して暮らせる地域づくりを進めます。"
+     />
+
+    <PolicyCard
+     title="🌳 快適なまちづくり"
+     summary="交通・公園・生活環境など、暮らしやすいまちを目指します。"
+     /> 
+
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+.policy-page{
+  max-width:1100px;
+  margin:0 auto;
+  padding:4rem 2rem;
+}
+
+.hero{
+  text-align:center;
+  margin-bottom:4rem;
+}
+
+.coming-soon{
+  text-align:center;
+  border:1px solid #ddd;
+  border-radius:16px;
+  padding:3rem;
+}
+</style>
