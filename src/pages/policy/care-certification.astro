@@ -1,0 +1,114 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+---
+
+<Layout>
+  <Header />
+
+  <main class="policy-detail">
+
+    <section class="hero">
+      <h1>要介護認定の迅速化</h1>
+
+      <p>
+        必要な人が、必要な介護サービスを、
+        必要な時に利用できる仕組みを目指します。
+      </p>
+    </section>
+
+    <section class="issue">
+      <h2>現状の課題</h2>
+
+      <p>
+        要介護認定は介護保険サービス利用の入口ですが、
+        認定結果が出るまで時間がかかると、
+        サービス開始が遅れてしまいます。
+      </p>
+    </section>
+
+    <section class="status">
+     <h2>現状</h2>
+
+     <div class="evidence official">
+     <h3>🔵 公的資料</h3>
+
+     <p>
+      高槻市では、令和5年4〜9月の要介護認定までの平均日数は
+      <strong>39.2日</strong>でした。
+     </p>
+
+     <p>
+      介護保険法では、原則30日以内の認定が求められています。
+     </p>
+     </div>
+
+     <div class="evidence reason">
+     <h3>📊 主な要因</h3>
+
+     <p>
+      主治医意見書は比較的早く取得できていますが、
+      認定調査（訪問調査）の実施まで時間を要していることが、
+      監査報告書で指摘されています。
+     </p>
+     </div>
+
+    </section>
+
+    <section class="proposal">
+      <h2>私の提案</h2>
+
+      <ul>
+        <li>末期がんなど急激に状態が変化する方への迅速な対応</li>
+        <li>認定調査体制の充実</li>
+        <li>ICT活用による事務負担の軽減</li>
+      </ul>
+    </section>
+
+    <section class="references">
+      <h2>参考資料</h2>
+
+      <p>
+        今後、高槻市・厚生労働省などの資料を掲載予定です。
+      </p>
+    </section>
+
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+.policy-detail{
+  max-width:900px;
+  margin:0 auto;
+  padding:4rem 2rem;
+}
+
+.hero{
+  text-align:center;
+  margin-bottom:4rem;
+}
+
+.policy-detail section{
+  margin-bottom:3rem;
+}
+
+.policy-detail h2{
+  color:#003f88;
+}
+
+.evidence{
+  border-left:5px solid #003f88;
+  background:#f8fbff;
+  padding:1rem 1.25rem;
+  margin:1.5rem 0;
+  border-radius:10px;
+}
+
+.evidence h3{
+  margin-top:0;
+  color:#003f88;
+}
+</style>
