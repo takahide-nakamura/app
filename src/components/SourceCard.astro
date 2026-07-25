@@ -1,0 +1,95 @@
+---
+interface Props {
+  title: string;
+  publisher: string;
+  year?: string;
+  url?: string;
+}
+
+const {
+  title,
+  publisher,
+  year = "",
+  url = ""
+} = Astro.props;
+---
+
+<article class="source-card">
+
+  <h3>{title}</h3>
+
+  <dl class="source-info">
+
+    <div>
+      <dt>発行元</dt>
+      <dd>{publisher}</dd>
+    </div>
+
+    {year && (
+      <div>
+        <dt>発行年</dt>
+        <dd>{year}</dd>
+      </div>
+    )}
+
+  </dl>
+
+  {url && (
+    <p class="link">
+      <a href={url} target="_blank" rel="noopener noreferrer">
+        資料を見る ↗
+      </a>
+    </p>
+  )}
+
+</article>
+
+<style>
+.source-card{
+  border:1px solid #ddd;
+  border-radius:12px;
+  padding:1.25rem;
+  margin-bottom:1rem;
+  background:#fff;
+}
+
+.source-card h3{
+  margin:0 0 1rem;
+  color:#003f88;
+  font-size:1.05rem;
+}
+
+.source-info{
+  margin:0;
+}
+
+.source-info div{
+  display:flex;
+  margin-bottom:.5rem;
+}
+
+.source-info dt{
+  width:5rem;
+  font-weight:700;
+  color:#666;
+  flex-shrink:0;
+}
+
+.source-info dd{
+  margin:0;
+}
+
+.link{
+  margin-top:1rem;
+}
+
+.link a{
+  color:#003f88;
+  text-decoration:none;
+  font-weight:600;
+}
+
+.link a:hover{
+  text-decoration:underline;
+}
+</style>

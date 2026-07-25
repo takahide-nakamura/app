@@ -1,0 +1,69 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import ActivityCard from '../components/ActivityCard.astro';
+---
+
+<Layout>
+  <Header />
+
+  <main class="activity-page">
+
+    <section class="hero">
+      <h1>活動</h1>
+
+      <p>
+        市民の皆さんの声を大切にしながら、情報発信・調査研究・対話を続けています。
+      </p>
+    </section>
+
+    <ActivityCard
+         title="📢 情報発信"
+         description="YouTubeやXなどを通じて、市政や地域課題を分かりやすく発信しています。"
+         items={[
+            "YouTube",
+            "X",
+            "Instagram"
+        ]}
+    />
+
+    <ActivityCard
+         title="📊 調査・研究"
+         description="公開資料や統計データ、現場の経験をもとに課題を整理し、政策づくりに役立てています。"
+         items={[
+            "高槻市資料",
+            "大阪府資料",
+            "国の統計",
+            "現場経験"
+        ]}
+    />
+
+    <ActivityCard
+         title="🤝 市民との対話"
+         description="市民の皆さんとの対話を大切にしています。"
+         items={[
+            "YouTubeライブ",
+            "Googleフォーム",
+            "メール",
+            "対面での意見交換"
+        ]}
+    />
+
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+.activity-page{
+  max-width:1100px;
+  margin:0 auto;
+  padding:4rem 2rem;
+}
+
+.hero{
+  text-align:center;
+  margin-bottom:4rem;
+}
+</style>

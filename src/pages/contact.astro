@@ -1,0 +1,104 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout>
+  <Header />
+
+  <main class="contact-page">
+
+    <section class="hero">
+      <h1>お問い合わせ</h1>
+
+      <p>
+        ご意見・ご提案をお待ちしています。
+        市民の皆さんの声を、今後の活動や政策づくりに活かしていきます。
+      </p>
+    </section>
+
+    <section class="contact-method">
+
+      <h2>ご意見・ご提案</h2>
+
+      <p>
+        現在、お問い合わせはGoogleフォームを中心に受け付ける予定です。
+      </p>
+
+      <p class="coming">
+        Googleフォーム（準備中）
+      </p>
+
+    </section>
+
+    <section class="sns">
+
+      <h2>SNS</h2>
+
+      <p>
+        YouTubeやXでも情報発信を行っています。
+      </p>
+
+      <ul>
+        <li>YouTube（準備中）</li>
+        <li>X（準備中）</li>
+      </ul>
+
+    </section>
+
+    <section class="notice">
+
+      <h2>お願い</h2>
+
+      <p>
+        いただいたご意見は今後の活動の参考にさせていただきます。
+        内容によっては個別の返信ができない場合がありますので、ご了承ください。
+      </p>
+
+    </section>
+
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+.contact-page{
+  max-width:900px;
+  margin:0 auto;
+  padding:4rem 2rem;
+}
+
+.hero{
+  text-align:center;
+  margin-bottom:4rem;
+}
+
+.contact-page section{
+  margin-bottom:3rem;
+}
+
+.contact-page h2{
+  color:#003f88;
+}
+
+.contact-method,
+.sns,
+.notice{
+  border:1px solid #ddd;
+  border-radius:16px;
+  padding:2rem;
+  background:#fff;
+}
+
+.coming{
+  display:inline-block;
+  margin-top:1rem;
+  padding:.7rem 1.2rem;
+  background:#eef5ff;
+  border-radius:999px;
+  color:#003f88;
+  font-weight:bold;
+}
+</style>

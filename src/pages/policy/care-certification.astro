@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import EvidenceBox from '../../components/EvidenceBox.astro';
+import SourceCard from '../../components/SourceCard.astro';
 ---
 
 <Layout>
@@ -99,12 +100,16 @@ import EvidenceBox from '../../components/EvidenceBox.astro';
     </section>
 
     <section class="references">
-      <h2>参考資料</h2>
 
-      <p>
-        令和7年度 高槻市包括外部監査結果報告書
-        （高齢者福祉事業及び介護保険事業）
-      </p>
+      <h2>参考資料・出典</h2>
+
+      <SourceCard
+       title="令和7年度 高槻市包括外部監査結果報告書（高齢者福祉事業及び介護保険事業）"
+       publisher="高槻市"
+       year="令和7年度"
+       url="https://www.city.takatsuki.osaka.jp/uploaded/attachment/63214.pdf"
+      />
+
     </section>
 
   </main>

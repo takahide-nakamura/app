@@ -1,24 +1,108 @@
 <header class="site-header">
+
   <div class="container">
-    <h1 class="logo">もっと住みやすい高槻へ</h1>
+
+    <div class="brand">
+      <a href="/" class="logo">もっと住みやすい高槻へ</a>
+      <p class="tagline">データと現場経験から考える市政</p>
+    </div>
+
+    <nav class="global-nav">
+
+      <a href="/">ホーム</a>
+
+      <a href="/policy">政策</a>
+
+      <a href="/activity">活動</a>
+
+      <a href="/profile">プロフィール</a>
+
+      <a href="/contact">お問い合わせ</a>
+
+    </nav>
+
   </div>
+
 </header>
 
 <style>
-.site-header {
-  padding: 1rem 2rem;
-  border-bottom: 1px solid #e5e7eb;
-  background: white;
+
+.site-header{
+  background:#fff;
+  border-bottom:1px solid #e5e7eb;
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
+.container{
+  max-width:1200px;
+  margin:0 auto;
+  padding:1.2rem 2rem;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:2rem;
 }
 
-.logo {
-  margin: 0;
-  font-size: 1.4rem;
-  color: #003f88;
+.brand{
+  display:flex;
+  flex-direction:column;
 }
+
+.logo{
+  color:#003f88;
+  font-size:1.6rem;
+  font-weight:700;
+  text-decoration:none;
+  line-height:1.2;
+}
+
+.logo:hover{
+  text-decoration:none;
+}
+
+.tagline{
+  margin:.35rem 0 0;
+  font-size:.9rem;
+  color:#666;
+}
+
+.global-nav{
+  display:flex;
+  gap:2rem;
+  align-items:center;
+}
+
+.global-nav a{
+  color:#333;
+  text-decoration:none;
+  font-weight:500;
+  letter-spacing:.05em;
+  transition:color .2s;
+}
+
+.global-nav a:hover{
+  color:#003f88;
+}
+
+@media (max-width:768px){
+
+  .container{
+    flex-direction:column;
+    align-items:center;
+    padding:1rem;
+  }
+
+  .brand{
+    align-items:center;
+    text-align:center;
+  }
+
+  .global-nav{
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:1.25rem;
+  }
+
+}
+
 </style>
