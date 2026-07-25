@@ -2,9 +2,17 @@
 interface Props {
   title: string;
   summary: string;
+  href?: string;
+  available?: boolean;
 }
 
-const { title, summary } = Astro.props;
+const {
+  title,
+  summary,
+  href = "#",
+  available = false
+} = Astro.props;
+
 ---
 
 <article class="policy-card">
@@ -28,6 +36,21 @@ const { title, summary } = Astro.props;
       （ここに提案内容を掲載します）
     </p>
   </section>
+  
+  <p class="more">
+  {
+    available ? (
+      <a href={href} class="btn btn-primary">
+        詳しく見る
+      </a>
+    ) : (
+      <span class="btn btn-disabled">
+        準備中
+      </span>
+    )
+  }
+  </p>
+
 </article>
 
 <style>
@@ -62,4 +85,16 @@ const { title, summary } = Astro.props;
   padding-top:1rem;
   border-top:1px solid #eee;
 }
+
+.more{
+  margin-top:2rem;
+  text-align:right;
+}
+
+.btn-disabled{
+  background:#ddd;
+  color:#666;
+  cursor:not-allowed;
+}
+
 </style>
