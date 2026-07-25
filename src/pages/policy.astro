@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import PolicyCard from '../components/PolicyCard.astro';
+import { policies } from '../data/policies';
 ---
 
 <Layout>
@@ -18,28 +19,17 @@ import PolicyCard from '../components/PolicyCard.astro';
         データや現場経験をもとに政策を考えています。
       </p>
     </section>
-
-    <PolicyCard
-     title="🏥 医療・介護"
-     summary="現場経験と公開データをもとに、安心して暮らせる地域づくりを目指します。"
-     href="/policy/care-certification"
-     available={true}
-     />
-
-    <PolicyCard
-      title="👨‍👩‍👧 子育て・教育"
-      summary="子育て世代の声や公開データをもとに、安心して子育てできる環境づくりを目指します。"
-     />
-
-    <PolicyCard
-      title="🏡 安心して暮らせるまち"
-      summary="防災・防犯・福祉など、誰もが安心して暮らせる地域づくりを進めます。"
-     />
-
-    <PolicyCard
-     title="🌳 快適なまちづくり"
-     summary="交通・公園・生活環境など、暮らしやすいまちを目指します。"
-     /> 
+ 
+     {
+       policies.map((policy) => (
+         <PolicyCard
+           title={policy.category}
+           summary={policy.summary}
+           href={policy.href}
+           available={policy.available}
+          />
+       ))
+     }
 
   </main>
 
