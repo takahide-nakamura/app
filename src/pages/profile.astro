@@ -1,0 +1,166 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout>
+  <Header />
+
+  <main class="profile-page">
+
+    <section class="hero">
+      <h1>プロフィール</h1>
+
+      <p class="lead">
+        現場で感じた課題を、政策へ。
+      </p>
+
+      <p>
+        理学療法士として現場に向き合う中で、<!--
+        -->医療や介護だけでは解決できない課題があることを実感しました。
+      </p>
+
+      <p>
+        市民の皆さんの声、公開データ、現場経験をもとに、一つひとつ改善策を考え、「もっと住みやすい高槻へ」を目指して活動しています。
+      </p>
+
+    </section>
+
+    <section class="motivation">
+
+     <h2>なぜ活動するのか</h2>
+
+     <p>
+        私たちの暮らしは、生まれてから亡くなった後の手続きに至るまで、<!--
+        -->市の行政サービスと深く関わっています。
+     </p>
+     <p>
+        医療、介護、子育て、介護、防災、ごみ、道路、公園など、<!--
+        -->暮らしに最も身近な行政が市役所です。
+     </p>
+     <p>
+        だからこそ、高槻市をもっと住みやすいまちにしたい。<!--
+        -->その思いから、市政について学び、情報発信や政策づくりに取り組んでいます。
+     </p>
+    </section>
+
+    <section class="career">
+
+        <h2>これまでの歩み</h2>
+
+        <div class="career-box">
+            
+            <h3>🏥 理学療法士として</h3>
+            <p>
+                高校時代、理系を選択し、<!--
+                -->人の役に立てる仕事に就きたいと考え、<!--
+                -->理学療法士の道を選びました。
+            </p>
+            <p>
+                現場では、病気やけがだけではなく、<!--
+                -->制度や地域の仕組みによって困っている方々と<!--
+                -->数多く出会いました。
+            </p>
+            <p>
+                「医療だけでは解決できない課題がある。」<!--
+                -->その経験が、現在の政策づくりにつながっています。
+            </p>
+
+        </div>
+
+    </section>
+
+    <section class="current-activity">
+
+        <h2>現在の活動</h2>
+
+        <div class="activity-box">
+
+            <ul>
+                <li>YouTubeで市政や暮らしに関する情報を発信</li>
+                <li>X（旧Twitter）で最新情報や調査結果を紹介</li>
+                <li>高槻市・大阪府・国の公開資料を調査・整理</li>
+                <li>市民の皆さんの声を政策づくりに反映</li>
+            </ul>
+
+        </div>
+
+    </section>
+
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+.profile-page{
+  max-width:900px;
+  margin:0 auto;
+  padding:4rem 2rem;
+}
+
+.hero{
+  text-align:center;
+}
+
+.lead{
+  font-size:1.5rem;
+  font-weight:bold;
+  color:#003f88;
+  margin:2rem 0;
+}
+
+.hero p{
+  line-height:1.9;
+  margin-bottom:1.5rem;
+}
+
+.motivation{
+  margin-top:4rem;
+}
+
+.motivation p{
+  line-height:1.9;
+  margin-bottom:1.5rem;
+}
+
+.career{
+  margin-top:4rem;
+}
+
+.career-box{
+  background:#f8fbff;
+  border-left:5px solid #003f88;
+  border-radius:10px;
+  padding:2rem;
+}
+
+.career-box h3{
+  margin-top:0;
+  color:#003f88;
+}
+
+.career-box p{
+  line-height:1.9;
+  margin-bottom:1.2rem;
+}
+
+.current-activity{
+  margin-top:4rem;
+}
+
+.activity-box{
+  background:#f8fbff;
+  border-left:5px solid #003f88;
+  border-radius:10px;
+  padding:2rem;
+}
+
+.activity-box ul{
+  margin:0;
+  padding-left:1.3rem;
+  line-height:2;
+}
+
+</style>
