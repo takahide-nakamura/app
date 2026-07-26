@@ -4,6 +4,13 @@ import EvidenceBox from '../../components/EvidenceBox.astro';
 import SourceCard from '../../components/SourceCard.astro';
 import { sources } from '../../data/sources';
 import PolicySection from '../../components/PolicySection.astro';
+import { policyRelations } from '../../data/relations';
+import { activities } from '../../data/activities';
+
+const relatedActivities = activities.filter((activity) =>
+  policyRelations["care-certification"]?.includes(activity.id)
+);
+
 ---
 
 <PolicyDetailLayout
@@ -79,9 +86,24 @@ import PolicySection from '../../components/PolicySection.astro';
         </EvidenceBox>
 
     </PolicySection>
+    
+
+    <PolicySection title="関連する活動">
+      <ul>
+        {
+          relatedActivities.map((activity) => (
+            <li>
+              <a href={activity.href}>
+                 {activity.title}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+    </PolicySection>
 
     <section class="references">
-
       <h2>参考資料・出典</h2>
 
       <SourceCard

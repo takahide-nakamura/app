@@ -4,6 +4,25 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import PolicyCard from '../components/PolicyCard.astro';
 import { policies } from '../data/policies';
+
+const categoryOrder = [
+  "医療・介護",
+  "子育て・教育",
+  "防災・安全",
+  "まちづくり・交通",
+  "地域・くらし"
+];
+
+const groupedPolicies = categoryOrder.map((category) => ({
+  category,
+  policies: policies.filter(
+    (policy) =>
+      policy.category === category &&
+      policy.status === "published"
+  )
+}));
+
+
 ---
 
 <Layout
@@ -25,20 +44,33 @@ import { policies } from '../data/policies';
     </section>
  
      {
-       policies.map((policy) => (
-         <PolicyCard
-           title={policy.title}
-           summary={policy.summary}
-           tags={policy.tags}
-           href={policy.href}
-           available={policy.status === "published"}
-          />
-       ))
+        groupedPolicies
+          .filter((group) => group.policies.length > 0)
+          .map((group) => (
+            <section class="category-section">
+
+              <h2>{group.category}</h2>
+
+             {
+                group.policies.map((policy) => (
+                  <PolicyCard
+                     title={policy.title}
+                     summary={policy.summary}
+                     tags={policy.tags}
+                     href={policy.href}
+                     available={policy.status === "published"}
+                  />
+                ))
+             }
+
+            </section>
+         ))
      }
 
   </main>
 
   <Footer />
+
 </Layout>
 
 <style>
@@ -59,4 +91,16 @@ import { policies } from '../data/policies';
   border-radius:16px;
   padding:3rem;
 }
+
+.category-section{
+  margin-bottom: var(--space-xl);
+}
+
+.category-section h2{
+  color: var(--color-primary);
+  border-left: 6px solid var(--color-accent);
+  padding-left: 1rem;
+  margin-bottom: 2rem;
+}
+
 </style>
