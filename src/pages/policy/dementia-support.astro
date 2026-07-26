@@ -1,0 +1,152 @@
+---
+import PolicyDetailLayout from '../../components/PolicyDetailLayout.astro';
+import PolicySection from '../../components/PolicySection.astro';
+import EvidenceBox from '../../components/EvidenceBox.astro';
+import SourceCard from '../../components/SourceCard.astro';
+import { sources } from '../../data/sources';
+---
+
+<PolicyDetailLayout
+  title="認知症になっても安心して暮らせるまちづくり｜政策｜もっと住みやすい高槻へ"
+  description="認知症になっても安心して暮らせる地域づくりについて、公開資料と現場経験をもとに課題・提案をまとめています。"
+>
+
+    <section class="hero">
+      <h1>認知症になっても安心して暮らせるまちづくり</h1>
+
+         <p>
+         認知症になっても、
+         住み慣れた地域で安心して暮らし続けられる
+         仕組みづくりを目指します。
+        </p>
+    </section>
+
+    <PolicySection title="現状の課題">
+        <p>
+            認知症は誰もが関わる可能性のある身近な問題ですが、本人や家族が不安を抱えながら生活しているケースがあります。
+        </p>
+        
+        <p>
+            早期に気づき、必要な支援につながる仕組みを整えることが重要です。
+        </p>
+
+    </PolicySection>
+
+    <PolicySection title="なぜ重要なのか">
+        <EvidenceBox title="🟢 現場から見えること">
+            <p>
+                認知症のある方への支援では、本人の状態だけでなく、家族の負担や生活環境も大きく影響します。
+            </p>
+            
+            <p>
+                支援が必要な段階で適切なサービスにつながることで、本人が住み慣れた地域で生活を続けやすくなります。
+            </p>
+        </EvidenceBox>
+    </PolicySection>
+
+    <PolicySection title="現状">
+
+        <EvidenceBox title="🔵 公的資料">
+
+            <p>
+                認知症施策推進基本計画（令和6年12月）では、2040年には高齢者のおよそ3.3人に1人が認知症または軽度認知障害（MCI）になると推計されています。
+            </p>
+
+            <p>
+                認知症は特別な人だけの病気ではなく、誰もが関わる可能性のある身近な課題です。
+            </p>
+
+        </EvidenceBox>
+
+         <EvidenceBox title="📊 相談につながらない理由">
+
+            <p>
+                認知症に関する支援制度はありますが、本人や家族が相談先を知らず、必要な支援につながるまで時間がかかることがあります。
+            </p>
+
+            <p>
+                医療・介護・行政が連携する仕組みは整備されていますが、現場では十分に機能しているとは言えない場面もあります。
+            </p>
+
+        </EvidenceBox>
+
+        <EvidenceBox title="📍 高槻市の取り組み">
+
+            <p>
+                高槻市では、認知症高齢者が行方不明になった場合に備え、GPS端末の貸与事業を実施しています。早期に居場所を特定し、家族による探索を支援する取り組みです。
+            </p>
+            <p>
+                一方で、この制度は一定の条件を満たす高齢者が対象となっており、若年性認知症の方など、対象とならない方もいます。対象者は多くありませんが、今後の制度改善を検討できる余地があります。
+            </p>
+
+        </EvidenceBox>
+
+    </PolicySection>
+
+    <PolicySection title="私の提案">
+
+        <ul>
+            <li>認知症への正しい理解を広める啓発活動を進める</li>
+            <li>相談窓口をより分かりやすく周知する</li>
+            <li>医療・介護・行政がより円滑に連携できる仕組みを強化する</li>
+            <li>医療・介護従事者にも行政サービスの情報が届く仕組みを整える</li>
+            <li>若年性認知症の方なども含め、支援制度の対象を継続的に検証する</li>
+        </ul>
+    </PolicySection>
+    
+    <PolicySection title="期待される効果">
+
+        <EvidenceBox title="🌱 この政策で目指すこと">
+
+            <ul>
+                <li>認知症になっても安心して暮らせる地域づくり</li>
+                <li>本人や家族の不安や負担の軽減</li>
+                <li>必要な支援へ早くつながる仕組みづくり</li>
+                <li>運動習慣や社会参加など、認知症予防につながる取組の推進</li>
+            </ul>
+
+        </EvidenceBox>
+
+    </PolicySection>
+
+    <PolicySection title="私が大切にしたいこと">
+        <p>
+            認知症を完全に防ぐことはできません。
+        </p>
+        
+        <p>
+            しかし、運動習慣や社会参加などは、認知症の発症や進行リスクを低下させることが期待されています。
+        </p>
+
+        <p>
+            認知症になっても安心して暮らせる地域づくりとともに、一人ひとりが健康づくりに取り組める環境づくりも進めていきます。
+        </p>
+    
+    </PolicySection>
+
+    <PolicySection title="参考資料・出典">
+        <SourceCard
+             title={sources.dementiaPlan2024.title}
+             publisher={sources.dementiaPlan2024.publisher}
+             year={sources.dementiaPlan2024.year}
+             url={sources.dementiaPlan2024.url}
+        />
+        
+        <SourceCard
+             title={sources.takatsukiGps.title}
+             publisher={sources.takatsukiGps.publisher}
+             year={sources.takatsukiGps.year}
+             url={sources.takatsukiGps.url}
+        />
+
+    </PolicySection>
+
+</PolicyDetailLayout>
+
+
+<style>
+.hero{
+  text-align:center;
+  margin-bottom:4rem;
+}
+</style>

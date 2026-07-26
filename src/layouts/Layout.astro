@@ -1,5 +1,16 @@
 ---
 import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "もっと住みやすい高槻へ",
+  description = "理学療法士としての現場経験と公開データをもとに、高槻市の医療・介護・子育て・まちづくりについて政策を提案しています。"
+} = Astro.props;
+
 ---
 
 <!doctype html>
@@ -10,7 +21,11 @@ import "../styles/global.css";
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
-		<title>もっと住みやすい高槻へ</title>
+		<title>{title}</title>
+		<meta
+		     name="description"
+			 content={description}
+		/>
 	</head>
 	<body>
 		<slot />

@@ -1,0 +1,30 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<section class="policy-section">
+  <h2>{title}</h2>
+
+  <div class="section-content">
+    <slot />
+  </div>
+</section>
+
+<style>
+.policy-section{
+  margin-bottom:3rem;
+}
+
+.policy-section h2{
+  color:#003f88;
+  margin-bottom:1rem;
+}
+
+.section-content{
+  line-height:1.8;
+}
+</style>

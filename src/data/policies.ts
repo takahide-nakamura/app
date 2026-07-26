@@ -29,5 +29,14 @@ export const policies = [
       "交通・公園・生活環境など、暮らしやすいまちを目指します。",
     href: "",
     available: false
+  },
+
+  {
+    category: "🧠 認知症支援",
+    summary:
+    "認知症になっても安心して暮らせる地域づくりと、相談・医療・介護・行政の連携強化を目指します。",
+    href: "/policy/dementia-support",
+    available: true
   }
+  
 ];

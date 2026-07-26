@@ -1,46 +1,73 @@
-# Astro Starter Kit: Basics
+# もっと住みやすい高槻へ
 
-```sh
-npm create astro@latest -- --template basics
-```
+高槻市をもっと住みやすいまちにするための政策・活動を発信するWebサイトです。
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+このサイトは「政治家の名刺」ではなく、政策・活動・資料を継続的に蓄積する「政策プラットフォーム」として育てることを目的としています。
 
-## 🚀 Project Structure
+---
 
-Inside of your Astro project, you'll see the following folders and files:
+# サイトの目的
+
+- 信頼を得る
+- 政策を理解してもらう
+- 活動を見てもらう
+- 市民との対話につなげる
+- 情報資産として育てる
+
+---
+
+# 技術構成
+
+- Astro
+- TypeScript
+- Git
+- GitHub
+- GitHub Pages（公開予定）
+
+---
+
+# 開発方針
+
+設計思想は
+
+**設計原則.md**
+
+にまとめています。
+
+新しい機能を追加する場合は、まず設計原則を確認してください。
+
+---
+
+# ディレクトリ
 
 ```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+src/
+  components/
+  data/
+  layouts/
+  pages/
+  styles/
+
+public/
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+---
 
-## 🧞 Commands
+# データ管理
 
-All commands are run from the root of the project, from a terminal:
+政策・資料はデータとして管理します。
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+- src/data/policies.ts
+- src/data/sources.ts
 
-## 👀 Want to learn more?
+ページ内へ同じ情報を何度も書かないことを基本方針とします。
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+---
+
+# 開発コマンド
+
+```bash
+npm install
+npm run dev
+npm run build
+```
