@@ -27,10 +27,11 @@ import { policies } from '../data/policies';
      {
        policies.map((policy) => (
          <PolicyCard
-           title={policy.category}
+           title={policy.title}
            summary={policy.summary}
+           tags={policy.tags}
            href={policy.href}
-           available={policy.available}
+           available={policy.status === "published"}
           />
        ))
      }

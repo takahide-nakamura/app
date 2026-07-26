@@ -4,11 +4,13 @@ interface Props {
   summary: string;
   href?: string;
   available?: boolean;
+  tags: string[];
 }
 
 const {
   title,
   summary,
+  tags,
   href = "#",
   available = false
 } = Astro.props;
@@ -22,20 +24,13 @@ const {
     {summary}
   </p>
 
-  <div class="labels">
-    <span class="label official">🔵 公的資料</span>
-    <span class="label private">🟣 民間調査</span>
-    <span class="label field">🟢 現場経験</span>
-    <span class="label citizen">🟡 市民の声</span>
+  <div class="tags">
+    {
+       tags.map((tag) => (
+       <span class="tag">#{tag}</span>
+      ))
+    }
   </div>
-
-  <section class="proposal">
-    <h3>💡 私の提案</h3>
-
-    <p>
-      （ここに提案内容を掲載します）
-    </p>
-  </section>
   
   <p class="more">
   {
