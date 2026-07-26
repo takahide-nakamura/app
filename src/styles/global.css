@@ -14,6 +14,13 @@
     "Noto Sans JP",
     "BIZ UDPゴシック",
     sans-serif;
+  
+  --space-xs: .5rem;
+  --space-sm: 1rem;
+  --space-md: 2rem;
+  --space-lg: 3rem;
+  --space-xl: 4rem;
+  
 }
 
 * {
@@ -27,27 +34,6 @@ body {
   background: var(--color-background);
 }
 
-/* ===== Buttons ===== */
-
-.btn {
-  display: inline-block;
-  text-decoration: none;
-  font-weight: bold;
-  padding: 0.9rem 1.6rem;
-  border-radius: var(--radius);
-  transition: 0.2s;
-}
-
-.btn-primary {
-  background: var(--color-primary);
-  color: white;
-}
-
-.btn-outline {
-  border: 2px solid var(--color-primary);
-  color: var(--color-primary);
-}
-
 /* ===== Typography ===== */
 
 h1 {
@@ -59,5 +45,51 @@ h1 {
 
 p {
   line-height: 1.8;
+}
+
+/* ==========================
+   Buttons
+========================== */
+
+.btn{
+  display:inline-block;
+  padding:.9rem 1.6rem;
+  border-radius:999px;
+  text-decoration:none;
+  font-weight:700;
+  transition:.2s ease;
+}
+
+.btn-primary{
+  background:#003f88;
+  color:#fff;
+}
+
+.btn-primary:hover{
+  background:#002d63;
+}
+
+.btn-secondary{
+  border:2px solid #003f88;
+  color:#003f88;
+  background:#fff;
+}
+
+.btn-secondary:hover{
+  background:#f5f8fc;
+}
+
+.btn-disabled{
+  background:#ddd;
+  color:#666;
+}
+
+/* ==========================
+   Layout
+========================== */
+
+.container{
+  width:min(100% - 2rem, 900px);
+  margin-inline:auto;
 }
 
