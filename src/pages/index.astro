@@ -4,6 +4,9 @@ import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
 import PolicyPreview from '../components/PolicyPreview.astro';
 import ActivityPreview from '../components/ActivityPreview.astro';
+import AboutSite from '../components/AboutSite.astro';
+import ContactCTA from '../components/ContactCTA.astro';
+import CategoryGrid from '../components/CategoryGrid.astro';
 import Footer from '../components/Footer.astro';
 ---
 
@@ -13,12 +16,22 @@ import Footer from '../components/Footer.astro';
   >
   
   <Header />
-  <main>
-   <Hero />
-   <PolicyPreview />
-   <ActivityPreview />
-  </main>
-    <Footer />
+
+    <main>
+      <Hero />
+
+      <AboutSite />  
+
+      <PolicyPreview />
+
+      <CategoryGrid />
+
+      <ActivityPreview />
+
+      <ContactCTA />
+
+    </main>
+  <Footer />
 </Layout>
 
 <style>
@@ -28,4 +41,6 @@ main {
   min-height: 80vh;
   padding: 2rem;
 }
+
+
 </style>
