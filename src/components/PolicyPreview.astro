@@ -1,3 +1,7 @@
+---
+import PolicyPreviewCard from "./PolicyPreviewCard.astro";
+---
+
 <section class="policy-preview">
   <h2>重点政策</h2>
 
@@ -8,30 +12,23 @@
 
   <div class="cards">
 
-    <article class="card">
-      <h3>🏥 医療・介護</h3>
-      <p>
-        現場経験を活かし、
-        医療・介護サービスの充実と
-        安心して暮らせる地域づくりを目指します。
-      </p>
-    </article>
+    <PolicyPreviewCard
+       emoji="🏥"
+       title="医療・介護"
+       description="現場経験を活かし、医療・介護サービスの充実と安心して暮らせる地域づくりを目指します。"
+    />
 
-    <article class="card">
-      <h3>👨‍👩‍👧 子育て・教育</h3>
-      <p>
-        市民の皆さんの声や公開データをもとに、
-        子育てしやすい環境づくりを考えます。
-      </p>
-    </article>
+    <PolicyPreviewCard
+       emoji="👨‍👩‍👧"
+       title="子育て・教育"
+       description="市民の皆さんの声や公開データをもとに、子育てしやすい環境づくりを考えます。"
+    />
 
-    <article class="card">
-      <h3>🏙️ まちづくり</h3>
-      <p>
-        暮らしやすさを第一に、
-        地域課題を一つずつ改善していきます。
-      </p>
-    </article>
+    <PolicyPreviewCard
+       emoji="🏙️"
+       title="まちづくり"
+       description="暮らしやすさを第一に、地域課題を一つずつ改善していきます。"
+    />
 
   </div>
 
