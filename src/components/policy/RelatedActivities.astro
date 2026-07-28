@@ -1,0 +1,28 @@
+---
+import PolicySection from "../PolicySection.astro";
+
+interface Activity {
+  title: string;
+  href: string;
+}
+
+interface Props {
+  activities: Activity[];
+}
+
+const { activities } = Astro.props as Props;
+---
+
+<PolicySection title="関連する活動">
+  <ul>
+    {
+      activities.map((activity) => (
+        <li>
+          <a href={activity.href}>
+            {activity.title}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</PolicySection>

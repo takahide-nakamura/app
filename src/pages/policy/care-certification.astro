@@ -6,6 +6,9 @@ import { sources } from '../../data/sources';
 import PolicySection from '../../components/PolicySection.astro';
 import { policyRelations } from '../../data/relations';
 import { activities } from '../../data/activities';
+import PolicyHero from '../../components/policy/PolicyHero.astro';
+import RelatedActivities from '../../components/policy/RelatedActivities.astro';
+import ReferenceList from '../../components/policy/ReferenceList.astro';
 
 const relatedActivities = activities.filter((activity) =>
   policyRelations["care-certification"]?.includes(activity.id)
@@ -17,38 +20,37 @@ const relatedActivities = activities.filter((activity) =>
    title="要介護認定の迅速化｜政策｜もっと住みやすい高槻へ"
    description="高槻市の要介護認定の迅速化について、公開資料と現場経験をもとに課題・根拠・提案・期待される効果をまとめています。"
   >
-    <section class="hero">
-      <h1>要介護認定の迅速化</h1>
-
-      <p>
-        必要な人が、必要な介護サービスを、
-        必要な時に利用できる仕組みを目指します。
-      </p>
-    </section>
+    <PolicyHero
+     title="要介護認定の迅速化"
+     description="必要な人が、必要な介護サービスを、必要な時に利用できる仕組みを目指します。"
+    />
 
     <PolicySection title="現状の課題">
 
       <p>
-        要介護認定は介護保険サービス利用の入口ですが、
-        認定結果が出るまで時間がかかると、
-        サービス開始が遅れてしまいます。
+        要介護認定は介護保険サービス利用の入口ですが、認定結果が出るまで時間がかかると、サービス開始が遅れてしまいます。
       </p>
     </PolicySection>
 
     <PolicySection title="なぜ重要なのか">
 
-      <EvidenceBox title="🟢 現場から見えること">
+        <p>
+         要介護認定は、介護保険サービスを利用するための第一歩です。  認定までの期間が長くなると、必要な支援の開始が遅れ、本人や家族の生活に大きな影響を与える可能性があります。
+        </p>
+
+
+      <EvidenceBox title="🟢 現場から見えること" type="field">
          <p>
-         要介護認定は介護保険サービスを利用するための入口です。
-         認定が遅れると、退院後すぐに必要な介護サービスや福祉用具を利用できず、
-         本人や家族の負担が大きくなる場合があります。
+         要介護認定は介護保険サービスを利用するための入口です。認定が遅れると、退院後すぐに必要な介護サービスや福祉用具を利用できず、本人や家族の負担が大きくなる場合があります。
          </p>
+         
       </EvidenceBox>
+
     </PolicySection>
 
     <PolicySection title="現状">
 
-      <EvidenceBox title="🔵 公的資料">
+      <EvidenceBox title="🔵 公的資料" type="official">
          <p>
             高槻市では、令和5年4〜9月の要介護認定までの平均日数は
             <strong>39.2日</strong>でした。
@@ -58,10 +60,22 @@ const relatedActivities = activities.filter((activity) =>
          </p>
       </EvidenceBox>
 
-      <EvidenceBox title="📊 主な要因">
+      <EvidenceBox title="📊 現状の課題" type="reason">
          <p>
          認定調査を届け出てから、自宅への訪問調査の実施まで時間を要していることが、監査報告書で指摘されています。
          </p>
+      </EvidenceBox>
+
+      <EvidenceBox title="📍 改善の余地" type="improvement">
+
+        <p>
+          認定調査体制の強化やICTの活用などにより、認定までの期間を短縮できる可能性があります。
+        </p>
+
+        <p>
+          必要な人が必要な時に介護サービスを利用できるよう、継続的な業務改善が重要です。
+        </p>
+      
       </EvidenceBox>
 
     </PolicySection>
@@ -77,7 +91,7 @@ const relatedActivities = activities.filter((activity) =>
 
     <PolicySection title="期待される効果">
 
-        <EvidenceBox title="🌱 この政策で目指すこと">
+        <EvidenceBox title="🌱 この政策で目指すこと" type="effect">
           <ul>
            <li>より必要な人がもっと早く介護サービスを利用できる</li>
            <li>本人・家族の不安や負担を軽減できる</li>
@@ -85,42 +99,31 @@ const relatedActivities = activities.filter((activity) =>
           </ul>
         </EvidenceBox>
 
+        <h3>私が大切にしたいこと</h3>
+          <p>
+            介護サービスは、早く利用できること自体が目的ではありません。
+          </p>
+          
+          <p>
+            本当に大切なのは、必要な人が必要な時に安心してサービスを利用できることです。
+          </p>
+          
+          <p>
+            制度を改善することで、ご本人だけでなく、ご家族や医療・介護に関わる方々の負担軽減にもつながると考えています。
+          </p>
+
     </PolicySection>
     
 
-    <PolicySection title="関連する活動">
-      <ul>
-        {
-          relatedActivities.map((activity) => (
-            <li>
-              <a href={activity.href}>
-                 {activity.title}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
+    <RelatedActivities
+     activities={relatedActivities}
+    />
 
-    </PolicySection>
+    <ReferenceList
+      sources={[
+       sources.takatsukiAudit2025
+      ]}
+    />
 
-    <section class="references">
-      <h2>参考資料・出典</h2>
-
-      <SourceCard
-         title={sources.takatsukiAudit2025.title}
-         publisher={sources.takatsukiAudit2025.publisher}
-         year={sources.takatsukiAudit2025.year}
-         url={sources.takatsukiAudit2025.url}
-      />
-
-    </section>
 
 </PolicyDetailLayout>
-
-<style>
-.hero{
-  text-align:center;
-  var(--space-xl)
-}
-
-</style>

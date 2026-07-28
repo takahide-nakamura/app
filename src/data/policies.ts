@@ -86,6 +86,21 @@ export const policies = [
        status: "planned"
   },
 
+  {
+     title: "国民健康保険",
+     category: "医療・介護",
+     summary:
+       "国民健康保険制度を分かりやすく利用しやすい制度へ改善することを目指します。",
+     tags: [
+       "国民健康保険",
+       "医療",
+       "保険料",
+       "制度"
+       ],
+       href: "/policy/national-health-insurance",
+       status: "published"
+  },
+
 
   
 ];

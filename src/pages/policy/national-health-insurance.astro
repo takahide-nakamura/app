@@ -1,0 +1,141 @@
+---
+import PolicyDetailLayout from '../../components/PolicyDetailLayout.astro';
+import PolicySection from '../../components/PolicySection.astro';
+import EvidenceBox from '../../components/EvidenceBox.astro';
+import SourceCard from '../../components/SourceCard.astro';
+import { sources } from '../../data/sources';
+import { activities } from '../../data/activities';
+import PolicyHero from '../../components/policy/PolicyHero.astro';
+import RelatedActivities from '../../components/policy/RelatedActivities.astro';
+import ReferenceList from '../../components/policy/ReferenceList.astro';
+
+const relatedActivities = activities.filter(
+  (activity) => activity.id === "nursing-care-visit"
+);
+
+---
+
+<PolicyDetailLayout
+  title="国民健康保険｜政策｜もっと住みやすい高槻へ"
+  description="国民健康保険制度について、公開資料と現場経験をもとに課題と改善策をまとめています。"
+  >
+
+    <PolicyHero
+     title="国民健康保険"
+     description="国民健康保険制度が、市民にとって分かりやすく利用しやすい制度となることを目指します。"
+    />
+
+    <PolicySection title="現状の課題">
+        <p>
+            国民健康保険は、多くの市民が加入する重要な医療保険制度です。一方で、保険料の負担や制度の仕組みが分かりにくいと感じる方も少なくありません。
+        </p>
+        
+        <p>
+            必要な制度や減免制度を知らないまま負担を抱えているケースもあり、必要な情報が必要な人へ届く仕組みづくりが重要です。
+        </p>
+
+    </PolicySection>
+
+    <PolicySection title="なぜ重要なのか">
+
+           <p>
+             国民健康保険は、病気やけがをした際に安心して医療を受けるための重要な制度です。制度を正しく理解し、必要な支援を受けられることは、市民の健康を守ることにつながります。
+            </p>
+
+
+        <EvidenceBox title="🟢 現場から見えること" type="effect">
+
+            <p>
+                医療や介護の現場では、「制度がよく分からない」「相談先が分からない」という声を耳にすることがあります。制度そのものだけでなく、情報の伝え方や相談しやすい環境づくりも重要だと感じています。
+            </p>
+
+        </EvidenceBox>
+
+    </PolicySection>
+
+    <PolicySection title="現状">
+
+        <EvidenceBox title="🔵 公的資料" type="official">
+
+            <p>
+                国民健康保険は、市町村が運営する医療保険制度であり、自営業者や退職後の方など、多くの市民が加入しています。
+            </p>
+
+            <p>
+                保険料や給付制度、減免制度など様々な仕組みがありますが、制度全体が分かりにくいという声もあります。
+            </p>
+
+        </EvidenceBox>
+
+        <EvidenceBox title="📊 現状の課題" type="reason">
+
+            <p>
+                制度そのものは整備されていますが、必要な情報が十分に伝わらず、利用できる制度を知らないまま困っている方もいます。
+            </p>
+
+            <p>
+                制度を利用するためには、自ら情報を調べたり相談したりする必要があり、情報格差が生まれやすい面があります。
+            </p>
+
+        </EvidenceBox>
+
+        <EvidenceBox title="📍 改善の余地" type="improvement">
+
+            <p>
+                制度を変えるだけではなく、分かりやすい情報提供や相談体制をさらに充実させることで、より利用しやすい制度へ近づける余地があります。
+            </p>
+
+        </EvidenceBox>
+
+    </PolicySection>
+
+    <PolicySection title="私の提案">
+
+        <ul>
+            <li>国民健康保険制度を分かりやすく伝える情報発信を充実させます。</li>
+            <li>減免制度や相談窓口を必要な方へ確実に届ける仕組みを強化します。</li>
+            <li>市民が迷わず相談できる案内体制を充実させます。</li>
+            <li>デジタルだけでなく紙媒体も活用し、情報格差を減らします。</li>
+            <li>制度利用者の声を継続的に把握し、改善へつなげます。</li>
+        </ul>
+    </PolicySection>
+    
+    <PolicySection title="期待される効果">
+
+        <EvidenceBox title="🌱 期待される効果" type="effect">
+            
+            <ul>
+
+                <li>制度を理解しやすくなる</li>
+
+                <li>必要な支援につながりやすくなる</li>
+
+                <li>相談しやすい環境づくりにつながる</li>
+
+                <li>情報格差の解消につながる</li>
+
+            </ul>
+
+        </EvidenceBox>
+
+        <h3>私が大切にしたいこと</h3>
+
+            <p>
+                国民健康保険は、市民の健康を支える大切な制度です。制度を変えることだけではなく、市民にとって分かりやすく、必要な支援へつながりやすい仕組みづくりを目指します。
+            </p>
+
+    </PolicySection>
+
+    <RelatedActivities
+     activities={relatedActivities}
+    />
+
+    <ReferenceList
+       sources={[
+         sources.dementiaPlan2024,
+         sources.takatsukiGps
+        ]}
+    />
+
+
+</PolicyDetailLayout>

@@ -1,7 +1,13 @@
 ---
 interface Props {
   title: string;
-  type?: "official" | "field" | "reason" | "effect";
+  type?:
+  | "official"
+  | "field"
+  | "reason"
+  | "improvement"
+  | "effect"; 
+     
 }
 
 const {
@@ -52,10 +58,18 @@ const {
 }
 
 .reason{
-  border-left-color:#f39c12;
+  border-left-color:#8e44ad;
 }
 
 .reason h3{
+  color:#8e44ad;
+}
+
+.improvement{
+  border-left-color:#f39c12;
+}
+
+.improvement h3{
   color:#f39c12;
 }
 
