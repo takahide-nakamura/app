@@ -21,4 +21,18 @@ export const sources = {
     url: "https://www.city.takatsuki.osaka.jp/soshiki/35/2465.html"
   },
 
+  garbageGuide: {
+  title: "家庭ごみの分け方・出し方",
+  publisher: "高槻市",
+  year: "",
+  url: "https://www.city.takatsuki.osaka.jp/life/1/14/66/"
+  },
+
+  garbagePage: {
+  title: "高槻市 ごみ・リサイクル",
+  publisher: "高槻市",
+  year: "2025",
+  url: "（高槻市 ごみ・リサイクルのURL）"
+  },
+
 };
