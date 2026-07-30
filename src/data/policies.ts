@@ -1,7 +1,10 @@
-export const policies = [
+import type { Policy } from "./policy";
+
+export const policies: Policy[] = [
   
 
   {
+     id: "care-certification",
      title: "要介護認定の迅速化",
      category: "医療・介護",
      summary:
@@ -17,6 +20,7 @@ export const policies = [
   },
 
   {
+     id: "dementia-support",
      title: "認知症になっても安心して暮らせるまちづくり",
      category: "医療・介護",
      summary:
@@ -32,8 +36,9 @@ export const policies = [
   },
 
   {
-     title: "子育て・教育",
-     category: "子育て・教育",
+     id: "childcare",
+     title: "👶 子育て",
+     category: "子育て",
      summary:
        "安心して子育てができ、子どもたちが健やかに成長できる環境づくりを目指します。",
      tags: [
@@ -45,8 +50,9 @@ export const policies = [
   },
 
   {
+     id: "disaster",
      title: "防災・安全",
-     category: "防災・安全",
+     category: "防災",
      summary:
        "災害や犯罪などに備え、誰もが安心して暮らせる地域を目指します。",
      tags: [
@@ -59,8 +65,9 @@ export const policies = [
   },
 
   {
+     id: "town-development",
      title: "まちづくり・交通",
-     category: "まちづくり・交通",
+     category: "暮らし",
      summary:
        "公共交通や道路、公園など暮らしやすいまちづくりを進めます。",
      tags: [
@@ -73,8 +80,9 @@ export const policies = [
   },
 
   {
+     id: "community",
      title: "地域・くらし",
-     category: "地域・くらし",
+     category: "暮らし",
      summary:
        "地域コミュニティや生活環境を充実させ、暮らしやすい高槻を目指します。",
      tags: [
@@ -87,6 +95,7 @@ export const policies = [
   },
 
   {
+     id: "national-health-insurance",
      title: "国民健康保険",
      category: "医療・介護",
      summary:
@@ -101,6 +110,30 @@ export const policies = [
        status: "published"
   },
 
+  {
+       id: "garbage",
+       title: "ごみ問題",
+       category: "暮らし",
+       summary:
+         "ごみの分別や収集など、市民が快適に暮らせる生活環境を目指します。",
+       tags: [
+         "ごみ",
+         "生活環境",
+         "リサイクル",
+         "地域"
+        ],
+       href: "/policy/garbage",
+       status: "published"
+  },
 
-  
+  {
+     id: "noise",
+     title: "騒音対策",
+     summary: "深夜の騒音や暴走行為など、市民が安心して暮らせる生活環境づくりを目指します。",
+     category: "暮らし",
+     href: "/policy/noise",
+     status: "published",
+     tags: ["生活環境", "防犯", "地域"]
+  }, 
+
 ];

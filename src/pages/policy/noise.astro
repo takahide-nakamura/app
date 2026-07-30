@@ -1,0 +1,152 @@
+---
+import PolicyDetailLayout from '../../components/PolicyDetailLayout.astro';
+import PolicySection from '../../components/PolicySection.astro';
+import EvidenceBox from '../../components/EvidenceBox.astro';
+import ProposalList from "../../components/policy/ProposalList.astro";
+import { sources } from '../../data/sources';
+import { activities } from '../../data/activities';
+import PolicyHero from '../../components/policy/PolicyHero.astro';
+import RelatedActivities from '../../components/policy/RelatedActivities.astro';
+import ReferenceList from '../../components/policy/ReferenceList.astro';
+
+const relatedActivities = activities.filter(
+  (activity) => activity.id === "nursing-care-visit"
+);
+
+---
+
+<PolicyDetailLayout
+  title="騒音対策｜政策｜もっと住みやすい高槻へ"
+  description="高槻市の騒音問題について、公開資料と市民生活の視点から課題・提案・期待される効果をまとめています。"
+>
+
+    <PolicyHero
+     title="騒音対策"
+     description="深夜の騒音や暴走行為など、市民が安心して暮らせる生活環境を目指します。"
+    />
+
+    <PolicySection title="現状の課題">
+        <p>
+            ごみの分別や収集は、市民生活を支える身近な行政サービスです。しかし、ごみ出しルールが分かりにくいことや、不法投棄、集積所の管理など、地域ごとにさまざまな課題があります。
+        </p>
+        
+        <p>
+            市民が安心して快適に暮らせる環境を維持するためには、ごみ行政を分かりやすく、利用しやすい仕組みにしていくことが重要です。
+        </p>
+
+    </PolicySection>
+
+    <PolicySection title="なぜ重要なのか">
+
+        <p>
+            ごみ問題は、景観だけでなく、衛生環境や地域の安全、住みやすさにも大きく関わります。適切な分別や収集、不法投棄の防止は、市民一人ひとりが快適に暮らせるまちづくりの基盤となります。
+        </p>
+
+        <EvidenceBox title="🟢 現場から見えること" type="field">
+            <p>
+                ごみ出しのルールが分からない、高齢になって集積所まで運ぶことが難しい、集積所の管理が地域の負担になっているなど、日常生活に直結した困りごとがあります。
+            </p>
+            
+            <p>
+                制度を整えるだけでなく、市民が利用しやすく、地域で協力しやすい仕組みづくりが重要だと考えています。
+            </p>
+        </EvidenceBox>
+    </PolicySection>
+
+    <PolicySection title="現状">
+
+        <EvidenceBox title="🔵 公的資料" type="official">
+
+            <p>
+                高槻市では家庭ごみや資源ごみの分別収集を実施し、ごみの減量化や資源循環を進めています。
+            </p>
+
+            <p>
+                一方で、不法投棄対策やごみ出しルールの周知、高齢化に伴うごみ出し支援など、新たな課題への対応も求められています。
+            </p>
+
+        </EvidenceBox>
+
+        <EvidenceBox title="📊 現状の課題" type="reason">
+
+            <p>
+                ごみ出しルールが十分に伝わらず、分別ミスや収集されないごみが発生することがあります。
+            </p>
+
+            <p>
+                また、高齢者や身体が不自由な方にとっては、ごみ出し自体が大きな負担になる場合があります。
+            </p>
+
+        </EvidenceBox>
+
+        <EvidenceBox title="📍 改善の余地"  type="improvement">
+
+            <p>
+                分かりやすい情報提供や地域の実情に応じた支援を進めることで、ごみ問題の改善だけでなく、市民の暮らしやすさの向上にもつながります。
+            </p>
+
+        </EvidenceBox>
+
+    </PolicySection>
+
+    <PolicySection title="私の提案">
+
+        <ProposalList
+            items={[
+             "ごみ出しルールを分かりやすく伝える情報発信を充実させます。",
+             "高齢者や身体が不自由な方へのごみ出し支援を推進します。",
+             "不法投棄を防ぐため、地域・行政・関係機関が連携した対策を進めます。",
+             "地域の実情に応じた集積所の環境改善を進めます。",
+             "市民の声を継続的に把握し、ごみ行政の改善につなげます。"
+           ]}
+        />
+
+    </PolicySection>
+    
+    <PolicySection title="期待される効果">
+
+        <EvidenceBox title="🌱 この政策で目指すこと" type="effect">
+
+            <ul>
+
+                <li>ごみ出しルールが分かりやすくなる</li>
+
+                <li>地域の生活環境や景観の向上につながる</li>
+
+                <li>高齢者なども安心してごみ出しができる環境づくりにつながる</li>
+
+                <li>地域全体でごみ問題に取り組む意識が高まる</li>
+                
+            </ul>
+
+        </EvidenceBox>
+
+        <h3>私が大切にしたいこと</h3>
+           <p>
+                ごみ問題は行政だけで解決できるものではありません。
+            </p>
+            
+            <p>
+                市民・地域・行政が協力し、それぞれができることを積み重ねることで、より住みやすいまちづくりにつながると考えています。
+            </p>
+            
+            <p>
+                「きれいなまち」は、多くの市民が安心して暮らせるまちにつながります。そのため、一人ひとりが参加しやすい仕組みづくりを大切にしていきます。
+            </p>
+
+    </PolicySection>
+
+    
+
+    <RelatedActivities
+     activities={relatedActivities}
+    />
+
+    <ReferenceList
+        sources={[
+         sources.garbageGuide,
+         sources.garbagePage
+        ]}
+    />
+    
+</PolicyDetailLayout>

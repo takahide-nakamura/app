@@ -4,16 +4,10 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import PolicyCard from '../components/PolicyCard.astro';
 import { policies } from '../data/policies';
+import { policyCategories } from "../data/policyCategories";
 
-const categoryOrder = [
-  "医療・介護",
-  "子育て・教育",
-  "防災・安全",
-  "まちづくり・交通",
-  "地域・くらし"
-];
 
-const groupedPolicies = categoryOrder.map((category) => ({
+const groupedPolicies = policyCategories.map((category) => ({
   category,
   policies: policies.filter(
     (policy) =>
