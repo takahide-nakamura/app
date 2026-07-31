@@ -37,7 +37,7 @@ export const policies: Policy[] = [
 
   {
      id: "childcare",
-     title: "👶 子育て",
+     title: "子育て・教育",
      category: "子育て",
      summary:
        "安心して子育てができ、子どもたちが健やかに成長できる環境づくりを目指します。",
@@ -51,7 +51,7 @@ export const policies: Policy[] = [
 
   {
      id: "disaster",
-     title: "防災・安全",
+     title: "防災",
      category: "防災",
      summary:
        "災害や犯罪などに備え、誰もが安心して暮らせる地域を目指します。",
