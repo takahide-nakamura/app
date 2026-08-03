@@ -4,18 +4,53 @@ interface Props {
   description: string;
 }
 
-const { title, description } = Astro.props;
+const {
+  title,
+  description
+} = Astro.props;
 ---
 
-<section class="hero">
+<section class="policy-hero">
+
   <h1>{title}</h1>
 
-  <p>{description}</p>
+  <p class="description">
+    {description}
+  </p>
+
 </section>
 
 <style>
-.hero{
+.policy-hero{
   text-align:center;
-  margin-bottom:var(--space-xl);
+  margin-top: var(--space-md);
+  margin-bottom: var(--space-xl);
+}
+
+.policy-hero h1{
+
+  margin-bottom:.75rem;
+
+  line-height:1.25;
+
+}
+
+.description{
+  max-width: 720px;
+  margin:0 auto;
+  line-height:1.9;
+  color:#555;
+}
+
+@media (max-width:768px){
+
+.policy-hero h1{
+  font-size:2rem;
+}
+
+.description{
+  font-size:.98rem;
+}
+
 }
 </style>

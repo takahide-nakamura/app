@@ -1,83 +1,112 @@
 ---
 interface Props {
-  title: string;
+  title?: string;
   type?:
-  | "official"
-  | "field"
-  | "reason"
-  | "improvement"
-  | "effect"; 
-     
+    | "subjective"
+    | "objective"
+    | "limitation"
+    | "field"
+    | "official"
+    | "reason"
+    | "improvement"
+    | "effect";
 }
 
 const {
   title,
-  type = "official"
+  type = "objective"
 } = Astro.props;
+
+const styles = {
+  subjective: {
+    color: "#2e8b57"
+  },
+  objective: {
+    color: "#003f88"
+  },
+  limitation: {
+    color: "#666666"
+  },
+
+  // 後方互換
+  field: {
+    color: "#2e8b57"
+  },
+  official: {
+    color: "#003f88"
+  },
+  reason: {
+    color: "#8e44ad"
+  },
+  improvement: {
+    color: "#f39c12"
+  },
+  effect: {
+    color: "#4caf50"
+  }
+} as const;
+
+const current = styles[type] ?? styles.objective;
 ---
 
-<div class={`evidence ${type}`}>
-  <h3>{title}</h3>
+<aside
+  class="evidence-box"
+  role="note"
+  style={`--accent:${current.color}`}
+>
+
+  {
+    title && (
+      <h3>{title}</h3>
+    )
+  }
 
   <div class="content">
     <slot />
   </div>
-</div>
+
+</aside>
 
 <style>
-.evidence{
-  border-left:5px solid #003f88;
+
+.evidence-box{
+
+  border-left:6px solid var(--accent);
+
   background:#f8fbff;
+
   padding:1rem 1.25rem;
+
   margin:1.5rem 0;
+
   border-radius:10px;
+
 }
 
-.evidence h3{
-  margin-top:0;
+.evidence-box h3{
+
+  margin:0 0 .75rem;
+
+  color:var(--accent);
+
 }
 
 .content{
-  line-height:1.8;
+
+  line-height:1.9;
+
 }
 
-.official{
-  border-left-color:#003f88;
+.content p:first-child{
+
+  margin-top:0;
+
 }
 
-.official h3{
-  color:#003f88;
+.content p:last-child{
+
+  margin-bottom:0;
+
 }
 
-.field{
-  border-left-color:#2e8b57;
-}
-
-.field h3{
-  color:#2e8b57;
-}
-
-.reason{
-  border-left-color:#8e44ad;
-}
-
-.reason h3{
-  color:#8e44ad;
-}
-
-.improvement{
-  border-left-color:#f39c12;
-}
-
-.improvement h3{
-  color:#f39c12;
-}
-
-.effect{
-  border-left-color:#4caf50;
-}
-
-.effect h3{
-  color:#4caf50;
-}
 </style>

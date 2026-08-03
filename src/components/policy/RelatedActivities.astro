@@ -1,28 +1,128 @@
 ---
-import PolicySection from "../PolicySection.astro";
-
 interface Activity {
+
   title: string;
+
   href: string;
+
 }
 
 interface Props {
-  activities: Activity[];
+
+  activities?: Activity[];
+
+  maxItems?: number;
+
 }
 
-const { activities } = Astro.props as Props;
+const {
+
+  activities = [],
+
+  maxItems = 3
+
+} = Astro.props;
+
+const visibleActivities = activities
+  .filter(activity => activity.title && activity.href)
+  .slice(0, maxItems);
+
 ---
 
-<PolicySection title="関連する活動">
-  <ul>
-    {
-      activities.map((activity) => (
-        <li>
-          <a href={activity.href}>
-            {activity.title}
-          </a>
-        </li>
-      ))
-    }
-  </ul>
-</PolicySection>
+{
+  visibleActivities.length > 0 && (
+
+    <section class="related-activities">
+
+      <h2>関連する活動</h2>
+
+      <div class="activity-grid">
+
+        {
+
+          visibleActivities.map((activity)=>(
+
+            <a
+              href={activity.href}
+              class="activity-card"
+            >
+
+              <h3>{activity.title}</h3>
+
+              <p>
+
+                活動内容を見る →
+
+              </p>
+
+            </a>
+
+          ))
+
+        }
+
+      </div>
+
+    </section>
+
+  )
+
+}
+
+<style>
+
+.related-activities{
+
+  margin-bottom: var(--space-xl);
+  
+}
+
+.activity-grid{
+
+  display:grid;
+
+  gap:1rem;
+
+}
+
+.activity-card{
+
+  display:block;
+
+  border:1px solid #ddd;
+
+  border-radius:12px;
+
+  padding:1rem;
+
+  text-decoration:none;
+
+  color:inherit;
+
+  background:#fff;
+
+  transition:.2s;
+
+}
+
+.activity-card:hover{
+
+  border-color:var(--color-primary);
+
+}
+
+.activity-card h3{
+
+  margin-top:0;
+
+  color:var(--color-primary);
+
+}
+
+.activity-card p{
+
+  margin-bottom:0;
+
+}
+
+</style>

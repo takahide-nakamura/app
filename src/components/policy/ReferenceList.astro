@@ -5,26 +5,39 @@ import SourceCard from "../SourceCard.astro";
 interface Source {
   title: string;
   publisher: string;
-  year: string;
-  url: string;
+  year?: string;
+  checked?: string;
+  evidenceLevel?: string;
+  url?: string;
 }
 
 interface Props {
-  sources: Source[];
+  sources?: Source[];
 }
 
-const { sources } = Astro.props as Props;
+const { sources = [] } = Astro.props as Props;
 ---
 
-<PolicySection title="参考資料・出典">
-  {
-    sources.map((source) => (
-      <SourceCard
-        title={source.title}
-        publisher={source.publisher}
-        year={source.year}
-        url={source.url}
-      />
-    ))
-  }
-</PolicySection>
+{
+  sources.length > 0 && (
+    <PolicySection
+      title="参考資料"
+      icon="📚"
+    >
+
+      {
+        sources.map((source) => (
+          <SourceCard
+            title={source.title}
+            publisher={source.publisher}
+            year={source.year}
+            checked={source.checked}
+            evidenceLevel={source.evidenceLevel}
+            url={source.url}
+          />
+        ))
+      }
+
+    </PolicySection>
+  )
+}

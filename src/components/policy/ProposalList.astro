@@ -1,26 +1,97 @@
 ---
-interface Props {
+interface ProposalGroup {
+  heading: string;
+  timeframe?: string;
   items: string[];
 }
 
-const { items } = Astro.props;
+interface Props {
+  groups?: ProposalGroup[];
+  items?: string[];
+}
+
+const { groups, items } = Astro.props;
+
+const proposalGroups: ProposalGroup[] =
+  groups ??
+  (items
+    ? [
+        {
+          heading: "政策提案",
+          items
+        }
+      ]
+    : []);
 ---
 
-<ul class="proposal-list">
-  {
-    items.map((item) => (
-      <li>{item}</li>
-    ))
-  }
-</ul>
+{
+  proposalGroups.length > 0 && (
+    <div class="proposal-list">
+
+      {
+        proposalGroups.map((group) => (
+
+          <section class="proposal-group">
+            
+            <ul>
+
+              {
+                group.items.map((item) => (
+                  <li>{item}</li>
+                ))
+              }
+
+            </ul>
+
+          </section>
+
+        ))
+      }
+
+    </div>
+  )
+}
 
 <style>
+
 .proposal-list{
-  line-height:1.9;
-  padding-left:1.5rem;
+  display:grid;
+  gap:2rem;
 }
 
-.proposal-list li{
-  margin-bottom:.6rem;
+.proposal-group{
+  border:1px solid #ddd;
+  border-radius:12px;
+  padding:1.25rem;
+  background:#fff;
 }
+
+.proposal-group h3{
+  margin:0 0 1rem;
+  color:var(--color-primary);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:1rem;
+}
+
+.timeframe{
+  font-size:.85rem;
+  color:#666;
+}
+
+.proposal-group ul{
+  padding-left:1.5rem;
+  line-height:1.9;
+  margin:0;
+}
+
+.proposal-group li{
+  margin-bottom:.5rem;
+}
+
+.proposal-group li:last-child{
+  margin-bottom:0;
+}
+
 </style>
