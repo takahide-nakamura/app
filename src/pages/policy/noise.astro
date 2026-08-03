@@ -9,10 +9,21 @@ import ReferenceList from "../../components/policy/ReferenceList.astro";
 
 import { sources } from "../../data/sources";
 import { activities } from "../../data/activities";
+import { getCollection, getEntry } from "astro:content";
 
 const relatedActivities = activities.filter(
   (activity) => activity.id === "nursing-care-visit"
 );
+
+const allPolicies = await getCollection("policies");
+const entry = allPolicies.find((p) => p.id === "noise" || p.id === "noise.md");
+
+if (!entry) {
+  console.log("利用可能なエントリーID一覧:", allPolicies.map((p) => p.id));
+  throw new Error("noise content not found");
+}
+
+const content = entry.data;
 ---
 
 <PolicyDetailLayout
