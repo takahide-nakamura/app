@@ -4,16 +4,19 @@ interface Props {
   summary: string;
   href?: string;
   available?: boolean;
-  tags: string[];
+  tags?: string[];
 }
 
 const {
-  title,
-  summary,
+  title = "",
+  summary = "",
   tags = [],
   href = "#",
   available = false
 } = Astro.props;
+
+// tagsが配列であることを保証
+const safeTags = Array.isArray(tags) ? tags : [];
 ---
 
 <article class="policy-card">
@@ -24,9 +27,9 @@ const {
   </p>
 
   {
-    tags && tags.length > 0 && (
+    safeTags.length > 0 && (
       <div class="tags">
-        {tags.map((tag) => (
+        {safeTags.map((tag) => (
           <span class="tag">#{tag}</span>
         ))}
       </div>
@@ -76,7 +79,6 @@ const {
   flex-grow: 1;
 }
 
-/* 複数タグをきれいに並べるレイアウト */
 .tags {
   display: flex;
   flex-wrap: wrap;
@@ -92,14 +94,6 @@ const {
   border: 1px solid #d0e1f9;
   border-radius: 999px;
   font-weight: 500;
-  transition: all 0.2s ease;
-  user-select: none;
-}
-
-.tag:hover {
-  background: #003f88;
-  color: #ffffff;
-  border-color: #003f88;
 }
 
 .more {

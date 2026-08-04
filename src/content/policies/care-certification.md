@@ -4,6 +4,8 @@ description: "必要な人が必要な介護サービスを適切な時期に利
 heroTitle: "要介護認定"
 heroDescription: "必要な人が、必要な介護サービスを適切な時期に受けられる仕組みを目指します。"
 updated: "2026-08-01"  
+category: "🏥 医療・介護"
+tags: ["要介護認定", "介護保険", "訪問リハビリ", "介護相談", "高齢者福祉"]
 
 relatedActivities:
   - nursing-care-visit

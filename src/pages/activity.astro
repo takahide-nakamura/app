@@ -2,112 +2,131 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import ActivityCard from '../components/ActivityCard.astro';
-import { activities } from '../data/activities';
+import PolicyCard from '../components/PolicyCard.astro';
+import { policyCategories } from "../data/policyCategories";
+import { getCollection } from "astro:content";
+
+// Content Collections から全政策コンテンツを取得
+const allPolicies = await getCollection("policies");
+
+// データ整理（tagsが安全に取得できるようにフォーマット）
+const formattedPolicies = allPolicies.map((entry) => {
+  const cleanId = entry.id.replace(/\.md$/, "");
+  const data = entry.data;
+
+  // tagsの安全な取得
+  let rawTags: string[] = [];
+  if (Array.isArray(data.tags)) {
+    rawTags = data.tags;
+  } else if (data.heroTitle) {
+    rawTags = [data.heroTitle];
+  }
+
+  return {
+    id: cleanId,
+    title: data.title || "",
+    summary: data.description || "",
+    tags: rawTags,
+    href: `/policy/${cleanId}`,
+    status: "published",
+    category: data.category || policyCategories[0],
+  };
+});
+
+// カテゴリーごとのグループ化
+const groupedPolicies = policyCategories.map((cat) => {
+  return {
+    categoryName: cat,
+    items: formattedPolicies.filter((p) => p.category === cat)
+  };
+});
 ---
 
 <Layout
-  title="活動｜もっと住みやすい高槻へ"
-  description="情報発信・調査研究・市民との対話を通じて、高槻市の課題を調べ、政策づくりにつなげています。"
- >
+  title="政策｜もっと住みやすい高槻へ"
+  description="医療・介護・子育て・まちづくりなど、高槻市をもっと住みやすくするための政策を、公開データと現場経験をもとに提案しています。"
+>
   <Header />
 
-  <main class="activity-page">
-
+  <main class="policy-page container">
     <section class="hero">
-      <h1>活動</h1>
-
+      <h1>政策</h1>
       <p>
-        市民の皆さんの声を大切にしながら、情報発信・調査研究・対話を続けています。
+        事実と対話を大切にし、<br class="pc-br" />
+        データや現場経験をもとに政策を考えています。
       </p>
     </section>
 
-    <ActivityCard
-         title="📢 情報発信"
-         description="YouTubeやXなどを通じて、市政や地域課題を分かりやすく発信しています。"
-         items={[
-            "YouTube",
-            "X",
-            "Instagram"
-        ]}
-    />
+    {
+      groupedPolicies
+        .filter((group) => group.items.length > 0)
+        .map((group) => (
+          <section class="category-section">
+            <h2>{group.categoryName}</h2>
 
-    <ActivityCard
-         title="📊 調査・研究"
-         description="公開資料や統計データ、現場の経験をもとに課題を整理し、政策づくりに役立てています。"
-         items={[
-            "高槻市資料",
-            "大阪府資料",
-            "国の統計",
-            "現場経験"
-        ]}
-    />
-
-    <ActivityCard
-         title="🤝 市民との対話"
-         description="市民の皆さんとの対話を大切にしています。"
-         items={[
-            "YouTubeライブ",
-            "Googleフォーム",
-            "メール",
-            "対面での意見交換"
-        ]}
-    />
-
-    <section class="activity-list">
-       <h2>最新の活動</h2>
-       
-       {
-         activities.map((activity) => (
-           <article class="activity-item">
-             <h3>{activity.title}</h3>
-             
-             <p>{activity.summary}</p>
-
-             {
-                activity.status === "published" ? (
-                  <a href={activity.href} class="btn btn-primary">
-                   詳しく見る
-                  </a>
-                ) : (
-                  <span class="btn btn-disabled">
-                    準備中
-                  </span>
-                )
+            <div class="cards-grid">
+              {
+                group.items.map((policy) => (
+                  <PolicyCard
+                    title={policy.title}
+                    summary={policy.summary}
+                    tags={policy.tags}
+                    href={policy.href}
+                    available={policy.status === "published"}
+                  />
+                ))
               }
-            </article>
-          ))
-        }
-    </section>
-
+            </div>
+          </section>
+        ))
+    }
   </main>
 
   <Footer />
 </Layout>
 
 <style>
-.activity-page{
-  max-width:1100px;
-  margin:0 auto;
-  padding:4rem 2rem;
+.policy-page {
+  padding-top: 2rem;
+  padding-bottom: 3rem;
 }
 
-.hero{
-  text-align:center;
-  margin-bottom:4rem;
+.hero {
+  text-align: center;
+  margin-bottom: 2rem;
 }
 
-.activity-list{
-  margin-top:var(--space-xl);
+.hero p {
+  line-height: 1.8;
+  color: #444;
 }
 
-.activity-item{
-  padding:2rem 0;
-  border-bottom:1px solid var(--color-border);
+.category-section {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
 }
 
-.activity-item h3{
-  margin-bottom:1rem;
+.category-section h2 {
+  color: var(--color-primary);
+  border-left: 6px solid var(--color-accent);
+  padding-left: 1rem;
+  margin-bottom: 1.5rem;
+  font-size: 1.4rem;
 }
 
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.pc-br {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .pc-br {
+    display: inline;
+  }
+}
 </style>
