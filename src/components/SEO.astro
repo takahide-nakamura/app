@@ -1,0 +1,27 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description = "医療・介護・子育て・まちづくりなど、高槻市をもっと住みやすくするための政策を提案しています。",
+  image = "/ogp.png",
+  noindex = false,
+} = Astro.props;
+
+// 現在のページの完全な正規URL（Canonical URL）を自動生成（GitHub Pages対応）
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!-- 基本SEO -->
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalURL} />
+<meta name="robots" content={noindex ? "noindex, nofollow" : "index, follow"} />
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
