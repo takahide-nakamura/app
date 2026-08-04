@@ -70,16 +70,27 @@
 }
 
 .card {
+  display: flex;
+  flex-direction: column;
   border: 1px solid var(--color-border, #e5e7eb);
   border-radius: var(--radius, 12px);
   padding: 1.5rem;
   background: #fff;
   box-sizing: border-box;
+  height: 100%; /* ← 横並び時の高さを揃える */
 }
 
 .card h3 {
   margin-top: 0;
   color: var(--color-primary);
+}
+
+.card p {
+  margin-bottom: 0;
+  color: #666;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  flex-grow: 1; /* ← 下部の余白を均等に埋める */
 }
 
 .more {
