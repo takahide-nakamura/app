@@ -2,55 +2,67 @@
 interface Props {
   title: string;
   description: string;
+  updated?: string;
 }
 
-const {
-  title,
-  description
-} = Astro.props;
+const { title, description, updated } = Astro.props;
+
+// updated が指定されていない場合は、現在の日付（YYYY-MM-DD）を表示
+const displayDate = updated || new Date().toISOString().split("T")[0];
 ---
 
 <section class="policy-hero">
-
   <h1>{title}</h1>
 
   <p class="description">
     {description}
   </p>
 
+  {
+    displayDate && (
+      <p class="updated">
+        更新日：<time datetime={displayDate}>{displayDate}</time>
+      </p>
+    )
+  }
 </section>
 
 <style>
-.policy-hero{
-  text-align:center;
-  margin-top: var(--space-md);
-  margin-bottom: var(--space-xl);
-}
+  .policy-hero {
+    text-align: center;
+    margin-top: var(--space-md);
+    margin-bottom: var(--space-xl);
+  }
 
-.policy-hero h1{
+  .policy-hero h1 {
+    margin-bottom: 0.75rem;
+    line-height: 1.25;
+  }
 
-  margin-bottom:.75rem;
+  .description {
+    max-width: 720px;
+    margin: 0 auto;
+    line-height: 1.9;
+    color: #555;
+  }
 
-  line-height:1.25;
+  .updated {
+    font-size: 0.875rem;
+    color: #666;
+    margin-top: 1rem;
+    text-align: right;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
-}
+  @media (max-width: 768px) {
+    .policy-hero h1 {
+      font-size: 2rem;
+    }
 
-.description{
-  max-width: 720px;
-  margin:0 auto;
-  line-height:1.9;
-  color:#555;
-}
-
-@media (max-width:768px){
-
-.policy-hero h1{
-  font-size:2rem;
-}
-
-.description{
-  font-size:.98rem;
-}
-
-}
+    .description {
+      font-size: 0.98rem;
+    }
+  }
 </style>

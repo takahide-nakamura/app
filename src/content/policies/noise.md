@@ -7,8 +7,6 @@ heroTitle: "生活騒音対策"
 
 heroDescription: "安心して眠り、安心して暮らせる生活環境を守るため、生活騒音対策を進めます。"
 
-updated: "2026-07-30"
-
 relatedActivities:
   - nursing-care-visit
 
