@@ -40,12 +40,11 @@ const groupedPolicies = policyCategories.map((category) => ({
 >
   <Header />
 
-  <main class="policy-page">
+  <main class="policy-page container">
     <section class="hero">
       <h1>政策</h1>
-
       <p>
-        事実と対話を大切にし、
+        事実と対話を大切にし、<br class="pc-br" />
         データや現場経験をもとに政策を考えています。
       </p>
     </section>
@@ -57,17 +56,19 @@ const groupedPolicies = policyCategories.map((category) => ({
           <section class="category-section">
             <h2>{group.category}</h2>
 
-            {
-              group.policies.map((policy) => (
-                <PolicyCard
-                  title={policy.title}
-                  summary={policy.summary}
-                  tags={policy.tags}
-                  href={policy.href}
-                  available={policy.status === "published"}
-                />
-              ))
-            }
+            <div class="cards-grid">
+              {
+                group.policies.map((policy) => (
+                  <PolicyCard
+                    title={policy.title}
+                    summary={policy.summary}
+                    tags={policy.tags}
+                    href={policy.href}
+                    available={policy.status === "published"}
+                  />
+                ))
+              }
+            </div>
           </section>
         ))
     }
@@ -77,32 +78,47 @@ const groupedPolicies = policyCategories.map((category) => ({
 </Layout>
 
 <style>
-.policy-page{
-  max-width:1100px;
-  margin:0 auto;
-  padding:4rem 2rem;
+.policy-page {
+  padding-top: 2rem;
+  padding-bottom: 3rem;
 }
 
-.hero{
-  text-align:center;
-  margin-bottom:4rem;
+.hero {
+  text-align: center;
+  margin-bottom: 2rem;
 }
 
-.coming-soon{
-  text-align:center;
-  border:1px solid #ddd;
-  border-radius:16px;
-  padding:3rem;
+.hero p {
+  line-height: 1.8;
+  color: #444;
 }
 
-.category-section{
-  margin-bottom: var(--space-xl);
+.category-section {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
 }
 
-.category-section h2{
+.category-section h2 {
   color: var(--color-primary);
   border-left: 6px solid var(--color-accent);
   padding-left: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
+  font-size: 1.4rem;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.pc-br {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .pc-br {
+    display: inline;
+  }
 }
 </style>
