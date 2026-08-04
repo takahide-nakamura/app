@@ -9,243 +9,89 @@ import ReferenceList from "../../components/policy/ReferenceList.astro";
 
 import { sources } from "../../data/sources";
 import { activities } from "../../data/activities";
+import { getCollection } from "astro:content";
 
-const relatedActivities = activities.filter(
-  (activity) => activity.id === "nursing-care-visit"
-);
+const allPolicies = await getCollection("policies");
+const entry = allPolicies.find((p) => p.id === "garbage" || p.id === "garbage.md");
+
+if (!entry) {
+  console.log("利用可能なエントリーID一覧:", allPolicies.map((p) => p.id));
+  throw new Error("garbage content not found");
+}
+
+const content = entry.data;
+
+// content.relatedActivities (IDの配列) から実際の活動データを取得
+const relatedActivities = content.relatedActivities
+  ? activities.filter((activity) => content.relatedActivities?.includes(activity.id))
+  : [];
+
+// content.references (IDの配列) から sources.ts のデータを取り出して配列化
+const references = content.references
+  ? content.references.map((refId) => sources[refId as keyof typeof sources]).filter(Boolean)
+  : [];
 ---
 
 <PolicyDetailLayout
-  title="ごみ問題｜政策｜もっと住みやすい高槻へ"
-  description="ごみ出しルールの分かりやすさや不法投棄対策、ごみ出し支援など、市民が安心して暮らせるまちを目指す政策を提案します。"
-  breadcrumb="ごみ問題"
+  title={content.title}
+  description={content.description}
 >
-
-<PolicyHero
-  title="ごみ問題"
-  description="ごみ出しルールの分かりやすさ、ごみ出し支援、不法投棄対策を進め、誰もが安心して暮らせる生活環境を目指します。"
-/>
-
-<PolicySection
-  title="問題提起"
-  icon="📍"
->
-
-<p>
-
-ごみ出しルールが分かりにくい、不法投棄がなくならない、ごみ集積所の管理が難しいなど、ごみに関する悩みは多くの地域で見られます。
-
-</p>
-
-<p>
-
-高齢化の進行により、ごみ出しそのものが困難になる世帯も増えており、ごみ問題は生活環境だけでなく福祉の課題にもつながっています。
-
-</p>
-
-<p>
-
-誰もが安心してごみを出せる環境づくりと、地域全体で生活環境を守る仕組みづくりが必要です。
-
-</p>
-
-</PolicySection>
-
-<PolicySection
-  title="評価"
-  icon="📊"
->
-
-<h3>現場で感じること</h3>
-
-<EvidenceBox
-  type="subjective"
->
-
-<p>
-
-私は理学療法士として訪問現場で生活環境を確認する中で、ごみ出しが身体的負担となり、生活の継続に影響しているケースを見てきました。
-
-</p>
-
-<p>
-
-高齢者や身体の不自由な方にとって、ごみ出しは日常生活を維持するための重要な課題です。
-
-</p>
-
-<p>
-
-また、ごみ集積所の管理状況は地域の景観や防犯意識にも影響すると考えています。
-
-</p>
-
-</EvidenceBox>
-
-<h3>公的資料から分かること</h3>
-
-<EvidenceBox
-  type="objective"
->
-
-<p>
-
-高槻市では家庭ごみの分別方法や収集方法を公開し、市民への周知を行っています。
-
-</p>
-
-<p>
-
-一方で、不法投棄対策や高齢者へのごみ出し支援など、地域ごとの事情に応じた取組も必要となっています。
-
-</p>
-
-<p>
-
-高齢化が進む中、ごみ行政には環境政策だけでなく福祉の視点も求められています。
-
-</p>
-
-</EvidenceBox>
-
-</PolicySection>
-
-<PolicySection
-  title="課題抽出"
-  icon="⚠️"
->
-
-<ul>
-
-<li>
-
-<strong>ごみ出しルールが十分伝わっていない</strong><br>
-
-地域や転入者によっては、ごみの分別方法や収集日が分かりにくく、誤ったごみ出しが発生しています。
-
-</li>
-
-<li>
-
-<strong>ごみ出しが困難な世帯が増えている</strong><br>
-
-高齢者や身体の不自由な方では、ごみ集積所まで運ぶこと自体が負担となり、在宅生活の継続を難しくする要因になっています。
-
-</li>
-
-<li>
-
-<strong>地域によって生活環境に差がある</strong><br>
-
-不法投棄や集積所の管理状況には地域差があり、自治会や地域住民への負担が大きくなっています。
-
-</li>
-
-</ul>
-
-</PolicySection>
-
-<PolicySection
-  title="政策提案"
-  icon="✅"
->
-
-<h3>
-
-今すぐ取り組めること
-
-</h3>
-
-<ProposalList
-items={[
-
-"ごみ出しルールを分かりやすく伝える情報発信を充実させます。",
-
-"外国人や転入者にも分かりやすい多言語・図解による案内を進めます。",
-
-"地域で活用できるごみ分別ガイドをさらに見やすく改善します。"
-
-]}
-/>
-
-<h3>
-
-高槻市として取り組むこと
-
-</h3>
-
-<ProposalList
-items={[
-
-"高齢者や身体の不自由な方へのごみ出し支援を推進します。",
-
-"地域の実情に応じた集積所の環境改善を進めます。",
-
-"不法投棄を防ぐため、地域・行政・関係機関が連携した対策を進めます。"
-
-]}
-/>
-
-<h3>
-
-大阪府・国へ要望すること
-
-</h3>
-
-<ProposalList
-items={[
-
-"高齢化社会に対応したごみ収集制度への財政支援を求めます。",
-
-"不法投棄対策への支援制度拡充を要望します。",
-
-"循環型社会の実現に向けた制度整備を継続して求めます。"
-
-]}
-/>
-
-</PolicySection>
-
-<PolicySection
-  title="政策の限界"
-  icon="⚖️"
->
-
-<EvidenceBox
-  type="limitation"
->
-
-<p>
-
-ごみ問題は、市役所だけで解決できるものではありません。
-
-</p>
-
-<p>
-
-地域住民、自治会、ごみ収集事業者など、多くの主体が協力して初めて改善できる課題があります。
-
-</p>
-
-<p>
-
-そのため、市民・地域・行政がそれぞれの役割を果たしながら、継続的に改善を進めていくことが重要であると考えています。
-
-</p>
-
-</EvidenceBox>
-
-</PolicySection>
-
-<RelatedActivities
-  activities={relatedActivities}
-/>
-
-<ReferenceList
-  sources={[
-    sources.garbageGuide,
-    sources.garbagePage
-  ]}
-/>
-
+  <PolicyHero
+    title={content.heroTitle}
+    description={content.heroDescription}
+  />
+
+  <PolicySection title="問題提起" icon="📍">
+    {content.problem.paragraphs.map((paragraph) => (
+      <p>{paragraph}</p>
+    ))}
+  </PolicySection>
+
+  <PolicySection title="評価" icon="📊">
+    <h3>{content.evaluation.subjective.heading}</h3>
+    <EvidenceBox type="subjective">
+      {content.evaluation.subjective.paragraphs.map((paragraph) => (
+        <p>{paragraph}</p>
+      ))}
+    </EvidenceBox>
+
+    <h3>{content.evaluation.objective.heading}</h3>
+    <EvidenceBox type="objective">
+      {content.evaluation.objective.paragraphs.map((paragraph) => (
+        <p>{paragraph}</p>
+      ))}
+    </EvidenceBox>
+  </PolicySection>
+
+  <PolicySection title="課題抽出" icon="⚠️">
+    <ul>
+      {content.issues.map((issue) => (
+        <li>
+          <strong>{issue.title}</strong><br />
+          {issue.description}
+        </li>
+      ))}
+    </ul>
+  </PolicySection>
+
+  <PolicySection title="政策提案" icon="✅">
+    {content.proposals.map((proposal) => (
+      <section>
+        <h3>{proposal.heading}</h3>
+        <ProposalList items={proposal.items} />
+      </section>
+    ))}
+  </PolicySection>
+
+  <PolicySection title="政策の限界" icon="⚖️">
+    <EvidenceBox type="limitation">
+      {content.limitations.paragraphs.map((paragraph) => (
+        <p>{paragraph}</p>
+      ))}
+    </EvidenceBox>
+  </PolicySection>
+
+  <RelatedActivities activities={relatedActivities} />
+
+  <ReferenceList sources={references} />
 </PolicyDetailLayout>

@@ -7,8 +7,11 @@ interface Props {
 
 const { title, description, updated } = Astro.props;
 
-// updated が指定されていない場合は、現在の日付（YYYY-MM-DD）を表示
-const displayDate = updated || new Date().toISOString().split("T")[0];
+// ビルド（公開）時の日付を固定値として取得（閲覧時に変動しない）
+const BUILD_DATE = new Date().toISOString().split("T")[0];
+
+// updated が直接指定されていればそれを使い、無ければビルド時の固定日付を使用
+const displayDate = updated || BUILD_DATE;
 ---
 
 <section class="policy-hero">

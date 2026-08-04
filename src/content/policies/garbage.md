@@ -3,7 +3,8 @@ title: "ごみ問題"
 description: "ごみ出しルールの分かりやすさや不法投棄対策、ごみ出し支援など、市民が安心して暮らせるまちを目指す政策を提案します。"
 heroTitle: "ごみ問題"
 heroDescription: "ごみ出しルールの分かりやすさ、ごみ出し支援、不法投棄対策を進め、誰もが安心して暮らせる生活環境を目指します。"
-updated: "2026-07-30"
+
+updated: "2026-08-04"  
 
 relatedActivities:
   - nursing-care-visit
