@@ -5,7 +5,7 @@ const categories = [
     description: "医療・介護・福祉に関する政策"
   },
   {
-    title: "👶 子育て",
+    title: "👨‍👩‍👧 子育て",
     description: "子育て・教育に関する政策"
   },
   {
@@ -16,15 +16,14 @@ const categories = [
     title: "🏙️ 暮らし",
     description: "道路・公園・交通などの政策"
   },
- 
 ];
 ---
 
-<section class="category-grid">
+<section class="category-grid container">
 
   <h2>カテゴリーから探す</h2>
 
-  <div class="grid">
+  <div class="category-cards">
 
     {
       categories.map((category) => (
@@ -48,47 +47,51 @@ const categories = [
 
 <style>
 
-.category-grid{
-  margin:var(--space-xl) auto;
+.category-grid {
+  margin: 3rem auto;
 }
 
-.category-grid h2{
-  text-align:center;
-  color:var(--color-primary);
-  margin-bottom:2rem;
+.category-grid h2 {
+  text-align: center;
+  color: var(--color-primary);
+  margin-bottom: 2rem;
 }
 
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:1.5rem;
+.category-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
 }
 
-.card{
-  display:block;
-  text-decoration:none;
-  color:inherit;
+.card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
 
-  border:1px solid var(--color-border);
-  border-radius:var(--radius);
+  border: 1px solid var(--color-border, #e5e7eb);
+  border-radius: var(--radius, 12px);
 
-  padding:1.5rem;
+  padding: 1.5rem;
+  background: #fff;
 
-  transition:.2s;
+  transition: .2s;
+  box-sizing: border-box;
 }
 
-.card:hover{
-  transform:translateY(-3px);
-  border-color:var(--color-primary);
+.card:hover {
+  transform: translateY(-3px);
+  border-color: var(--color-primary);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
-.card h3{
-  margin-top:0;
-  color:var(--color-primary);
+.card h3 {
+  margin-top: 0;
+  color: var(--color-primary);
 }
 
-.card p{
-  margin-bottom:0;
+.card p {
+  margin-bottom: 0;
+  color: #666;
 }
 
 </style>
