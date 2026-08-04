@@ -4,6 +4,8 @@ description: "安心して医療を受けられる国民健康保険制度を維
 heroTitle: "国民健康保険"
 heroDescription: "安心して医療を受けられる制度を守り、将来にわたって持続可能な国民健康保険を目指します。"
 updated: "2026-08-01"
+category: "🏥 医療・介護"
+tags: ["国民健康保険", "国保", "社会保障", "医療", "医療費", "社会保険料"]
 
 relatedActivities:
   - nursing-care-visit

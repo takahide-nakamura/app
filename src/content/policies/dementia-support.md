@@ -4,6 +4,8 @@ description: "認知症になっても安心して暮らし続けられる高槻
 heroTitle: "認知症支援"
 heroDescription: "認知症になっても安心して暮らし続けられる地域づくりを進めます。"
 updated: "2026-08-01"  
+category: "🏥 医療・介護"
+tags: ["認知症支援", "認知症", "対策", "高齢者", "健康"]
 
 relatedActivities:
   - nursing-care-visit
