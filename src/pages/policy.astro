@@ -3,9 +3,26 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import PolicyCard from '../components/PolicyCard.astro';
-import { policies } from '../data/policies';
 import { policyCategories } from "../data/policyCategories";
+import { getCollection } from "astro:content";
 
+// Content Collections から全政策コンテンツを取得
+const allPolicies = await getCollection("policies");
+
+// 既存の PolicyCard の表示形式にマッピング
+const policies = allPolicies.map((entry) => {
+  const cleanId = entry.id.replace(/\.md$/, "");
+  return {
+    id: cleanId,
+    title: entry.data.title,
+    summary: entry.data.description,
+    tags: [entry.data.heroTitle],
+    href: `/policy/${cleanId}`,
+    status: "published",
+    // もし md 側に category がなければ仮で最初のカテゴリに割り当て
+    category: (entry.data as any).category || policyCategories[0],
+  };
+});
 
 const groupedPolicies = policyCategories.map((category) => ({
   category,
@@ -15,19 +32,15 @@ const groupedPolicies = policyCategories.map((category) => ({
       policy.status === "published"
   )
 }));
-
-
 ---
 
 <Layout
-   title="政策｜もっと住みやすい高槻へ"
-   description="医療・介護・子育て・まちづくりなど、高槻市をもっと住みやすくするための政策を、公開データと現場経験をもとに提案しています。"
-  >
-  
+  title="政策｜もっと住みやすい高槻へ"
+  description="医療・介護・子育て・まちづくりなど、高槻市をもっと住みやすくするための政策を、公開データと現場経験をもとに提案しています。"
+>
   <Header />
 
   <main class="policy-page">
-
     <section class="hero">
       <h1>政策</h1>
 
@@ -36,35 +49,31 @@ const groupedPolicies = policyCategories.map((category) => ({
         データや現場経験をもとに政策を考えています。
       </p>
     </section>
- 
-     {
-        groupedPolicies
-          .filter((group) => group.policies.length > 0)
-          .map((group) => (
-            <section class="category-section">
 
-              <h2>{group.category}</h2>
+    {
+      groupedPolicies
+        .filter((group) => group.policies.length > 0)
+        .map((group) => (
+          <section class="category-section">
+            <h2>{group.category}</h2>
 
-             {
-                group.policies.map((policy) => (
-                  <PolicyCard
-                     title={policy.title}
-                     summary={policy.summary}
-                     tags={policy.tags}
-                     href={policy.href}
-                     available={policy.status === "published"}
-                  />
-                ))
-             }
-
-            </section>
-         ))
-     }
-
+            {
+              group.policies.map((policy) => (
+                <PolicyCard
+                  title={policy.title}
+                  summary={policy.summary}
+                  tags={policy.tags}
+                  href={policy.href}
+                  available={policy.status === "published"}
+                />
+              ))
+            }
+          </section>
+        ))
+    }
   </main>
 
   <Footer />
-
 </Layout>
 
 <style>
@@ -96,5 +105,4 @@ const groupedPolicies = policyCategories.map((category) => ({
   padding-left: 1rem;
   margin-bottom: 2rem;
 }
-
 </style>
