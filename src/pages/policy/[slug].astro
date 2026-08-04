@@ -7,14 +7,28 @@ import ProposalList from "../../components/policy/ProposalList.astro";
 import RelatedActivities from "../../components/policy/RelatedActivities.astro";
 import ReferenceList from "../../components/policy/ReferenceList.astro";
 
+import { getCollection } from "astro:content";
 import { getPolicy } from "../../lib/getPolicy";
 
-const { content, relatedActivities, references } = await getPolicy("noise");
+// 静的サイト生成(SSG)用に、存在する全ての政策のパス(slug)を定義
+export async function getStaticPaths() {
+  const allPolicies = await getCollection("policies");
+  return allPolicies.map((policy) => {
+    const slug = policy.id.replace(/\.md$/, "");
+    return {
+      params: { slug },
+    };
+  });
+}
+
+const { slug } = Astro.params;
+const { content, relatedActivities, references } = await getPolicy(slug as string);
 ---
 
 <PolicyDetailLayout
   title={`${content.title}｜政策｜もっと住みやすい高槻へ`}
   description={content.description}
+  breadcrumb={content.title}
 >
   <PolicyHero
     title={content.heroTitle}
