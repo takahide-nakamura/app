@@ -9,244 +9,89 @@ import ReferenceList from "../../components/policy/ReferenceList.astro";
 
 import { sources } from "../../data/sources";
 import { activities } from "../../data/activities";
+import { getCollection } from "astro:content";
 
-const relatedActivities = activities.filter(
-  (activity) => activity.id === "nursing-care-visit"
-);
+const allPolicies = await getCollection("policies");
+const entry = allPolicies.find((p) => p.id === "national-health-insurance" || p.id === "national-health-insurance.md");
+
+if (!entry) {
+  console.log("利用可能なエントリーID一覧:", allPolicies.map((p) => p.id));
+  throw new Error("national-health-insurance content not found");
+}
+
+const content = entry.data;
+
+const relatedActivities = content.relatedActivities
+  ? activities.filter((activity) => content.relatedActivities?.includes(activity.id))
+  : [];
+
+const references = content.references
+  ? content.references.map((refId) => sources[refId as keyof typeof sources]).filter(Boolean)
+  : [];
 ---
 
 <PolicyDetailLayout
-  title="国民健康保険｜政策｜もっと住みやすい高槻へ"
-  description="安心して医療を受けられる国民健康保険制度を維持するための政策を提案します。"
-  breadcrumb="国民健康保険"
+  title={`${content.title}｜政策｜もっと住みやすい高槻へ`}
+  description={content.description}
+  breadcrumb={content.title}
 >
-
-<PolicyHero
-  title="国民健康保険"
-  description="安心して医療を受けられる制度を守り、将来にわたって持続可能な国民健康保険を目指します。"
-/>
-
-<PolicySection
-  title="問題提起"
-  icon="📍"
->
-
-<p>
-
-国民健康保険は、多くの市民が加入する重要な医療保険制度です。
-
-</p>
-
-<p>
-
-しかし、高齢化や医療費の増加などにより、保険財政は年々厳しさを増しています。
-
-</p>
-
-<p>
-
-安心して必要な医療を受け続けるためには、制度を維持しながら、市民負担とのバランスを考えた運営が求められています。
-
-</p>
-
-</PolicySection>
-
-<PolicySection
-  title="評価"
-  icon="📊"
->
-
-<h3>現場で感じること</h3>
-
-<EvidenceBox
-  type="subjective"
->
-
-<p>
-
-理学療法士として多くの患者さんと関わる中で、経済的な理由から受診を控えたり、リハビリを途中で中断したりするケースを見てきました。
-
-</p>
-
-<p>
-
-保険制度は、市民が必要な医療を安心して受けられる土台です。
-
-</p>
-
-<p>
-
-制度の持続可能性と、市民が利用しやすい制度運営の両立が重要であると考えています。
-
-</p>
-
-</EvidenceBox>
-
-<h3>公的資料から分かること</h3>
-
-<EvidenceBox
-  type="objective"
->
-
-<p>
-
-国民健康保険は、市町村が運営主体となり、大阪府と連携して制度運営を行っています。
-
-</p>
-
-<p>
-
-高齢化や医療技術の高度化などにより医療費は増加傾向にあり、保険財政の健全な運営が全国共通の課題となっています。
-
-</p>
-
-<p>
-
-持続可能な制度運営のためには、医療費適正化と予防・健康づくりを一体的に進めることが重要とされています。
-
-</p>
-
-</EvidenceBox>
-
-</PolicySection>
-
-<PolicySection
-  title="課題抽出"
-  icon="⚠️"
->
-
-<ul>
-
-<li>
-
-<strong>保険財政の負担が増加している</strong><br>
-
-高齢化や医療費の増加により、国民健康保険財政は年々厳しい状況となっています。制度を維持するためには、医療費適正化と安定した財政運営が必要です。
-
-</li>
-
-<li>
-
-<strong>予防・健康づくりが十分浸透していない</strong><br>
-
-生活習慣病の予防や健康づくりは医療費の抑制にもつながりますが、市民一人ひとりへ十分に浸透しているとは言えません。
-
-</li>
-
-<li>
-
-<strong>制度が分かりにくい</strong><br>
-
-保険料や各種減免制度、給付制度などは内容が複雑であり、市民にとって理解しにくい部分があります。必要な制度を知らないまま利用できないケースもあります。
-
-</li>
-
-</ul>
-
-</PolicySection>
-
-<PolicySection
-  title="政策提案"
-  icon="✅"
->
-
-<h3>
-
-今すぐ取り組めること
-
-</h3>
-
-<ProposalList
-items={[
-
-"国民健康保険制度や各種減免制度を分かりやすく周知します。",
-
-"健康診断や特定健診の受診を呼びかけます。",
-
-"市民が相談しやすい窓口体制を充実させます。"
-
-]}
-/>
-
-<h3>
-
-高槻市として取り組むこと
-
-</h3>
-
-<ProposalList
-items={[
-
-"予防・健康づくり事業をさらに充実させます。",
-
-"データを活用した医療費適正化を進めます。",
-
-"保険制度を分かりやすく伝える広報を強化します。"
-
-]}
-/>
-
-<h3>
-
-大阪府・国へ要望すること
-
-</h3>
-
-<ProposalList
-items={[
-
-"自治体間の財政格差を踏まえた支援を充実するよう求めます。",
-
-"国民健康保険財政への国庫負担を拡充するよう要望します。",
-
-"持続可能な医療保険制度の構築を国へ求めます。"
-
-]}
-/>
-
-</PolicySection>
-
-<PolicySection
-  title="政策の限界"
-  icon="⚖️"
->
-
-<EvidenceBox
-  type="limitation"
->
-
-<p>
-
-国民健康保険制度は、市だけで完結する制度ではありません。
-
-</p>
-
-<p>
-
-制度の根幹や財政の多くは国や大阪府の制度設計に左右されるため、市だけで保険料や制度そのものを大きく変更することには限界があります。
-
-</p>
-
-<p>
-
-そのため、市民への丁寧な情報提供や健康づくりの推進を進めるとともに、国や大阪府へ必要な制度改善を働きかけていくことが重要であると考えています。
-
-</p>
-
-</EvidenceBox>
-
-</PolicySection>
-
-<RelatedActivities
-  activities={relatedActivities}
-/>
-
-<ReferenceList
-  sources={[
-    sources.nationalHealthInsuranceAct,
-    sources.mhlwNationalHealthInsurance,
-    sources.takatsukiNationalHealthInsurance
-  ]}
-/>
-
+  <PolicyHero
+    title={content.heroTitle}
+    description={content.heroDescription}
+    updated={content.updated}
+  />
+
+  <PolicySection title="問題提起" icon="📍">
+    {content.problem.paragraphs.map((paragraph) => (
+      <p>{paragraph}</p>
+    ))}
+  </PolicySection>
+
+  <PolicySection title="評価" icon="📊">
+    <h3>{content.evaluation.subjective.heading}</h3>
+    <EvidenceBox type="subjective">
+      {content.evaluation.subjective.paragraphs.map((paragraph) => (
+        <p>{paragraph}</p>
+      ))}
+    </EvidenceBox>
+
+    <h3>{content.evaluation.objective.heading}</h3>
+    <EvidenceBox type="objective">
+      {content.evaluation.objective.paragraphs.map((paragraph) => (
+        <p>{paragraph}</p>
+      ))}
+    </EvidenceBox>
+  </PolicySection>
+
+  <PolicySection title="課題抽出" icon="⚠️">
+    <ul>
+      {content.issues.map((issue) => (
+        <li>
+          <strong>{issue.title}</strong><br />
+          {issue.description}
+        </li>
+      ))}
+    </ul>
+  </PolicySection>
+
+  <PolicySection title="政策提案" icon="✅">
+    {content.proposals.map((proposal) => (
+      <section>
+        <h3>{proposal.heading}</h3>
+        <ProposalList items={proposal.items} />
+      </section>
+    ))}
+  </PolicySection>
+
+  <PolicySection title="政策の限界" icon="⚖️">
+    <EvidenceBox type="limitation">
+      {content.limitations.paragraphs.map((paragraph) => (
+        <p>{paragraph}</p>
+      ))}
+    </EvidenceBox>
+  </PolicySection>
+
+  <RelatedActivities activities={relatedActivities} />
+
+  <ReferenceList sources={references} />
 </PolicyDetailLayout>
