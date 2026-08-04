@@ -9,11 +9,7 @@ import ReferenceList from "../../components/policy/ReferenceList.astro";
 
 import { sources } from "../../data/sources";
 import { activities } from "../../data/activities";
-import { getCollection, getEntry } from "astro:content";
-
-const relatedActivities = activities.filter(
-  (activity) => activity.id === "nursing-care-visit"
-);
+import { getCollection } from "astro:content";
 
 const allPolicies = await getCollection("policies");
 const entry = allPolicies.find((p) => p.id === "noise" || p.id === "noise.md");
@@ -24,231 +20,78 @@ if (!entry) {
 }
 
 const content = entry.data;
+
+// content.relatedActivities (IDの配列) から実際の活動データを取得
+const relatedActivities = content.relatedActivities
+  ? activities.filter((activity) => content.relatedActivities?.includes(activity.id))
+  : [];
+
+// content.references (IDの配列) から sources.ts のデータを取り出して配列化
+const references = content.references
+  ? content.references.map((refId) => sources[refId as keyof typeof sources]).filter(Boolean)
+  : [];
 ---
 
 <PolicyDetailLayout
-  title="生活騒音対策｜政策｜もっと住みやすい高槻へ"
-  description="深夜の爆音や集合住宅の生活騒音など、市民の健康と生活環境を守るための政策を提案します。"
-  breadcrumb="生活騒音対策"
+  title={content.title}
+  description={content.description}
 >
-
-<PolicyHero
-  title="生活騒音対策"
-  description="安心して眠り、安心して暮らせる生活環境を守るため、生活騒音対策を進めます。"
-/>
-
-<PolicySection
-  title="問題提起"
-  icon="📍"
->
-
-<p>
-
-夜中に突然バイクの大きな音で目が覚めたり、集合住宅で足音や生活音に悩まされた経験はありませんか。
-
-</p>
-
-<p>
-
-「少しうるさい」だけで済む問題ではなく、睡眠不足やストレスが積み重なることで、健康や日常生活にも大きな影響を与えることがあります。
-
-</p>
-
-<p>
-
-安心して眠り、安心して暮らせる環境を守ることは、市民一人ひとりの健康を守ることにつながります。
-
-</p>
-
-</PolicySection>
-
-<PolicySection
-  title="評価"
-  icon="📊"
->
-<h3>現場で感じること</h3>
-
-<EvidenceBox
-  
-  type="subjective"
->
-
-<p>
-
-私は理学療法士として、睡眠不足や慢性的なストレスによって、身体機能や心身の健康が低下した方を数多く見てきました。
-
-</p>
-
-<p>
-
-十分な睡眠は、子どもの健やかな成長、働く世代の疲労回復、高齢者の健康維持など、すべての世代にとって欠かせません。
-
-</p>
-
-<p>
-
-生活騒音は単なる「うるささ」ではなく、健康を守るという視点からも取り組むべき課題であると考えています。
-
-</p>
-
-</EvidenceBox>
-
-<h3>公的資料から分かること</h3>
-
-<EvidenceBox
-  
-  type="objective"
->
-
-<p>
-
-世界保健機関（WHO）は、環境騒音が睡眠障害や生活の質の低下、循環器疾患リスクなどに関係すると報告しています。
-
-</p>
-
-<p>
-
-また、工場や事業場には騒音規制法などによる基準がありますが、市民生活の中で発生する生活騒音は、発生原因が多様であり、現在の制度だけでは十分対応しにくい場面があります。
-
-</p>
-
-<p>
-
-深夜の爆音走行、集合住宅の生活騒音、短時間の大音量など、市民生活へ影響する騒音への対応強化が求められています。
-
-</p>
-
-</EvidenceBox>
-
-</PolicySection>
-<PolicySection
-  title="課題抽出"
-  icon="⚠️"
->
-
-<ul>
-
-<li>
-<strong>相談先が分かりにくい</strong><br>
-説明文
-</li>
-
-<li>
-<strong>瞬間的な爆音への対応が難しい</strong><br>
-説明文
-</li>
-
-<li>
-<strong>健康被害の認識不足</strong><br>
-説明文
-</li>
-
-</ul>
-
-</PolicySection>
-
-<PolicySection
-  title="政策提案"
-  icon="✅"
->
-
-<h3>
-
-今すぐ取り組めること
-
-</h3>
-
-<ProposalList
-items={[
-
-"生活騒音に関する相談窓口を分かりやすく周知します。",
-
-"管理組合・自治会向けに生活騒音対策の事例やガイドラインを紹介します。",
-
-"市民へ睡眠や健康への影響について啓発を進めます。"
-
-]}
-/>
-
-<h3>
-
-高槻市として取り組むこと
-
-</h3>
-
-<ProposalList
-items={[
-
-"生活騒音に関する相談体制を整理し、市民が相談しやすい仕組みを構築します。",
-
-"警察や関係機関との連携を強化し、深夜の爆音走行への対応を働きかけます。",
-
-"生活騒音対策ガイドラインの整備を検討します。"
-
-]}
-/>
-
-<h3>
-
-大阪府・国へ要望すること
-
-</h3>
-
-<ProposalList
-items={[
-
-"爆音車両や改造車両への取締強化を要望します。",
-
-"ナンバープレート視認性向上など制度改善を国へ要望します。",
-
-"生活騒音対策を含めた制度整備を継続して求めます。"
-
-]}
-/>
-
-</PolicySection>
-
-<PolicySection
-title="政策の限界"
-icon="⚖️"
->
-
-<EvidenceBox
-type="limitation"
->
-
-<p>
-
-生活騒音には、行政だけで解決できるものと、住民同士の合意や警察権限が必要なものがあります。
-
-</p>
-
-<p>
-
-そのため、高槻市だけで完結できる施策には限界があります。
-
-</p>
-
-<p>
-
-市・警察・管理組合・自治会・市民がそれぞれ役割を分担しながら、継続的に改善を進めることが重要であると考えています。
-
-</p>
-
-</EvidenceBox>
-
-</PolicySection>
-
-<RelatedActivities
-  activities={relatedActivities}
-/>
-
-<ReferenceList
-  sources={[
-    sources.whoNoise,
-    sources.environmentNoiseGuidelines,
-    sources.noiseRegulationLaw
-  ]}
-/>
-
+  <PolicyHero
+    title={content.heroTitle}
+    description={content.heroDescription}
+  />
+
+  <PolicySection title="問題提起" icon="📍">
+    {content.problem.paragraphs.map((paragraph) => (
+      <p>{paragraph}</p>
+    ))}
+  </PolicySection>
+
+  <PolicySection title="評価" icon="📊">
+    <h3>{content.evaluation.subjective.heading}</h3>
+    <EvidenceBox type="subjective">
+      {content.evaluation.subjective.paragraphs.map((paragraph) => (
+        <p>{paragraph}</p>
+      ))}
+    </EvidenceBox>
+
+    <h3>{content.evaluation.objective.heading}</h3>
+    <EvidenceBox type="objective">
+      {content.evaluation.objective.paragraphs.map((paragraph) => (
+        <p>{paragraph}</p>
+      ))}
+    </EvidenceBox>
+  </PolicySection>
+
+  <PolicySection title="課題抽出" icon="⚠️">
+    <ul>
+      {content.issues.map((issue) => (
+        <li>
+          <strong>{issue.title}</strong><br />
+          {issue.description}
+        </li>
+      ))}
+    </ul>
+  </PolicySection>
+
+  <PolicySection title="政策提案" icon="✅">
+    {content.proposals.map((proposal) => (
+      <section>
+        <h3>{proposal.heading}</h3>
+        <ProposalList items={proposal.items} />
+      </section>
+    ))}
+  </PolicySection>
+
+  <PolicySection title="政策の限界" icon="⚖️">
+    <EvidenceBox type="limitation">
+      {content.limitations.paragraphs.map((paragraph) => (
+        <p>{paragraph}</p>
+      ))}
+    </EvidenceBox>
+  </PolicySection>
+
+  <RelatedActivities activities={relatedActivities} />
+
+  <ReferenceList sources={references} />
 </PolicyDetailLayout>
