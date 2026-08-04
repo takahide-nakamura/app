@@ -7,34 +7,15 @@ import ProposalList from "../../components/policy/ProposalList.astro";
 import RelatedActivities from "../../components/policy/RelatedActivities.astro";
 import ReferenceList from "../../components/policy/ReferenceList.astro";
 
-import { sources } from "../../data/sources";
-import { activities } from "../../data/activities";
-import { getCollection } from "astro:content";
+import { getPolicy } from "../../lib/getPolicy";
 
-const allPolicies = await getCollection("policies");
-const entry = allPolicies.find((p) => p.id === "garbage" || p.id === "garbage.md");
-
-if (!entry) {
-  console.log("利用可能なエントリーID一覧:", allPolicies.map((p) => p.id));
-  throw new Error("garbage content not found");
-}
-
-const content = entry.data;
-
-// content.relatedActivities (IDの配列) から実際の活動データを取得
-const relatedActivities = content.relatedActivities
-  ? activities.filter((activity) => content.relatedActivities?.includes(activity.id))
-  : [];
-
-// content.references (IDの配列) から sources.ts のデータを取り出して配列化
-const references = content.references
-  ? content.references.map((refId) => sources[refId as keyof typeof sources]).filter(Boolean)
-  : [];
+const { content, relatedActivities, references } = await getPolicy("garbage");
 ---
 
 <PolicyDetailLayout
-  title={content.title}
+  title={`${content.title}｜政策｜もっと住みやすい高槻へ`}
   description={content.description}
+  breadcrumb={content.title}
 >
   <PolicyHero
     title={content.heroTitle}
