@@ -1,108 +1,91 @@
 <header class="site-header">
-
-  <div class="container">
-
+  <div class="header-inner container">
     <div class="brand">
       <a href="/" class="logo">もっと住みやすい高槻へ</a>
       <p class="tagline">データと現場経験から考える市政</p>
     </div>
 
     <nav class="global-nav">
-
       <a href="/">ホーム</a>
-
       <a href="/policy">政策</a>
-
       <a href="/activity">活動</a>
-
       <a href="/profile">プロフィール</a>
-
       <a href="/contact">お問い合わせ</a>
-
     </nav>
-
   </div>
-
 </header>
 
 <style>
-
-.site-header{
-  background:#fff;
-  border-bottom:1px solid #e5e7eb;
+.site-header {
+  background: #fff;
+  border-bottom: 1px solid #e5e7eb;
 }
 
-.container{
-  max-width:1200px;
-  margin:0 auto;
-  padding:1.2rem 2rem;
-
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:2rem;
+.header-inner {
+  padding-top: 1.2rem;
+  padding-bottom: 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
 }
 
-.brand{
-  display:flex;
-  flex-direction:column;
+.brand {
+  display: flex;
+  flex-direction: column;
 }
 
-.logo{
-  color:#003f88;
-  font-size:1.6rem;
-  font-weight:700;
-  text-decoration:none;
-  line-height:1.2;
+.logo {
+  color: #003f88;
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-decoration: none;
+  line-height: 1.2;
 }
 
-.logo:hover{
-  text-decoration:none;
+.logo:hover {
+  text-decoration: none;
 }
 
-.tagline{
-  margin:.35rem 0 0;
-  font-size:.9rem;
-  color:#666;
+.tagline {
+  margin: 0.35rem 0 0;
+  font-size: 0.9rem;
+  color: #666;
 }
 
-.global-nav{
-  display:flex;
-  gap:2rem;
-  align-items:center;
+.global-nav {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
 }
 
-.global-nav a{
-  color:#333;
-  text-decoration:none;
-  font-weight:500;
-  letter-spacing:.05em;
-  transition:color .2s;
+.global-nav a {
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  transition: color 0.2s;
 }
 
-.global-nav a:hover{
-  color:#003f88;
+.global-nav a:hover {
+  color: #003f88;
 }
 
-@media (max-width:768px){
-
-  .container{
-    flex-direction:column;
-    align-items:center;
-    padding:1rem;
+@media (max-width: 768px) {
+  .header-inner {
+    flex-direction: column;
+    align-items: center;
   }
 
-  .brand{
-    align-items:center;
-    text-align:center;
+  .brand {
+    align-items: center;
+    text-align: center;
   }
 
-  .global-nav{
-    flex-wrap:wrap;
-    justify-content:center;
-    gap:1.25rem;
+  .global-nav {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.25rem;
   }
-
 }
-
 </style>

@@ -18,37 +18,25 @@ const categories = [
   },
 ];
 ---
-
 <section class="category-grid container">
-
   <h2>カテゴリーから探す</h2>
 
   <div class="category-cards">
-
     {
       categories.map((category) => (
-
-        <a
-          href="/policy"
-          class="card"
-        >
+        <a href="/policy" class="card-item">
           <h3>{category.title}</h3>
-
           <p>{category.description}</p>
-
         </a>
-
       ))
     }
-
   </div>
-
 </section>
 
 <style>
-
 .category-grid {
-  margin: 3rem auto;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
 }
 
 .category-grid h2 {
@@ -63,35 +51,38 @@ const categories = [
   gap: 1.5rem;
 }
 
-.card {
-  display: block;
+.card-item {
+  display: flex;
+  flex-direction: column;
   text-decoration: none;
   color: inherit;
-
   border: 1px solid var(--color-border, #e5e7eb);
   border-radius: var(--radius, 12px);
-
   padding: 1.5rem;
-  background: #fff;
-
-  transition: .2s;
+  background: #ffffff;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
   box-sizing: border-box;
+  height: 100%;
 }
 
-.card:hover {
+.card-item:hover {
   transform: translateY(-3px);
   border-color: var(--color-primary);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
-.card h3 {
+.card-item h3 {
   margin-top: 0;
+  margin-bottom: 0.5rem;
   color: var(--color-primary);
+  font-size: 1.1rem;
 }
 
-.card p {
+.card-item p {
   margin-bottom: 0;
-  color: #666;
+  color: #666666;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  flex-grow: 1;
 }
-
 </style>

@@ -85,10 +85,14 @@ p {
 }
 
 /* ==========================
-   Layout
+   Layout (サイト全体の共通コンテナ・余白統一)
 ========================== */
 
-.container{
-  width: min(100% - 2rem, var(--container-width));
-  margin-inline: auto;
+.container {
+  width: min(100% - 2rem, 1000px) !important; /* 全セクションの横幅を1000pxで完全統一 */
+  margin-inline: auto !important;
+}
+
+section {
+  padding: 3rem 0; /* セクション上下の余白を統一 */
 }

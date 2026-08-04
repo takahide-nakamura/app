@@ -2,11 +2,11 @@
 import PolicyPreviewCard from "./PolicyPreviewCard.astro";
 ---
 
-<section class="policy-preview">
+<section class="policy-preview container">
   <h2>重点政策</h2>
 
   <p class="lead">
-    市民の皆さんの声と事実に基づき、
+    市民の皆さんの声と事実に基づき、<br class="pc-br" />
     優先して取り組みたい政策です。
   </p>
 
@@ -41,39 +41,38 @@ import PolicyPreviewCard from "./PolicyPreviewCard.astro";
 </section>
 
 <style>
-.policy-preview{
-  max-width:1100px;
-  margin:3rem auto;
-  padding:0 1rem;
+.policy-preview {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
 }
 
-.policy-preview h2{
-  text-align:center;
+.policy-preview h2 {
+  text-align: center;
 }
 
-.lead{
-  text-align:center;
-  margin-bottom:2rem;
-}
-.cards{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:1.5rem;
+.lead {
+  text-align: center;
+  margin-bottom: 2rem;
 }
 
-.card{
-  border:1px solid #ddd;
-  border-radius:16px;
-  padding:1.5rem;
-  background:#fff;
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
 }
 
-.card h3{
-  margin-top:0;
+.more {
+  text-align: center;
+  margin-top: 2rem;
 }
 
-.more{
-  text-align:center;
-  margin-top:2rem;
+.pc-br {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .pc-br {
+    display: inline;
+  }
 }
 </style>

@@ -1,36 +1,59 @@
-<section class="hero">
-   <h1>もっと住みやすい高槻へ</h1>
-    <p class="lead">
-      データと現場経験をもとに、高槻市の政策を考え、市民の皆さまとともにつくる政策プラットフォームです。
-    </p>
-    
-    <div class="hero-buttons">
-      <a href="/policy" class="btn btn-primary">
-        政策を見る
-      </a>
-      
-      <a href="/contact" class="btn btn-secondary">
-        ご意見はこちら
-      </a>
-    </div>
+---
+---
 
+<section class="hero-section container">
+  <div class="hero-content">
+    <h1>もっと住みやすい高槻へ</h1>
+    <p class="hero-description">
+      データと現場経験をもとに、高槻市の政策を考え、<br class="pc-br" />市民の皆さまとともにつくる政策プラットフォームです。
+    </p>
+    <div class="hero-actions">
+      <a href="/policy" class="btn btn-primary">政策を見る</a>
+      <a href="/contact" class="btn btn-secondary">ご意見はこちら</a>
+    </div>
+  </div>
 </section>
 
 <style>
-.hero {
-  max-width: 760px;
-  text-align: center;
+.hero-section {
+  text-align: center !important;
 }
 
-.hero p {
-  font-size: 1.2rem;
+.hero-content {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center !important;
+}
+
+.hero-content h1 {
+  text-align: center !important;
+}
+
+.hero-description {
+  font-size: 1.1rem;
+  line-height: 1.8;
   margin-bottom: 2rem;
+  text-align: center !important;
+  /* 意味の区切りを意識した改行設定 */
+  word-break: normal;
+  overflow-wrap: break-word;
 }
 
-.buttons {
+/* パソコン画面では読点（、）の後で自然に改行する */
+.pc-br {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .pc-br {
+    display: inline;
+  }
+}
+
+.hero-actions {
   display: flex;
-  justify-content: center;
   gap: 1rem;
+  justify-content: center;
   flex-wrap: wrap;
 }
 </style>
