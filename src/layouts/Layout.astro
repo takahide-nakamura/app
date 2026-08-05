@@ -18,7 +18,8 @@ const { title, description, image, noindex } = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
+    <!-- ↓ ここに Search Console の確認タグを貼り付け ↓ -->
+    <meta name="google-site-verification" content="CGnDKTgq2fox61iB7NJ3RoB9rm89bZbyaC0Z1OpLs60" />
     <!-- SEOコンポーネントにメタタグ・Canonical生成を一元化 -->
     <SEO
       title={title}
