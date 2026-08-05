@@ -89,11 +89,16 @@ const data = policy?.data || {};
         <h2>✅ 政策提案</h2>
         {data.proposals.map((proposal: any) => (
           <div class="proposal-card">
-            {proposal?.title && <h3>{proposal.title}</h3>}
-            {proposal?.description && <p>{proposal.description}</p>}
-            {proposal?.paragraphs?.map((paragraph: string) => (
-              <p>{paragraph}</p>
-            ))}
+            {proposal.heading && (
+              <h3>{proposal.heading}</h3>
+            )}
+            {proposal.items && (
+              <ul>
+                {proposal.items.map((item: string) => (
+                    <li>{item}</li>
+                ))}
+              </ul>
+            )}
           </div>
         ))}
       </section>
