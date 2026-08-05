@@ -13,8 +13,13 @@ const {
   noindex = false,
 } = Astro.props;
 
-// 現在のページの完全な正規URL（Canonical URL）を自動生成（GitHub Pages対応）
+// 現在のページの完全な正規URL（Canonical URL）
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+// OGP画像URL
+const imageURL = new URL(image, Astro.site);
+
+
 ---
 
 <!-- 基本SEO -->
@@ -25,3 +30,18 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 <!-- Favicon -->
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+<!-- OGP -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="もっと住みやすい高槻へ" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:image" content={imageURL} />
+<meta property="og:locale" content="ja_JP" />
+
+<!-- Twitter / X -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={imageURL} />
