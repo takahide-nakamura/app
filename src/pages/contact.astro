@@ -2,6 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+
+const baseUrl = import.meta.env.BASE_URL;
 ---
 
 <Layout
@@ -51,7 +53,7 @@ import Footer from '../components/Footer.astro';
       </p>
 
       <div style="margin-top: 1.5rem;">
-        <a href="/app/opinions" class="opinions-btn">
+        <a href={`${baseUrl}opinions`} class="opinions-btn">
           💬 「市民の声・対応状況一覧」を見る
         </a>
       </div>

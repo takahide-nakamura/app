@@ -5,16 +5,16 @@ const baseUrl = import.meta.env.BASE_URL;
 <header class="site-header">
   <div class="header-inner container">
     <div class="brand">
-      <a href="/" class="logo">もっと住みやすい高槻へ</a>
+      <a href={`${baseUrl}`} class="logo">もっと住みやすい高槻へ</a>
       <p class="tagline">データと現場経験から考える市政</p>
     </div>
 
     <nav class="global-nav">
-      <li><a href={`${baseUrl}/`}>トップ</a></li>
-      <li><a href={`${baseUrl}/policies`}>政策</a></li>
-      <li><a href={`${baseUrl}/activities`}>活動</a></li>
-      <li><a href={`${baseUrl}/opinions`}>市民の声</a></li>
-      <li><a href={`${baseUrl}/contact`}>お問い合わせ</a></li>
+      <a href={`${baseUrl}`}>ホーム</a>
+      <a href={`${baseUrl}policy/`}>政策</a>
+      <a href={`${baseUrl}activity/`}>活動</a>
+      <a href={`${baseUrl}opinions/`}>市民の声</a>
+      <a href={`${baseUrl}contact/`}>お問い合わせ</a>
     </nav>
   </div>
 </header>

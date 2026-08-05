@@ -1,3 +1,7 @@
+---
+// Astro組み込みのベースURL（astro.config.mjs の base: '/app' を参照）
+const baseUrl = import.meta.env.BASE_URL;
+---
 <footer class="site-footer">
   <div class="footer-inner container">
     <p class="site-name">もっと住みやすい高槻へ</p>
@@ -8,10 +12,10 @@
     </p>
 
     <nav class="footer-nav">
-      <a href="/policy">政策</a>
-      <a href="/activity">活動</a>
-      <a href="/profile">プロフィール</a>
-      <a href="/contact">お問い合わせ</a>
+      <a href={`${baseUrl}policy/`}>政策</a>
+      <a href={`${baseUrl}activity/`}>活動</a>
+      <a href={`${baseUrl}profile/`}>プロフィール</a>
+      <a href={`${baseUrl}contact/`}>お問い合わせ</a>
     </nav>
 
     <p class="copyright">© 2026 もっと住みやすい高槻へ</p>

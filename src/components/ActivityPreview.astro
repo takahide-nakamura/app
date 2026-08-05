@@ -1,4 +1,5 @@
 ---
+const baseUrl = import.meta.env.BASE_URL;
 ---
 
 <section class="activity-preview container">
@@ -41,7 +42,7 @@
   </div>
 
   <p class="more">
-    <a href="/activity" class="btn btn-primary">
+    <a href={`${baseUrl}activity/`} class="btn btn-primary">
       活動を見る
     </a>
   </p>

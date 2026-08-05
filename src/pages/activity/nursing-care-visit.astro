@@ -2,6 +2,8 @@
 import PolicyDetailLayout from '../../components/PolicyDetailLayout.astro';
 import PolicySection from '../../components/PolicySection.astro';
 import EvidenceBox from '../../components/EvidenceBox.astro';
+
+const baseUrl = import.meta.env.BASE_URL;
 ---
 
 <PolicyDetailLayout
@@ -58,13 +60,13 @@ import EvidenceBox from '../../components/EvidenceBox.astro';
     <PolicySection title="関連する政策">
         <ul>
             <li>
-                <a href="/policy/care-certification">
+                <a href={`${baseUrl}policy/care-certification/`}>
                     要介護認定の迅速化
                 </a>
             </li>
 
             <li>
-                <a href="/policy/dementia-support">
+                <a href={`${baseUrl}policy/dementia-support/`}>
                     認知症になっても安心して暮らせるまちづくり
                 </a>
             </li>

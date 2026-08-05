@@ -1,92 +1,104 @@
 ---
-import PolicyDetailLayout from "../../components/PolicyDetailLayout.astro";
-import PolicyHero from "../../components/policy/PolicyHero.astro";
-import PolicySection from "../../components/PolicySection.astro";
-import EvidenceBox from "../../components/EvidenceBox.astro";
-import ProposalList from "../../components/policy/ProposalList.astro";
-import RelatedActivities from "../../components/policy/RelatedActivities.astro";
-import ReferenceList from "../../components/policy/ReferenceList.astro";
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import PolicyHero from '../../components/policy/PolicyHero.astro';
 
-import { getCollection } from "astro:content";
-import { getPolicy } from "../../lib/getPolicy";
-
-// 静的サイト生成(SSG)用に、存在する全ての政策のパス(slug)を定義
 export async function getStaticPaths() {
-  const allPolicies = await getCollection("policies");
-  return allPolicies.map((policy) => {
-    const slug = policy.id.replace(/\.md$/, "");
-    return {
-      params: { slug },
-    };
-  });
+  const policies = await getCollection('policies');
+  return policies.map((policy) => ({
+    params: { slug: policy.id.replace(/\.md$/, '') },
+    props: { policy },
+  }));
 }
 
-const { slug } = Astro.params;
-const { content, relatedActivities, references } = await getPolicy(slug as string);
+const { policy } = Astro.props;
+const data = policy?.data || {};
 ---
 
-<PolicyDetailLayout
-  title={`${content.title}｜政策｜もっと住みやすい高槻へ`}
-  description={content.description}
-  breadcrumb={content.title}
+<Layout
+  title={`${data.title || '政策詳細'}｜もっと住みやすい高槻へ`}
+  description={data.description || ''}
 >
-  <PolicyHero
-    title={content.heroTitle}
-    description={content.heroDescription}
-    updated={content.updated}
-  />
+  <Header />
 
-  <PolicySection title="問題提起" icon="📍">
-    {content.problem.paragraphs.map((paragraph) => (
-      <p>{paragraph}</p>
-    ))}
-  </PolicySection>
+  <main class="policy-detail container">
+    <PolicyHero
+      title={data.heroTitle || data.title || ''}
+      description={data.heroDescription || data.description || ''}
+      updated={data.updated}
+    />
 
-  <PolicySection title="評価" icon="📊">
-    <h3>{content.evaluation.subjective.heading}</h3>
-    <EvidenceBox type="subjective">
-      {content.evaluation.subjective.paragraphs.map((paragraph) => (
-        <p>{paragraph}</p>
-      ))}
-    </EvidenceBox>
-
-    <h3>{content.evaluation.objective.heading}</h3>
-    <EvidenceBox type="objective">
-      {content.evaluation.objective.paragraphs.map((paragraph) => (
-        <p>{paragraph}</p>
-      ))}
-    </EvidenceBox>
-  </PolicySection>
-
-  <PolicySection title="課題抽出" icon="⚠️">
-    <ul>
-      {content.issues.map((issue) => (
-        <li>
-          <strong>{issue.title}</strong><br />
-          {issue.description}
-        </li>
-      ))}
-    </ul>
-  </PolicySection>
-
-  <PolicySection title="政策提案" icon="✅">
-    {content.proposals.map((proposal) => (
-      <section>
-        <h3>{proposal.heading}</h3>
-        <ProposalList items={proposal.items} />
+    {/* 問題提起 */}
+    {data.problem?.paragraphs && (
+      <section class="policy-section">
+        <h2>📍 問題提起</h2>
+        {data.problem.paragraphs.map((paragraph: string) => (
+          <p>{paragraph}</p>
+        ))}
       </section>
-    ))}
-  </PolicySection>
+    )}
 
-  <PolicySection title="政策の限界" icon="⚖️">
-    <EvidenceBox type="limitation">
-      {content.limitations.paragraphs.map((paragraph) => (
-        <p>{paragraph}</p>
-      ))}
-    </EvidenceBox>
-  </PolicySection>
+    {/* 評価 (主観 / 客観) */}
+    {data.evaluation && (
+      <section class="policy-section">
+        <h2>評価</h2>
+        
+        {/* 主観的評価 */}
+        {data.evaluation.subjective?.paragraphs && (
+          <div class="evaluation-block">
+            {data.evaluation.subjective.heading && <h3>{data.evaluation.subjective.heading}</h3>}
+            {data.evaluation.subjective.paragraphs.map((paragraph: string) => (
+              <p>{paragraph}</p>
+            ))}
+          </div>
+        )}
 
-  <RelatedActivities activities={relatedActivities} />
+        {/* 客観的評価 */}
+        {data.evaluation.objective?.paragraphs && (
+          <div class="evaluation-block">
+            {data.evaluation.objective.heading && <h3>{data.evaluation.objective.heading}</h3>}
+            {data.evaluation.objective.paragraphs.map((paragraph: string) => (
+              <p>{paragraph}</p>
+            ))}
+          </div>
+        )}
+      </section>
+    )}
 
-  <ReferenceList sources={references} />
-</PolicyDetailLayout>
+    {/* 課題抽出 */}
+    {data.issues && data.issues.length > 0 && (
+      <section class="policy-section">
+        <h2>⚠️ 課題抽出</h2>
+        {data.issues.map((issue: any) => (
+          <div class="issue-card">
+            {issue?.title && <h3>{issue.title}</h3>}
+            {issue?.description && <p>{issue.description}</p>}
+            {issue?.paragraphs?.map((paragraph: string) => (
+              <p>{paragraph}</p>
+            ))}
+          </div>
+        ))}
+      </section>
+    )}
+
+    {/* 政策提案 */}
+    {data.proposals && data.proposals.length > 0 && (
+      <section class="policy-section">
+        <h2>✅ 政策提案</h2>
+        {data.proposals.map((proposal: any) => (
+          <div class="proposal-card">
+            {proposal?.title && <h3>{proposal.title}</h3>}
+            {proposal?.description && <p>{proposal.description}</p>}
+            {proposal?.paragraphs?.map((paragraph: string) => (
+              <p>{paragraph}</p>
+            ))}
+          </div>
+        ))}
+      </section>
+    )}
+  </main>
+
+  <Footer />
+</Layout>
