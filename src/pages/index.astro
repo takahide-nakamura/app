@@ -11,36 +11,30 @@ import Footer from '../components/Footer.astro';
 ---
 
 <Layout
-   title="もっと住みやすい高槻へ"
-   description="理学療法士としての現場経験と公開データをもとに、高槻市の医療・介護・子育て・まちづくりについて政策を提案しています。"
-  >
-  
+  title="もっと住みやすい高槻へ"
+  description="理学療法士としての現場経験と公開データをもとに、高槻市の医療・介護・子育て・まちづくりについて政策を提案しています。"
+>
   <Header />
 
-    <main>
-      <Hero />
+  <main id="main-content" tabindex="-1">
+    <Hero />
 
-      <AboutSite />  
+    <AboutSite />
 
-      <PolicyPreview />
+    <PolicyPreview />
 
-      <CategoryGrid />
+    <CategoryGrid />
 
-      <ActivityPreview />
+    <ActivityPreview />
 
-      <ContactCTA />
+    <ContactCTA />
+  </main>
 
-    </main>
   <Footer />
 </Layout>
 
 <style>
 main {
-  display: grid;
-  place-items: center;
-  min-height: 80vh;
-  padding: 2rem;
+  width: 100%;
 }
-
-
 </style>

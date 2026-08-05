@@ -96,3 +96,28 @@ p {
 section {
   padding: 3rem 0; /* セクション上下の余白を統一 */
 }
+
+/* ==========================================================================
+   WCAG 2.2 AA: キーボードフォーカス & ホバー体験の統一・視認性強化
+   ========================================================================== */
+
+/* フォーカスリングの共通定義 */
+:focus-visible {
+  outline: 3px solid var(--color-accent, #0056b3) !important;
+  outline-offset: 2px !important;
+}
+
+/* ボタンやインタラクティブ要素の hover と focus-visible を同等化 */
+button:focus-visible,
+.btn:focus-visible,
+a.button:focus-visible {
+  box-shadow: 0 0 0 4px rgba(0, 86, 179, 0.25);
+}
+
+/* カード型コンポーネント選択時の明確な視認性確保 */
+.card:focus-within,
+a.card:focus-visible,
+article:focus-within {
+  outline: 3px solid var(--color-accent, #0056b3);
+  outline-offset: 2px;
+}
