@@ -1,10 +1,12 @@
-// @ts-check
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  // GitHub Pages用仮URL（本番公開時にアカウント名等に合わせて変更可能）
-  site: 'https://example.github.io',
+  // 本番サイトのドメインURL
+  site: 'https://takahide-nakamura.github.io',
+  // GitHub Pagesのリポジトリ名に合わせたサブディレクトリパス設定
+  base: '/app',
+  
   integrations: [sitemap()],
 });
