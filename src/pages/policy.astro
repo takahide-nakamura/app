@@ -24,7 +24,7 @@ const formattedPolicies = allPolicies.map((entry) => {
     title: data.title || "",
     summary: data.description || "",
     tags: tagsList,
-    href: `/policy/${cleanId}`,
+    href: `policy/${cleanId}/`,
     status: "published",
     category: data.category || policyCategories[0],
   };

@@ -1,18 +1,21 @@
 ---
+const baseUrl = import.meta.env.BASE_URL;
+const base = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
+
 interface Props {
-  title: string;
-  summary: string;
-  href?: string;
-  available?: boolean;
-  tags?: string[];
+  title:string;
+  summary:string;
+  tags:string[];
+  href:string;
+  available:boolean;
 }
 
 const {
-  title = "",
-  summary = "",
-  tags = [],
-  href = "#",
-  available = false
+  title,
+  summary,
+  tags,
+  href,
+  available
 } = Astro.props;
 
 // tagsが配列であることを保証
@@ -39,7 +42,7 @@ const safeTags = Array.isArray(tags) ? tags : [];
   <p class="more">
     {
       available ? (
-        <a href={href} class="btn btn-primary">
+        <a href={`${base}${href.replace(/^\//,"")}`} class="btn btn-primary">
           詳しく見る
         </a>
       ) : (
