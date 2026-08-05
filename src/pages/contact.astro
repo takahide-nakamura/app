@@ -5,38 +5,60 @@ import Footer from '../components/Footer.astro';
 ---
 
 <Layout
-     title="お問い合わせ｜もっと住みやすい高槻へ"
-     description="ご意見・ご提案をお寄せください。GoogleフォームやSNSなどを通じて、市民の皆さまとの対話を大切にしています。"
-    >
+  title="お問い合わせ・市民の声｜もっと住みやすい高槻へ"
+  description="高槻市での日常のお困りごとやご意見をお寄せください。AIによる匿名化処理を経て、政策提案や対応状況を公開しています。"
+>
   <Header />
 
   <main class="contact-page" id="main-content" tabindex="-1">
 
     <section class="hero">
-      <h1>お問い合わせ</h1>
+      <h1>お問い合わせ・市民の声</h1>
 
       <p>
-        ご意見・ご提案をお待ちしています。
-        市民の皆さんの声を、今後の活動や政策づくりに活かしていきます。
+        高槻市での日常の「困りごと」や「ご提案」をお寄せください。<br />
+        いただいた声は AI による匿名化処理（個人情報の保護）を行った上で、今後の活動や政策づくりに活用させていただきます。
       </p>
     </section>
 
+    <!-- Googleフォームへの誘導 -->
     <section class="contact-method">
-
-      <h2>ご意見・ご提案</h2>
+      <h2>ご意見・お困りごとの送信</h2>
 
       <p>
-        現在、お問い合わせはGoogleフォームを中心に受け付ける予定です。
+        以下のフォームよりご意見をお寄せください。お名前や連絡先の記入は任意です。
       </p>
 
-      <p class="coming">
-        Googleフォーム（準備中）
-      </p>
-
+      <!-- ボタンリンク（Googleフォームを開く） -->
+      <div style="margin-top: 1.5rem;">
+        <a 
+          href="https://docs.google.com/forms/d/e/1FAIpQLSfXpsl7h1qEr-q9LSSVS9irqupqA-l53q6kScBfGCuKMxxpHw/viewform?usp=dialog" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          class="form-btn"
+        >
+          📝 困りごと・ご意見受付フォームを開く（Googleフォーム）
+        </a>
+      </div>
     </section>
 
-    <section class="sns">
+    <!-- 市民の声・対応状況ページへの誘導カード -->
+    <section class="opinions-link-section">
+      <h2>市民の声・対応状況の公開</h2>
 
+      <p>
+        皆様から寄せられたご意見と、それに対する取り組みの進捗状況を公開しています。
+      </p>
+
+      <div style="margin-top: 1.5rem;">
+        <a href="/app/opinions" class="opinions-btn">
+          💬 「市民の声・対応状況一覧」を見る
+        </a>
+      </div>
+    </section>
+
+    <!-- SNS -->
+    <section class="sns">
       <h2>SNS</h2>
 
       <p>
@@ -47,18 +69,16 @@ import Footer from '../components/Footer.astro';
         <li>YouTube（準備中）</li>
         <li>X（準備中）</li>
       </ul>
-
     </section>
 
+    <!-- 注意事項 -->
     <section class="notice">
-
-      <h2>お願い</h2>
+      <h2>プライバシーとお願い</h2>
 
       <p>
-        いただいたご意見は今後の活動の参考にさせていただきます。
-        内容によっては個別の返信ができない場合がありますので、ご了承ください。
+        いただいたご意見は AI および目視確認により、個人情報（氏名・詳細な住所等）を除去した上で公開・活用させていただきます。<br />
+        内容によっては個別の返信ができない場合がありますので、あらかじめご了承ください。
       </p>
-
     </section>
 
   </main>
@@ -67,41 +87,67 @@ import Footer from '../components/Footer.astro';
 </Layout>
 
 <style>
-.contact-page{
-  max-width:900px;
-  margin:0 auto;
-  padding:4rem 2rem;
+.contact-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
 }
 
-.hero{
-  text-align:center;
-  margin-bottom:4rem;
+.hero {
+  text-align: center;
+  margin-bottom: 4rem;
 }
 
-.contact-page section{
-  margin-bottom:3rem;
+.contact-page section {
+  margin-bottom: 3rem;
 }
 
-.contact-page h2{
-  color:#003f88;
+.contact-page h2 {
+  color: #003f88;
+  margin-bottom: 1rem;
 }
 
 .contact-method,
+.opinions-link-section,
 .sns,
-.notice{
-  border:1px solid #ddd;
-  border-radius:16px;
-  padding:2rem;
-  background:#fff;
+.notice {
+  border: 1px solid #ddd;
+  border-radius: 16px;
+  padding: 2rem;
+  background: #fff;
 }
 
-.coming{
-  display:inline-block;
-  margin-top:1rem;
-  padding:.7rem 1.2rem;
-  background:#eef5ff;
-  border-radius:999px;
-  color:#003f88;
-  font-weight:bold;
+/* フォーム送信ボタンのスタイル */
+.form-btn {
+  display: inline-block;
+  background: #003f88;
+  color: #fff;
+  padding: 1rem 1.8rem;
+  border-radius: 8px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.form-btn:hover {
+  background: #002b5c;
+}
+
+/* 対応状況ページリンクボタンのスタイル */
+.opinions-btn {
+  display: inline-block;
+  background: #f0f7ff;
+  color: #003f88;
+  border: 2px solid #003f88;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.opinions-btn:hover {
+  background: #003f88;
+  color: #fff;
 }
 </style>
