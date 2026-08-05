@@ -1,6 +1,7 @@
 ---
 // Astro組み込みのベースURL（astro.config.mjs の base: '/app' を参照）
 const baseUrl = import.meta.env.BASE_URL;
+const base = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
 ---
 <header class="site-header">
   <div class="header-inner container">
@@ -10,11 +11,12 @@ const baseUrl = import.meta.env.BASE_URL;
     </div>
 
     <nav class="global-nav">
-      <a href={`${baseUrl}`}>ホーム</a>
-      <a href={`${baseUrl}policy/`}>政策</a>
-      <a href={`${baseUrl}activity/`}>活動</a>
-      <a href={`${baseUrl}opinions/`}>市民の声</a>
-      <a href={`${baseUrl}contact/`}>お問い合わせ</a>
+      <a href={`${base}`}>ホーム</a>
+      <a href={`${base}policy/`}>政策</a>
+      <a href={`${base}activity/`}>活動</a>
+      <a href={`${base}profile/`}>プロフィール</a>
+      <a href={`${base}opinions/`}>市民の声</a>
+      <a href={`${base}contact/`}>お問い合わせ</a>
     </nav>
   </div>
 </header>

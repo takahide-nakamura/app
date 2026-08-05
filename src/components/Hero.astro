@@ -1,5 +1,6 @@
 ---
 const baseUrl = import.meta.env.BASE_URL;
+const base = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
 ---
 
 <section class="hero-section container">
@@ -9,8 +10,8 @@ const baseUrl = import.meta.env.BASE_URL;
       データと現場経験をもとに、高槻市の政策を考え、<br class="pc-br" />市民の皆さまとともにつくる政策プラットフォームです。
     </p>
     <div class="hero-actions">
-      <a href={`${baseUrl}policy/`} class="btn btn-primary">政策を見る</a>
-      <a href={`${baseUrl}contact/`} class="btn btn-secondary">ご意見はこちら</a>
+      <a href={`${base}policy/`} class="btn btn-primary">政策を見る</a>
+      <a href={`${base}contact/`} class="btn btn-secondary">ご意見はこちら</a>
     </div>
   </div>
 </section>

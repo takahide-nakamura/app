@@ -1,5 +1,6 @@
 ---
 const baseUrl = import.meta.env.BASE_URL;
+const base = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
 ---
 
 <section class="contact-cta container">
@@ -15,7 +16,7 @@ const baseUrl = import.meta.env.BASE_URL;
   </p>
 
   <div class="action">
-    <a href={`${baseUrl}contact/`} class="btn btn-primary" aria-disabled="true">
+    <a href={`${base}contact/`} class="btn btn-primary" aria-disabled="true">
       ご意見はこちら（準備中）
     </a>
   </div>

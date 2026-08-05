@@ -1,5 +1,6 @@
 ---
 const baseUrl = import.meta.env.BASE_URL;
+const base = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
 
 const categories = [
   {
@@ -27,7 +28,7 @@ const categories = [
   <div class="category-cards">
     {
       categories.map((category) => (
-        <a href={`${baseUrl}policy/`} class="card-item">
+        <a href={`${base}policy/`} class="card-item">
           <h3>{category.title}</h3>
           <p>{category.description}</p>
         </a>

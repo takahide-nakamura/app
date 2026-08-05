@@ -6,6 +6,7 @@ interface Props {
 const { current } = Astro.props;
 
 const baseUrl = import.meta.env.BASE_URL;
+const base = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
 ---
 
 <nav
@@ -26,7 +27,7 @@ const baseUrl = import.meta.env.BASE_URL;
     </li>
 
     <li>
-      <a href={`${baseUrl}policy/`}>
+      <a href={`${base}policy/`}>
         政策
       </a>
     </li>
