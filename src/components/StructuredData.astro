@@ -1,0 +1,36 @@
+---
+interface Props {
+  description?: string;
+}
+
+const {
+  description = "医療・介護・子育て・まちづくりなど、高槻市をもっと住みやすくするための政策を提案しています。"
+} = Astro.props;
+
+// OGP画像等の絶対URL生成用
+const logoURL = new URL("/ogp.png", Astro.site);
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${Astro.site}#website`,
+      "url": Astro.site,
+      "name": "もっと住みやすい高槻へ",
+      "description": description,
+      "inLanguage": "ja"
+    },
+    {
+      "@type": "Person",
+      "@id": `${Astro.site}#person`,
+      "name": "中村崇秀",
+      "jobTitle": "理学療法士",
+      "url": Astro.site,
+    
+    }
+  ]
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
