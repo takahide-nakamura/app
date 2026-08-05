@@ -2,91 +2,60 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import PolicyCard from '../components/PolicyCard.astro';
-import { policyCategories } from "../data/policyCategories";
-import { getCollection } from "astro:content";
+import { activities } from '../data/activities';
 
-// Content Collections から全政策コンテンツを取得
-const allPolicies = await getCollection("policies");
-
-// データ整理（tagsが安全に取得できるようにフォーマット）
-const formattedPolicies = allPolicies.map((entry) => {
-  const cleanId = entry.id.replace(/\.md$/, "");
-  const data = entry.data;
-
-  // tagsの安全な取得
-  let rawTags: string[] = [];
-  if (Array.isArray(data.tags)) {
-    rawTags = data.tags;
-  } else if (data.heroTitle) {
-    rawTags = [data.heroTitle];
-  }
-
-  return {
-    id: cleanId,
-    title: data.title || "",
-    summary: data.description || "",
-    tags: rawTags,
-    href: `/policy/${cleanId}`,
-    status: "published",
-    category: data.category || policyCategories[0],
-  };
-});
-
-// カテゴリーごとのグループ化
-const groupedPolicies = policyCategories.map((cat) => {
-  return {
-    categoryName: cat,
-    items: formattedPolicies.filter((p) => p.category === cat)
-  };
-});
+// ステータスが "published" のものだけを表示対象とします
+const publishedActivities = activities.filter((act) => act.status === "published");
 ---
 
 <Layout
-  title="政策｜もっと住みやすい高槻へ"
-  description="医療・介護・子育て・まちづくりなど、高槻市をもっと住みやすくするための政策を、公開データと現場経験をもとに提案しています。"
+  title="活動｜もっと住みやすい高槻へ"
+  description="高槻市での現場訪問、市民との対話、現場調査などの活動記録を掲載しています。"
 >
   <Header />
 
-  <main class="policy-page container">
+  <main class="activity-page container">
     <section class="hero">
-      <h1>政策</h1>
+      <h1>活動</h1>
       <p>
         事実と対話を大切にし、<br class="pc-br" />
-        データや現場経験をもとに政策を考えています。
+        現場での取り組みや対話の記録を発信しています。
       </p>
     </section>
 
-    {
-      groupedPolicies
-        .filter((group) => group.items.length > 0)
-        .map((group) => (
-          <section class="category-section">
-            <h2>{group.categoryName}</h2>
+    <div class="cards-grid">
+      {
+        publishedActivities.length > 0 ? (
+          publishedActivities.map((item) => (
+            <article class="activity-card">
+              <div class="card-content">
+                <h2 class="card-title">{item.title}</h2>
+                <p class="card-summary">{item.summary}</p>
+              </div>
 
-            <div class="cards-grid">
-              {
-                group.items.map((policy) => (
-                  <PolicyCard
-                    title={policy.title}
-                    summary={policy.summary}
-                    tags={policy.tags}
-                    href={policy.href}
-                    available={policy.status === "published"}
-                  />
-                ))
-              }
-            </div>
-          </section>
-        ))
-    }
+              <div class="card-footer">
+                {item.href ? (
+                  <a href={item.href} class="btn-more">
+                    詳しく見る <span class="arrow">→</span>
+                  </a>
+                ) : (
+                  <span class="btn-disabled">準備中</span>
+                )}
+              </div>
+            </article>
+          ))
+        ) : (
+          <p class="no-data">現在表示できる活動記事はありません。</p>
+        )
+      }
+    </div>
   </main>
 
   <Footer />
 </Layout>
 
 <style>
-.policy-page {
+.activity-page {
   padding-top: 2rem;
   padding-bottom: 3rem;
 }
@@ -101,23 +70,92 @@ const groupedPolicies = policyCategories.map((cat) => {
   color: #444;
 }
 
-.category-section {
-  margin-top: 0 !important;
-  margin-bottom: 0 !important;
-}
-
-.category-section h2 {
-  color: var(--color-primary);
-  border-left: 6px solid var(--color-accent);
-  padding-left: 1rem;
-  margin-bottom: 1.5rem;
-  font-size: 1.4rem;
-}
-
 .cards-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
+}
+
+/* カード本体のデザイン */
+.activity-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #ffffff;
+  border: 1px solid var(--color-border, #e2e8f0);
+  border-radius: 12px;
+  padding: 1.75rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.activity-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+  border-color: var(--color-primary, #003f88);
+}
+
+.card-title {
+  margin-top: 0;
+  margin-bottom: 0.85rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-primary, #003f88);
+  line-height: 1.4;
+}
+
+.card-summary {
+  color: #4a5568;
+  line-height: 1.65;
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+}
+
+.card-footer {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid #f1f5f9;
+  text-align: right;
+}
+
+.btn-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  color: var(--color-primary, #003f88);
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.15s ease;
+}
+
+.btn-more .arrow {
+  transition: transform 0.15s ease;
+}
+
+.btn-more:hover {
+  color: var(--color-accent, #d97706);
+}
+
+.btn-more:hover .arrow {
+  transform: translateX(4px);
+}
+
+.btn-disabled {
+  display: inline-block;
+  font-size: 0.875rem;
+  color: #94a3b8;
+  background-color: #f8fafc;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid #e2e8f0;
+}
+
+.no-data {
+  text-align: center;
+  color: #64748b;
+  grid-column: 1 / -1;
+  padding: 4rem 0;
 }
 
 .pc-br {

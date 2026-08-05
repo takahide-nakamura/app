@@ -1,128 +1,86 @@
 ---
 interface Activity {
-
   title: string;
-
   href: string;
-
 }
 
 interface Props {
-
   activities?: Activity[];
-
   maxItems?: number;
-
 }
 
 const {
-
   activities = [],
-
   maxItems = 3
-
 } = Astro.props;
 
 const visibleActivities = activities
   .filter(activity => activity.title && activity.href)
   .slice(0, maxItems);
-
 ---
 
 {
   visibleActivities.length > 0 && (
-
     <section class="related-activities">
-
       <h2>関連する活動</h2>
 
       <div class="activity-grid">
-
         {
-
-          visibleActivities.map((activity)=>(
-
-            <a
-              href={activity.href}
-              class="activity-card"
-            >
-
+          visibleActivities.map((activity) => (
+            <div class="activity-card">
               <h3>{activity.title}</h3>
-
-              <p>
-
-                活動内容を見る →
-
+              <p class="link">
+                <a
+                  href={activity.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  活動内容を見る（新しいタブで開きます）
+                </a>
               </p>
-
-            </a>
-
+            </div>
           ))
-
         }
-
       </div>
-
     </section>
-
   )
-
 }
 
 <style>
-
-.related-activities{
-
+.related-activities {
   margin-bottom: var(--space-xl);
-  
 }
 
-.activity-grid{
-
-  display:grid;
-
-  gap:1rem;
-
+.activity-grid {
+  display: grid;
+  gap: 1rem;
 }
 
-.activity-card{
-
-  display:block;
-
-  border:1px solid #ddd;
-
-  border-radius:12px;
-
-  padding:1rem;
-
-  text-decoration:none;
-
-  color:inherit;
-
-  background:#fff;
-
-  transition:.2s;
-
+.activity-card {
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 1.25rem;
+  background: #fff;
 }
 
-.activity-card:hover{
-
-  border-color:var(--color-primary);
-
+.activity-card h3 {
+  margin: 0 0 1rem;
+  color: var(--color-primary);
+  font-size: 1.05rem;
 }
 
-.activity-card h3{
-
-  margin-top:0;
-
-  color:var(--color-primary);
-
+.link {
+  margin-top: 1rem;
+  margin-bottom: 0;
 }
 
-.activity-card p{
-
-  margin-bottom:0;
-
+.link a {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 600;
 }
 
+.link a:hover {
+  text-decoration: underline;
+}
 </style>
