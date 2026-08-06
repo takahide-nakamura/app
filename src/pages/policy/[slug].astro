@@ -87,22 +87,21 @@ const references =
     {/* ①＆③ 課題抽出 (PolicySection化 ＋ ul/liリスト化) */}
     {data.issues && data.issues.length > 0 && (
       <PolicySection title="課題抽出" icon="⚠️">
-        <ul class="issue-list">
+        <div class="issue-grid">
           {data.issues.map((issue: any) => (
-            <li class="issue-item">
-              {issue?.title && <strong>{issue.title}</strong>}
-              {issue?.description && (
-                <>
-                  <br />
-                  <span>{issue.description}</span>
-                </>
+            <article class="issue-card">
+              {issue?.title && (
+                <h3>{issue.title}</h3>
               )}
-              {issue?.paragraphs?.map((paragraph: string) => (
-                <p>{paragraph}</p>
-              ))}
-            </li>
+              
+              {issue?.description && (
+                <p>{issue.description}</p>
+              )}
+            </article>
           ))}
-        </ul>
+
+        </div>
+
       </PolicySection>
     )}
 
@@ -146,18 +145,101 @@ const references =
 
 <style>
 /* 課題抽出リストのスタイル調整 */
-.issue-list {
-  list-style: disc;
-  padding-left: 1.5rem;
+.issue-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.issue-card {
+
+  padding: 1.25rem 1.5rem;
+
+  background: #f8fafc;
+
+  border: 1px solid #e2e8f0;
+
+  border-radius: 10px;
+
+}
+
+.issue-card h3 {
+
+  margin: 0 0 0.6rem;
+
+  color: var(--color-primary, #003f88);
+
+  font-size: 1.1rem;
+
+}
+
+.issue-card p {
+
   margin: 0;
+
+  line-height: 1.75;
+
+  color: #444;
+
 }
 
-.issue-item {
+/* 政策提案カード */
+
+.proposal-card {
+
+  padding: 1.25rem 1.5rem;
+
   margin-bottom: 1rem;
-  line-height: 1.6;
+
+  background: #f8fafc;
+
+  border: 1px solid #e2e8f0;
+
+  border-radius: 10px;
+
 }
 
-.issue-item:last-child {
+
+.proposal-card:last-child {
+
   margin-bottom: 0;
+
+}
+
+
+.proposal-card h3 {
+
+  margin: 0 0 0.8rem;
+
+  color: var(--color-primary, #003f88);
+
+  font-size: 1.1rem;
+
+  font-weight: 700;
+
+}
+
+
+.proposal-card ul {
+
+  margin: 0;
+
+  padding-left: 1.25rem;
+
+}
+
+
+.proposal-card li {
+
+  margin-bottom: 0.5rem;
+
+  line-height: 1.7;
+
+}
+
+
+.proposal-card li:last-child {
+
+  margin-bottom: 0;
+
 }
 </style>

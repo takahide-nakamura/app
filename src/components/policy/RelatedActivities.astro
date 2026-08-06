@@ -3,6 +3,7 @@ import PolicySection from '../PolicySection.astro';
 
 interface Activity {
   title: string;
+  summary: string;
   href: string;
 }
 
@@ -41,12 +42,8 @@ const base = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
               <div class="activity-card">
                 <h3>{activity.title}</h3>
                 <p class="link">
-                  <a
-                    href={targetUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    活動内容を見る（新しいタブで開きます）
+                  <a href={targetUrl}>
+                    活動内容を見る
                   </a>
                 </p>
               </div>
