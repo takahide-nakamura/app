@@ -4,7 +4,7 @@ export const activities = [
     title: "介護現場の訪問",
     summary:
       "現場で働く皆さまから、介護保険制度や人材不足についてお話を伺いました。",
-    href: "/activity/nursing-care-visit",
+    href: "/activity/nursing-care-visit/",
     status: "published"
   },
 

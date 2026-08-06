@@ -1,4 +1,6 @@
 ---
+import PolicySection from '../PolicySection.astro';
+
 interface Activity {
   title: string;
   href: string;
@@ -17,40 +19,46 @@ const {
 const visibleActivities = activities
   .filter(activity => activity.title && activity.href)
   .slice(0, maxItems);
+
+// ベースURLの整形（末尾のスラッシュを担保）
+const baseUrl = import.meta.env.BASE_URL;
+const base = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
 ---
 
 {
   visibleActivities.length > 0 && (
-    <section class="related-activities">
-      <h2>関連する活動</h2>
-
+    <PolicySection title="関連する活動" icon="🤝">
       <div class="activity-grid">
         {
-          visibleActivities.map((activity) => (
-            <div class="activity-card">
-              <h3>{activity.title}</h3>
-              <p class="link">
-                <a
-                  href={activity.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  活動内容を見る（新しいタブで開きます）
-                </a>
-              </p>
-            </div>
-          ))
+          visibleActivities.map((activity) => {
+            // hrefが「http」で始まる完全なURLの場合はそのまま使用し、相対パスの場合はベースURLを付与
+            const isExternal = activity.href.startsWith('http');
+            const targetUrl = isExternal
+              ? activity.href
+              : `${base}${activity.href.replace(/^\//, "")}`;
+
+            return (
+              <div class="activity-card">
+                <h3>{activity.title}</h3>
+                <p class="link">
+                  <a
+                    href={targetUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    活動内容を見る（新しいタブで開きます）
+                  </a>
+                </p>
+              </div>
+            );
+          })
         }
       </div>
-    </section>
+    </PolicySection>
   )
 }
 
 <style>
-.related-activities {
-  margin-bottom: var(--space-xl);
-}
-
 .activity-grid {
   display: grid;
   gap: 1rem;
