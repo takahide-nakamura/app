@@ -18,6 +18,75 @@ interface Opinion {
   summary: string;
   isPublic: boolean;
 }
+function getStatusIcon(status: string) {
+  switch (status) {
+    case "受付済み":
+      return "📩";
+
+    case "確認中":
+      return "🔎";
+
+    case "調査・検討中":
+      return "📝";
+
+    case "対応中":
+      return "🔧";
+
+    case "対応完了":
+      return "✅";
+
+    case "対応困難":
+      return "⚠️";
+
+    default:
+      return "📌";
+  }
+}
+
+function getPolicyLink(policyId: string) {
+
+  switch (policyId) {
+
+    case "policy-life":
+      return "/policy/life";
+
+    case "policy-medical":
+      return "/policy/medical";
+
+    case "policy-disaster":
+      return "/policy/disaster";
+
+    case "policy-childcare":
+      return "/policy/childcare";
+
+    case "policy-other":
+      return "/policy";
+
+    default:
+      return "/policy";
+  }
+}
+
+function getPolicyName(policyId: string) {
+
+  switch (policyId) {
+
+    case "policy-life":
+      return "暮らしの政策";
+
+    case "policy-medical":
+      return "医療・介護政策";
+
+    case "policy-disaster":
+      return "防災政策";
+
+    case "policy-childcare":
+      return "子育て政策";
+
+    default:
+      return "関連政策";
+  }
+}
 
 let opinions: Opinion[] = [];
 
@@ -126,7 +195,8 @@ try {
               </div>
 
               <div class="card-tags">
-                <span class="status-tag">
+                <span class={`status-tag status-${item.status}`}>
+                  {getStatusIcon(item.status)}
                   {item.status}
                 </span>
 
@@ -149,6 +219,11 @@ try {
                   <p>{item.summary}</p>
                 </div>
               )}
+              <div class="policy-link-box">
+                <a href={getPolicyLink(item.policyId)}>
+                  🔗 {getPolicyName(item.policyId)}を見る
+                </a>
+              </div>
 
             </article>
           ))}
@@ -221,10 +296,30 @@ try {
     font-size: 0.85rem;
   }
 
-  .status-tag {
-    background: #003f88;
-    color: #fff;
+  .status-受付済み {
+   background: #003f88;
+   color: white;
+ }
+
+  .status-確認中 {
+   background: #fabe00;
+   color: #222;
   }
+
+  .status-調査・検討中 {
+   background: #6c757d;
+   color: white;
+  }
+
+  .status-対応中 {
+   background: #198754;
+   color: white;
+  }
+
+  .status-対応完了 {
+   background: #28a745;
+   color: white;
+}
 
   .category-tag {
     background: #fabe00;
@@ -271,5 +366,22 @@ try {
     .opinion-card {
       padding: 1.2rem;
     }
+  }
+  .policy-link-box {
+    margin-top: 1.2rem;
+  }
+
+  .policy-link-box a {
+    display: inline-block;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    background: #003f88;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .policy-link-box a:hover {
+    opacity: 0.8;
   }
 </style>
