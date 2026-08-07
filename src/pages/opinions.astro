@@ -3,10 +3,11 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
-// ★取得したスプレッドシートの「ウェブに公開(CSV)」URLをここに貼り付け
-const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSU7oB98Tjzj_eMaZFfoRX9H8QlDtxPCXtb3OfgNZzYRQ3y79z23U88vALTaHFWGQEm75CGlSbo6Gk1/pub?output=csv";
+// Googleスプレッドシート「公開データ」のCSV URL
+const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSU7oB98Tjzj_eMaZFfoRX9H8QlDtxPCXtb3OfgNZzYRQ3y79z23U88vALTaHFWGQEm75CGlSbo6Gk1/pub?gid=329717834&single=true&output=csv";
 
 interface Opinion {
+  id: string;
   date: string;
   categoryInput: string;
   area: string;
@@ -20,186 +21,255 @@ interface Opinion {
 
 let opinions: Opinion[] = [];
 
-try {
-  const res = await fetch(CSV_URL);
-  if (res.ok) {
-    const csvText = await res.text();
-    // CSVパース（ヘッダー行を除外）
-    const lines = csvText.split('\n').slice(1);
-    
-    opinions = lines.map(line => {
-      const cols = line.split(',').map(c => c.replace(/^"|"$/g, '').trim());
-      return {
-        date: cols[0] || '',
-        categoryInput: cols[1] || '',
-        area: cols[2] || '高槻市内',
-        text: cols[3] || '',
-        category: cols[4] || 'その他',
-        policyId: cols[5] || 'policy-other',
-        status: cols[6] || '受付済み',
-        summary: cols[7] || '',
-        isPublic: cols[8]?.toUpperCase() === 'TRUE'
-      };
-    }).filter(item => item.isPublic && item.text); // 公開フラグ=TRUEかつ本文があるデータのみ表示
+// CSVを正しく読み込むための簡易パーサー
+function parseCSVLine(line: string): string[] {
+  const result: string[] = [];
+  let current = '';
+  let inQuotes = false;
+
+  for (let i = 0; i < line.length; i++) {
+    const char = line[i];
+
+    if (char === '"') {
+      if (inQuotes && line[i + 1] === '"') {
+        current += '"';
+        i++;
+      } else {
+        inQuotes = !inQuotes;
+      }
+    } else if (char === ',' && !inQuotes) {
+      result.push(current.trim());
+      current = '';
+    } else {
+      current += char;
+    }
   }
-} catch (e) {
-  console.error("データ取得エラー:", e);
+
+  result.push(current.trim());
+
+  return result;
 }
 
-// カテゴリごとの配色デザイン
-const getCategoryStyle = (cat: string) => {
-  switch (cat) {
-    case '暮らし': return 'background: #e3f2fd; color: #0d47a1;';
-    case '子育て': return 'background: #fce4ec; color: #880e4f;';
-    case '医療・介護': return 'background: #e8f5e9; color: #1b5e20;';
-    case '防災': return 'background: #fff3e0; color: #e65100;';
-    default: return 'background: #f5f5f5; color: #616161;';
+try {
+  const res = await fetch(CSV_URL);
+
+  if (res.ok) {
+    const csvText = await res.text();
+
+    const lines = csvText
+      .split(/\r?\n/)
+      .filter(line => line.trim() !== '');
+
+    // 1行目はヘッダー
+    opinions = lines
+      .slice(1)
+      .map(line => {
+        const cols = parseCSVLine(line);
+
+        return {
+          id: cols[0] || '',
+          date: cols[1] || '',
+          categoryInput: cols[2] || '',
+          area: cols[3] || '高槻市内',
+          text: cols[4] || '',
+          category: cols[5] || 'その他',
+          policyId: cols[6] || 'policy-other',
+          status: cols[7] || '受付済み',
+          summary: cols[8] || '',
+          isPublic: (cols[9] || '').toUpperCase() === 'TRUE'
+        };
+      })
+      .filter(item => item.isPublic && item.text);
   }
-};
+} catch (e) {
+  console.error('市民の声データ取得エラー:', e);
+}
 ---
 
 <Layout
   title="市民の声・対応状況｜もっと住みやすい高槻へ"
   description="皆様から寄せられたお困りごとやご意見と、それに対する取り組みの対応状況を公開しています。"
 >
+
   <Header />
 
-  <main class="opinions-page" id="main-content" tabindex="-1">
+  <main>
     <section class="hero">
-      <h1>💬 市民の声と対応状況</h1>
+      <h1>市民の声・対応状況</h1>
+
       <p>
-        皆様からお寄せいただいたお困りごとやご意見は、AIによる一次処理（匿名化）と確認を経た上で公開し、政策提案や地域改善に活用しています。
+        皆様から寄せられた高槻市でのお困りごとやご意見と、
+        それに対する取り組みの対応状況を公開しています。
       </p>
     </section>
 
-    <!-- 意見一覧リスト -->
-    <div class="opinions-list">
+    <section class="opinions-section">
+      <h2>市民の声</h2>
+
       {opinions.length === 0 ? (
         <div class="empty-state">
           現在、表示できるご意見・ご要望はありません。
         </div>
       ) : (
-        opinions.map(item => (
-          <article class="opinion-card">
-            <!-- ステータス・カテゴリ・地域タグ -->
-            <div class="card-tags">
-              <span class="status-tag">
-                {item.status}
-              </span>
-              <span class="category-tag" style={getCategoryStyle(item.category)}>
-                {item.category}
-              </span>
-              <span class="area-tag">📍 {item.area}</span>
-            </div>
+        <div class="opinions-list">
+          {opinions.map(item => (
+            <article class="opinion-card">
 
-            <!-- 本文 -->
-            <p class="opinion-text">
-              {item.text}
-            </p>
+              <div class="card-header">
+                <span class="opinion-id">
+                  {item.id}
+                </span>
 
-            <!-- AI要約メモ -->
-            {item.summary && (
-              <div class="summary-box">
-                💡 <strong>ポイント:</strong> {item.summary}
+                <span class="date">
+                  {item.date}
+                </span>
               </div>
-            )}
-          </article>
-        ))
-      )}
-    </div>
-  </main>
 
-  <Footer />
+              <div class="card-tags">
+                <span class="status-tag">
+                  {item.status}
+                </span>
+
+                <span class="category-tag">
+                  {item.category}
+                </span>
+
+                <span class="area-tag">
+                  📍 {item.area}
+                </span>
+              </div>
+
+              <p class="opinion-text">
+                {item.text}
+              </p>
+
+              {item.summary && (
+                <div class="summary-box">
+                  <strong>ポイント</strong>
+                  <p>{item.summary}</p>
+                </div>
+              )}
+
+            </article>
+          ))}
+        </div>
+      )}
+    </section>
+  </main>
 </Layout>
 
 <style>
-.opinions-page {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 4rem 2rem;
-}
+  .hero {
+    padding: 3rem 1.5rem;
+    text-align: center;
+  }
 
-.hero {
-  text-align: center;
-  margin-bottom: 3rem;
-}
+  .hero h1 {
+    margin-bottom: 1rem;
+  }
 
-.hero h1 {
-  color: #003f88;
-  margin-bottom: 1rem;
-}
+  .hero p {
+    line-height: 1.8;
+  }
 
-.hero p {
-  color: #555;
-  line-height: 1.6;
-}
+  .opinions-section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem 4rem;
+  }
 
-.opinions-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
+  .opinions-section h2 {
+    margin-bottom: 1.5rem;
+  }
 
-.empty-state {
-  border: 1px solid #ddd;
-  border-radius: 16px;
-  padding: 3rem 2rem;
-  text-align: center;
-  background: #fff;
-  color: #666;
-}
+  .opinions-list {
+    display: grid;
+    gap: 1.5rem;
+  }
 
-.opinion-card {
-  border: 1px solid #ddd;
-  border-radius: 16px;
-  padding: 2rem;
-  background: #fff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
-}
+  .opinion-card {
+    padding: 1.5rem;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    background: #fff;
+  }
 
-.card-tags {
-  display: flex;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-  align-items: center;
-  flex-wrap: wrap;
-}
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    color: #666;
+    font-size: 0.85rem;
+  }
 
-.status-tag {
-  background: #003f88;
-  color: #fff;
-  padding: 0.2rem 0.6rem;
-  border-radius: 4px;
-  font-size: 0.85rem;
-  font-weight: bold;
-}
+  .opinion-id {
+    font-weight: 600;
+  }
 
-.category-tag {
-  padding: 0.2rem 0.6rem;
-  border-radius: 4px;
-  font-size: 0.85rem;
-  font-weight: bold;
-}
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
 
-.area-tag {
-  color: #666;
-  font-size: 0.85rem;
-}
+  .card-tags span {
+    display: inline-block;
+    padding: 0.35rem 0.7rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+  }
 
-.opinion-text {
-  font-size: 1.05rem;
-  line-height: 1.6;
-  color: #2b2b2b;
-  margin-bottom: 1rem;
-  white-space: pre-wrap;
-}
+  .status-tag {
+    background: #003f88;
+    color: #fff;
+  }
 
-.summary-box {
-  background: #f0f7ff;
-  border-left: 4px solid #003f88;
-  padding: 0.75rem 1rem;
-  border-radius: 0 8px 8px 0;
-  font-size: 0.9rem;
-  color: #333;
-}
+  .category-tag {
+    background: #fabe00;
+    color: #222;
+  }
+
+  .area-tag {
+    background: #f3f3f3;
+    color: #444;
+  }
+
+  .opinion-text {
+    margin: 0;
+    line-height: 1.8;
+    white-space: pre-wrap;
+  }
+
+  .summary-box {
+    margin-top: 1.25rem;
+    padding: 1rem;
+    border-radius: 8px;
+    background: #f7f7f7;
+  }
+
+  .summary-box p {
+    margin: 0.4rem 0 0;
+    line-height: 1.6;
+  }
+
+  .empty-state {
+    padding: 3rem 1rem;
+    text-align: center;
+    color: #666;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+  }
+
+  @media (max-width: 600px) {
+    .card-header {
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .opinion-card {
+      padding: 1.2rem;
+    }
+  }
 </style>
