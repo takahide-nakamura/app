@@ -31,8 +31,22 @@ const activities = defineCollection({
   }),
 });
 
+const sources = defineCollection({
+  loader: glob({
+    pattern: "**/*.md",
+    base: "./src/content/sources",
+  }),
+  schema: z.object({
+    title: z.string(),
+    publisher: z.string(),
+    year: z.string().optional(),
+    url: z.string().url(),
+  }),
+});
+
 export const collections = {
   policies,
   activities,
+  sources,
 };
 

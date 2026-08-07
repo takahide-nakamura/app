@@ -1,9 +1,9 @@
 import { getCollection } from "astro:content";
-import { sources } from "../data/sources";
 
 export async function getPolicy(slug: string) {
   const allPolicies = await getCollection("policies");
   const allActivities = await getCollection("activities");
+  const allSources = await getCollection("sources");
   const entry = allPolicies.find((p) => p.id === slug || p.id === `${slug}.md`);
   
 
@@ -27,9 +27,16 @@ const relatedActivities = content.relatedActivities
   : [];
 
   // 参考資料データの抽出
-  const references = content.references
-    ? content.references.map((refId) => sources[refId as keyof typeof sources]).filter(Boolean)
-    : [];
+const references = content.references
+  ? allSources
+      .filter((source) => content.references.includes(source.id))
+      .map((source) => ({
+        title: source.data.title,
+        publisher: source.data.publisher,
+        year: source.data.year,
+        url: source.data.url,
+      }))
+  : [];
 
   return {
     content,

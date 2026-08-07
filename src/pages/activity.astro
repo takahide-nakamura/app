@@ -6,6 +6,10 @@ import { getCollection } from 'astro:content';
 
 const allActivities = await getCollection("activities");
 
+// ベースURLの整形（末尾のスラッシュを担保）
+const baseUrl = import.meta.env.BASE_URL;
+const base = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
+
 // ステータスが "published" のものだけを表示対象とします
 const publishedActivities = allActivities
   .filter((activity) => activity.data.status === "published")
@@ -13,7 +17,7 @@ const publishedActivities = allActivities
     id: activity.id,
     title: activity.data.title,
     summary: activity.data.summary,
-    href: `/activity/${activity.id}/`,
+    href: `${base}activity/${activity.id}/`,
   }));
 
 ---
