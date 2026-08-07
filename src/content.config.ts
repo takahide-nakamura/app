@@ -24,6 +24,15 @@ const policies = defineCollection({
   }),
 });
 
+const activities = defineCollection({
+  loader: glob({
+    pattern: "**/*.md",
+    base: "./src/content/activities",
+  }),
+});
+
 export const collections = {
   policies,
+  activities,
 };
+

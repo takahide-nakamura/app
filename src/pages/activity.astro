@@ -2,10 +2,20 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { activities } from '../data/activities';
+import { getCollection } from 'astro:content';
+
+const allActivities = await getCollection("activities");
 
 // ステータスが "published" のものだけを表示対象とします
-const publishedActivities = activities.filter((act) => act.status === "published");
+const publishedActivities = allActivities
+  .filter((activity) => activity.data.status === "published")
+  .map((activity) => ({
+    id: activity.id,
+    title: activity.data.title,
+    summary: activity.data.summary,
+    href: `/activity/${activity.id}/`,
+  }));
+
 ---
 
 <Layout

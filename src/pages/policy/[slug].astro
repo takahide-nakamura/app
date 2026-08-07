@@ -4,7 +4,6 @@ import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import PolicyHero from '../../components/policy/PolicyHero.astro';
-import { activities } from "../../data/activities";
 import RelatedActivities from "../../components/policy/RelatedActivities.astro";
 import { sources } from "../../data/sources";
 import ReferenceList from "../../components/policy/ReferenceList.astro";
@@ -14,6 +13,7 @@ import ProposalList from "../../components/policy/ProposalList.astro";
 
 const { policy } = Astro.props;
 const data = policy?.data || {};
+const allActivities = await getCollection("activities");
 
 export async function getStaticPaths() {
   const policies = await getCollection('policies');
@@ -25,9 +25,15 @@ export async function getStaticPaths() {
 
 const relatedActivities =
   data.relatedActivities
-    ? activities.filter((activity) =>
-        data.relatedActivities.includes(activity.id)
-      )
+    ? allActivities
+        .filter((activity) =>
+          data.relatedActivities.includes(activity.id)
+        )
+        .map((activity) => ({
+          title: activity.data.title,
+          summary: activity.data.summary,
+          href: `/activity/${activity.id}/`,
+        }))
     : [];
 const references =
   data.references
