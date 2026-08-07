@@ -11,8 +11,8 @@ relatedActivities:
   - nursing-care-visit
 
 references:
-  - garbageGuide
-  - garbagePage
+  - garbage-guide
+  - garbage-page
 
 problem:
   paragraphs:

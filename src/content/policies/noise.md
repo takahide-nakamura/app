@@ -17,9 +17,9 @@ relatedActivities:
   - nursing-care-visit
 
 references:
-  - whoNoise
-  - environmentNoiseGuidelines
-  - noiseRegulationLaw
+  - who-noise
+  - environment-noise-guidelines
+  - noise-regulation-law
 
 problem:
   paragraphs:

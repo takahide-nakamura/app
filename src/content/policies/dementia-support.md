@@ -11,8 +11,8 @@ relatedActivities:
   - nursing-care-visit
 
 references:
-  - dementiaPlan2024
-  - takatsukiGps
+  - dementia-plan-2024
+  - takatsuki-gps
 
 problem:
   paragraphs:

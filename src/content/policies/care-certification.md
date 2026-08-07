@@ -11,7 +11,7 @@ relatedActivities:
   - nursing-care-visit
 
 references:
-  - takatsukiAudit2025
+  - takatsuki-audit-2025
 
 problem:
   paragraphs:

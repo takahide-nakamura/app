@@ -11,9 +11,9 @@ relatedActivities:
   - nursing-care-visit
 
 references:
-  - nationalHealthInsuranceAct
-  - mhlwNationalHealthInsurance
-  - takatsukiNationalHealthInsurance
+  - national-health-insurance-act
+  - mhlw-national-health-insurance
+  - takatsuki-national-health-insurance
 
 problem:
   paragraphs:
