@@ -7,8 +7,7 @@ updated: "2026-08-04"
 category: "🏙️ 暮らし"
 tags: ["ごみ問題", "不法投棄", "ごみ", "ゴミ出し支援", "暮らし", "くらし"]
 
-relatedActivities:
-  - nursing-care-visit
+relatedActivities: []
 
 references:
   - garbage-guide
