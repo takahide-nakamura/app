@@ -5,6 +5,8 @@ import Footer from '../components/Footer.astro';
 
 // Googleスプレッドシート「公開データ」のCSV URL
 const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSU7oB98Tjzj_eMaZFfoRX9H8QlDtxPCXtb3OfgNZzYRQ3y79z23U88vALTaHFWGQEm75CGlSbo6Gk1/pub?gid=329717834&single=true&output=csv";
+const baseUrl = import.meta.env.BASE_URL;
+const base = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
 
 interface Opinion {
   id: string;
@@ -16,8 +18,12 @@ interface Opinion {
   policyId: string;
   status: string;
   summary: string;
+  comment: string;
+  policyReview: string;
+  policyMemo: string;
   isPublic: boolean;
 }
+
 function getStatusIcon(status: string) {
   switch (status) {
     case "受付済み":
@@ -43,50 +49,7 @@ function getStatusIcon(status: string) {
   }
 }
 
-function getPolicyLink(policyId: string) {
 
-  switch (policyId) {
-
-    case "policy-life":
-      return "/policy/life";
-
-    case "policy-medical":
-      return "/policy/medical";
-
-    case "policy-disaster":
-      return "/policy/disaster";
-
-    case "policy-childcare":
-      return "/policy/childcare";
-
-    case "policy-other":
-      return "/policy";
-
-    default:
-      return "/policy";
-  }
-}
-
-function getPolicyName(policyId: string) {
-
-  switch (policyId) {
-
-    case "policy-life":
-      return "暮らしの政策";
-
-    case "policy-medical":
-      return "医療・介護政策";
-
-    case "policy-disaster":
-      return "防災政策";
-
-    case "policy-childcare":
-      return "子育て政策";
-
-    default:
-      return "関連政策";
-  }
-}
 
 let opinions: Opinion[] = [];
 
@@ -136,16 +99,19 @@ try {
         const cols = parseCSVLine(line);
 
         return {
-          id: cols[0] || '',
-          date: cols[1] || '',
-          categoryInput: cols[2] || '',
-          area: cols[3] || '高槻市内',
-          text: cols[4] || '',
-          category: cols[5] || 'その他',
-          policyId: cols[6] || 'policy-other',
-          status: cols[7] || '受付済み',
-          summary: cols[8] || '',
-          isPublic: (cols[9] || '').toUpperCase() === 'TRUE'
+         id: cols[0] || '',
+         date: cols[1] || '',
+         categoryInput: cols[2] || '',
+         area: cols[3] || '高槻市内',
+         text: cols[4] || '',
+         category: cols[5] || 'その他',
+         policyId: cols[6] || '',
+         status: cols[7] || '受付済み',
+         summary: cols[8] || '',
+         comment: cols[9] || '',
+         isPublic: cols[10]?.toUpperCase() === 'TRUE',
+         policyReview: cols[11] || '未検討',
+         policyMemo: cols[12] || ''
         };
       })
       .filter(item => item.isPublic && item.text);
@@ -173,7 +139,34 @@ try {
     </section>
 
     <section class="opinions-section">
-      <h2>市民の声</h2>
+     <h2>市民の声</h2>
+
+      <!-- カテゴリフィルター -->
+      <div class="category-filter">
+        <button type="button" data-category="all" class="filter-btn active">
+         すべて
+        </button>
+
+        <button type="button" data-category="暮らし" class="filter-btn">
+         暮らし
+        </button>
+
+        <button type="button" data-category="医療・介護" class="filter-btn">
+         医療・介護
+        </button>
+
+        <button type="button" data-category="防災" class="filter-btn">
+         防災
+        </button>
+
+        <button type="button" data-category="子育て" class="filter-btn">
+         子育て
+        </button>
+
+        <button type="button" data-category="その他" class="filter-btn">
+         その他
+        </button>
+      </div>
 
       {opinions.length === 0 ? (
         <div class="empty-state">
@@ -182,7 +175,10 @@ try {
       ) : (
         <div class="opinions-list">
           {opinions.map(item => (
-            <article class="opinion-card">
+            <article
+              class="opinion-card"
+              data-category={item.category}
+            >
 
               <div class="card-header">
                 <span class="opinion-id">
@@ -215,15 +211,24 @@ try {
 
               {item.summary && (
                 <div class="summary-box">
-                  <strong>ポイント</strong>
-                  <p>{item.summary}</p>
+                  💡 <strong>ポイント:</strong> {item.summary}
                 </div>
               )}
-              <div class="policy-link-box">
-                <a href={getPolicyLink(item.policyId)}>
-                  🔗 {getPolicyName(item.policyId)}を見る
-                </a>
-              </div>
+
+              {item.comment && (
+                <div class="response-box">
+                 <strong>📢 対応状況</strong>
+                 <p>{item.comment}</p>
+                </div>
+              )}
+
+              {item.policyReview === '政策化' && item.policyId && (
+                <div class="policy-link-box">
+                  <a href={`${base}policy/${item.policyId}`}>
+                   🔗 関連する政策を見る
+                  </a>
+                </div>
+              )}
 
             </article>
           ))}
@@ -261,6 +266,33 @@ try {
     display: grid;
     gap: 1.5rem;
   }
+
+  .category-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 2rem;
+}
+
+.filter-btn {
+  padding: 0.55rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 999px;
+  background: #fff;
+  color: #333;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.filter-btn:hover {
+  opacity: 0.8;
+}
+
+.filter-btn.active {
+  background: #003f88;
+  color: #fff;
+  border-color: #003f88;
+}
 
   .opinion-card {
     padding: 1.5rem;
@@ -367,21 +399,71 @@ try {
       padding: 1.2rem;
     }
   }
+  
+  .response-box {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-left: 4px solid #003f88;
+  background: #f5f7fa;
+  border-radius: 6px;
+  }
+
+  .response-box strong {
+  display: block;
+  margin-bottom: 0.4rem;
+  color: #003f88;
+  }
+
+  .response-box p {
+  margin: 0;
+  }
   .policy-link-box {
-    margin-top: 1.2rem;
-  }
+  margin-top: 1.2rem;
+}
 
-  .policy-link-box a {
-    display: inline-block;
-    padding: 0.6rem 1rem;
-    border-radius: 8px;
-    background: #003f88;
-    color: white;
-    text-decoration: none;
-    font-weight: 600;
-  }
+.policy-link-box a {
+  display: inline-block;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  background: #003f88;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+}
 
-  .policy-link-box a:hover {
-    opacity: 0.8;
-  }
-</style>
+.policy-link-box a:hover {
+  opacity: 0.8;
+}
+  </style>
+
+<script>
+  const filterButtons =
+    document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+
+  const opinionCards =
+    document.querySelectorAll<HTMLElement>('.opinion-card');
+
+  filterButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const selectedCategory =
+        button.dataset.category;
+
+      filterButtons.forEach((btn) => {
+        btn.classList.remove('active');
+      });
+
+      button.classList.add('active');
+
+      opinionCards.forEach((card) => {
+        if (
+          selectedCategory === 'all' ||
+          card.dataset.category === selectedCategory
+        ) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+</script>
