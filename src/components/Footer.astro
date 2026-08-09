@@ -2,6 +2,7 @@
 // Astro組み込みのベースURL（astro.config.mjs の base: '/app' を参照）
 const baseUrl = import.meta.env.BASE_URL;
 const base = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
+import SocialLinks from "./SocialLinks.astro";
 ---
 <footer class="site-footer">
   <div class="footer-inner container">
@@ -19,6 +20,7 @@ const base = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
       <a href={`${base}opinions/`}>市民の声</a>
       <a href={`${base}contact/`}>お問い合わせ</a>
     </nav>
+    <SocialLinks />
 
     <p class="copyright">© 2026 もっと住みやすい高槻へ</p>
   </div>

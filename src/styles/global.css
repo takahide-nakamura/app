@@ -121,3 +121,27 @@ article:focus-within {
   outline: 3px solid var(--color-accent, #0056b3);
   outline-offset: 2px;
 }
+
+/* SNS・YouTube */
+.social-media-section {
+  text-align: center;
+}
+
+.social-media-inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.social-media-inner p {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.social-media-section .social-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}

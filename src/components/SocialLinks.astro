@@ -1,0 +1,45 @@
+---
+import { socials } from "../data/socials";
+---
+
+<nav class="social-links" aria-label="SNS">
+  {socials.youtube.url && (
+    <a
+      href={socials.youtube.url}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      YouTube
+    </a>
+  )}
+
+  {socials.x.url && (
+    <a
+      href={socials.x.url}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      X
+    </a>
+  )}
+
+  {socials.instagram.url && (
+    <a
+      href={socials.instagram.url}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Instagram
+    </a>
+  )}
+
+  {socials.note.url && (
+    <a
+      href={socials.note.url}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      note
+    </a>
+  )}
+</nav>

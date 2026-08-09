@@ -8,6 +8,7 @@ import AboutSite from '../components/AboutSite.astro';
 import ContactCTA from '../components/ContactCTA.astro';
 import CategoryGrid from '../components/CategoryGrid.astro';
 import Footer from '../components/Footer.astro';
+import SocialLinks from "../components/SocialLinks.astro";
 ---
 
 <Layout
@@ -27,7 +28,20 @@ import Footer from '../components/Footer.astro';
 
     <ActivityPreview />
 
+    <section class="social-media-section">
+      <div class="social-media-inner">
+        <h2>動画・SNSでも発信しています</h2>
+
+        <p>
+         政策の背景や考え方を、動画やSNSでも発信しています。
+        </p>
+
+       <SocialLinks />
+      </div>
+    </section>
+
     <ContactCTA />
+
   </main>
 
   <Footer />
