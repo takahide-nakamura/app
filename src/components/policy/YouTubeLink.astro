@@ -1,0 +1,24 @@
+---
+interface Props {
+  title: string;
+  url: string;
+}
+
+const { title, url } = Astro.props;
+---
+
+<section class="youtube-policy-section">
+  <h2>🎥 この政策を動画で解説</h2>
+
+  <p>{title}</p>
+
+  <a
+    class="btn btn-primary"
+    href={url}
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+      YouTubeで見る
+  </a>
+  
+</section>

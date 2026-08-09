@@ -145,3 +145,20 @@ article:focus-within {
   margin-top: 1.5rem;
   flex-wrap: wrap;
 }
+
+/* ==========================
+   Policy YouTube
+   ========================== */
+
+.youtube-policy-section {
+  text-align: left;
+}
+
+.youtube-policy-section h2 {
+  color: var(--color-primary);
+  margin-bottom: 1rem;
+}
+
+.youtube-policy-section p {
+  margin-bottom: 1.5rem;
+}

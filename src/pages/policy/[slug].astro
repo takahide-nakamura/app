@@ -10,6 +10,7 @@ import ReferenceList from "../../components/policy/ReferenceList.astro";
 import PolicySection from "../../components/PolicySection.astro";
 import EvidenceBox from "../../components/EvidenceBox.astro";
 import ProposalList from "../../components/policy/ProposalList.astro";
+import YouTubeLink from "../../components/policy/YouTubeLink.astro";
 
 const { slug } = Astro.params;
 
@@ -127,6 +128,14 @@ export async function getStaticPaths() {
 
     {/* 関連する活動 */}
     <RelatedActivities activities={relatedActivities} />
+
+    {/* YouTube */}
+      {data.youtube && (
+        <YouTubeLink
+         title={data.youtube.title}
+         url={data.youtube.url}
+        />
+      )}
 
     {/* 参考資料 */}
     <ReferenceList sources={references} />

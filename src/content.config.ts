@@ -16,6 +16,12 @@ const policies = defineCollection({
     updated: z.string().optional(),
     relatedActivities: z.array(z.string()).default([]),
     references: z.array(z.string()).default([]),
+    
+    youtube: z.object({
+     title: z.string(),
+     url: z.string().url(),
+    }).optional(),
+    
     problem: z.any().optional(),
     evaluation: z.any().optional(),
     issues: z.any().optional(),
