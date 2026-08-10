@@ -20,7 +20,6 @@ references:
   - who-noise
   - environment-noise-guidelines
   - noise-regulation-law
-
 problem:
   paragraphs:
     - "夜中に突然バイクの大きな音で目が覚めたり、集合住宅で足音や生活音に悩まされた経験はありませんか。"

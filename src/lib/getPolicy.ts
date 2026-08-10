@@ -13,31 +13,23 @@ export async function getPolicy(slug: string) {
 
   const content = entry.data;
 
-  /**
-   * 関連活動データ
-   *
-   * relatedActivities は Content Collection Reference
-   * なので、getEntries() で実体を取得する。
-   */
-  const relatedActivities = await getEntries(
+  // 関連活動データを参照から取得
+  const activityEntries = await getEntries(
     content.relatedActivities
   );
 
-  const relatedActivitiesData = relatedActivities.map((activity) => ({
+  const relatedActivities = activityEntries.map((activity) => ({
     title: activity.data.title,
     summary: activity.data.summary,
     href: `/activity/${activity.id}/`,
   }));
 
-  /**
-   * 参考資料データ
-   *
-   * references も Content Collection Reference
-   * なので、getEntries() で実体を取得する。
-   */
-  const references = await getEntries(content.references);
+  // 参考資料データを参照から取得
+  const sourceEntries = await getEntries(
+    content.references
+  );
 
-  const referencesData = references.map((source) => ({
+  const references = sourceEntries.map((source) => ({
     title: source.data.title,
     publisher: source.data.publisher,
     year: source.data.year,
@@ -46,7 +38,7 @@ export async function getPolicy(slug: string) {
 
   return {
     content,
-    relatedActivities: relatedActivitiesData,
-    references: referencesData,
+    relatedActivities,
+    references,
   };
 }

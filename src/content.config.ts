@@ -111,9 +111,7 @@ const policies = defineCollection({
      * Content Collection の reference を使用することで、
      * 存在しない活動IDを指定した場合にエラーにする。
      */
-    relatedActivities: z
-      .array(reference("activities"))
-      .default([]),
+    relatedActivities: z.array(reference("activities")).default([]),
 
     /**
      * 参考資料
@@ -121,9 +119,7 @@ const policies = defineCollection({
      * Content Collection の reference を使用することで、
      * 存在しない出典IDを指定した場合にエラーにする。
      */
-    references: z
-      .array(reference("sources"))
-      .default([]),
+    references: z.array(reference("sources")).default([]),
 
     /**
      * YouTube動画
