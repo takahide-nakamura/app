@@ -30,6 +30,10 @@ const formattedPolicies = allPolicies.map((entry) => {
   };
 });
 
+const allTags = Array.from(
+  new Set(formattedPolicies.flatMap((policy) => policy.tags))
+).sort((a, b) => a.localeCompare(b, "ja"));
+
 // カテゴリーごとのグループ化
 const groupedPolicies = policyCategories.map((cat) => {
   return {
@@ -54,23 +58,67 @@ const groupedPolicies = policyCategories.map((cat) => {
       </p>
     </section>
 
+    <section class="policy-search" aria-labelledby="policy-search-heading">
+      <div class="policy-search-header">
+        <h2 id="policy-search-heading">政策を探す</h2>
+        <p>キーワード検索とタグ絞り込みで、政策をすばやく見つけられます。</p>
+      </div>
+
+      <div class="search-bar">
+        <label class="search-label" for="policy-search-input">検索キーワード</label>
+        <div class="search-input-group">
+          <input
+            id="policy-search-input"
+            type="search"
+            placeholder="例：介護、認知症、暮らし"
+            aria-describedby="policy-search-status"
+          />
+          <button id="policy-search-clear" type="button">クリア</button>
+        </div>
+        <p class="policy-search-status" id="policy-search-status">
+          全 {formattedPolicies.length} 件
+        </p>
+      </div>
+
+      <div class="tag-picker" aria-label="タグで絞り込み">
+        <label class="tag-picker-label" for="policy-tag-select">タグで絞り込む</label>
+        <div class="tag-select-wrapper">
+          <select id="policy-tag-select" class="tag-select">
+            <option value="">タグを選択</option>
+            {allTags.map((tag) => (
+              <option value={tag}>#{tag}</option>
+            ))}
+          </select>
+        </div>
+      </div>
+    </section>
+
     {
       groupedPolicies
         .filter((group) => group.items.length > 0)
         .map((group) => (
-          <section class="category-section">
+          <section class="category-section" data-category={group.categoryName}>
             <h2>{group.categoryName}</h2>
 
             <div class="cards-grid">
               {
                 group.items.map((policy) => (
-                  <PolicyCard
-                    title={policy.title}
-                    summary={policy.summary}
-                    tags={policy.tags}
-                    href={policy.href}
-                    available={policy.status === "published"}
-                  />
+                  <div
+                    class="policy-item"
+                    data-category={policy.category}
+                    data-tags={policy.tags.join("|")}
+                    data-search={
+                      `${policy.title} ${policy.summary} ${policy.tags.join(" ")}`.toLowerCase()
+                    }
+                  >
+                    <PolicyCard
+                      title={policy.title}
+                      summary={policy.summary}
+                      tags={policy.tags}
+                      href={policy.href}
+                      available={policy.status === "published"}
+                    />
+                  </div>
                 ))
               }
             </div>
@@ -81,6 +129,112 @@ const groupedPolicies = policyCategories.map((cat) => {
 
   <Footer />
 </Layout>
+
+<script type="module">
+  const searchInput = document.getElementById('policy-search-input');
+  const clearButton = document.getElementById('policy-search-clear');
+  const statusElement = document.getElementById('policy-search-status');
+  const tagSelect = document.getElementById('policy-tag-select');
+  const policyItems = Array.from(document.querySelectorAll('.policy-item'));
+  const categorySections = Array.from(document.querySelectorAll('.category-section'));
+
+  let activeTag = '';
+
+  const normalizeQuery = (value) => value.trim().toLowerCase();
+
+  const updateStatus = () => {
+    const visibleCount = policyItems.filter((item) => !item.hidden).length;
+
+    if (activeTag) {
+      statusElement.textContent = `#${activeTag} の絞り込み：${visibleCount} 件`;
+      return;
+    }
+
+    const query = normalizeQuery(searchInput.value);
+    if (query.length === 0) {
+      statusElement.textContent = `全 ${policyItems.length} 件`;
+      return;
+    }
+
+    statusElement.textContent = `${visibleCount} 件が見つかりました`;
+  };
+
+  const matchesQuery = (item, query) => {
+    if (!query) {
+      return true;
+    }
+
+    const terms = query
+      .split(/\s+/)
+      .map((value) => value.replace(/^#/, '').trim())
+      .filter(Boolean);
+
+    if (terms.length === 0) {
+      return true;
+    }
+
+    const searchText = item.dataset.search || '';
+    return terms.every((term) => searchText.includes(term));
+  };
+
+  const matchesTag = (item, tag) => {
+    if (!tag) {
+      return true;
+    }
+
+    const tags = (item.dataset.tags || '').split('|').map((value) => value.trim());
+    return tags.includes(tag);
+  };
+
+  const resetTagSelect = () => {
+    if (tagSelect) {
+      tagSelect.value = '';
+    }
+  };
+
+  const filterPolicies = () => {
+    const query = normalizeQuery(searchInput.value);
+
+    policyItems.forEach((item) => {
+      const shouldShow = matchesQuery(item, query) && matchesTag(item, activeTag);
+      item.hidden = !shouldShow;
+    });
+
+    categorySections.forEach((section) => {
+      const hasVisible = Array.from(section.querySelectorAll('.policy-item')).some(
+        (item) => !item.hidden
+      );
+      section.hidden = !hasVisible;
+    });
+
+    updateStatus();
+  };
+
+  const clearActiveTag = () => {
+    activeTag = '';
+    resetTagSelect();
+  };
+
+  searchInput.addEventListener('input', () => {
+    clearActiveTag();
+    filterPolicies();
+  });
+
+  clearButton.addEventListener('click', () => {
+    searchInput.value = '';
+    clearActiveTag();
+    filterPolicies();
+    searchInput.focus();
+  });
+
+  tagSelect.addEventListener('change', () => {
+    activeTag = tagSelect.value;
+    searchInput.value = '';
+    filterPolicies();
+  });
+
+  filterPolicies();
+</script>
 
 <style>
 .policy-page {
@@ -96,6 +250,104 @@ const groupedPolicies = policyCategories.map((cat) => {
 .hero p {
   line-height: 1.8;
   color: #444;
+}
+
+.policy-search {
+  margin-bottom: 2rem;
+  border: 1px solid var(--color-border, #e5e7eb);
+  border-radius: 16px;
+  padding: 1.5rem;
+  background: #fafbfc;
+}
+
+.policy-search-header {
+  margin-bottom: 1rem;
+}
+
+.policy-search-header h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.25rem;
+}
+
+.policy-search-header p {
+  margin: 0;
+  color: #555;
+}
+
+.search-bar {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.search-label {
+  font-weight: 700;
+  color: var(--color-primary, #003f88);
+}
+
+.search-input-group {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+#policy-search-input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.85rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 999px;
+  font-size: 1rem;
+}
+
+#policy-search-clear {
+  padding: 0.85rem 1.25rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: var(--color-accent, #f4f7fb);
+  color: var(--color-primary, #003f88);
+  cursor: pointer;
+}
+
+#policy-search-clear:hover {
+  background: #e8eff9;
+}
+
+.policy-search-status {
+  margin: 0;
+  color: #555;
+}
+
+.tag-picker {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.tag-picker-label {
+  font-weight: 700;
+  color: #333;
+}
+
+.tag-select-wrapper {
+  width: 100%;
+  max-width: 420px;
+}
+
+.tag-select {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 999px;
+  font-size: 1rem;
+  background: #fff;
+  color: #333;
+}
+
+.tag-select:focus {
+  outline: 2px solid var(--color-primary, #003f88);
+  outline-offset: 2px;
 }
 
 .category-section {
