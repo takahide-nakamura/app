@@ -2,6 +2,13 @@ import { defineCollection, reference, z } from "astro:content";
 import { glob } from "astro/loaders";
 import { policyCategories } from "./data/policyCategories";
 
+const dateSchema = z
+  .string()
+  .regex(
+    /^\d{4}-\d{2}-\d{2}$/,
+    "日付は YYYY-MM-DD 形式で指定してください"
+  );
+
 /**
  * 政策本文内の「段落」の共通構造
  */
@@ -97,13 +104,7 @@ const policies = defineCollection({
      *
      * YYYY-MM-DD の形式に統一する。
      */
-    updated: z
-      .string()
-      .regex(
-        /^\d{4}-\d{2}-\d{2}$/,
-        "updated は YYYY-MM-DD 形式で指定してください"
-      )
-      .optional(),
+    updated: dateSchema.optional(),
 
     /**
      * 関連する活動
@@ -171,7 +172,7 @@ const activities = defineCollection({
   schema: z.object({
     title: z.string(),
     summary: z.string(),
-    updated: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+    updated: dateSchema,
     status: z.enum(["published", "draft"]),
   }),
 });
