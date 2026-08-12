@@ -3,6 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [ main ] # ブランチ名が master の場合は master に書き換えてください
+    workflow_dispatch:
 
 permissions:
   contents: read
