@@ -140,6 +140,12 @@ try {
 
     <section class="opinions-section">
      <h2>市民の声</h2>
+        <div class="rules-notice">
+          <p>ご意見を送る前に、市民の声の運用ルールをご確認ください。</p>
+          <a href={`${base}opinions/rules/`} class="rules-link">
+            市民の声の運用ルールを確認する
+          </a>
+        </div>
 
       <!-- カテゴリフィルター -->
       <div class="category-filter">
@@ -333,6 +339,33 @@ try {
    background: #003f88;
    color: white;
  }
+
+  .rules-notice {
+    margin: 0 0 2rem;
+    padding: 1.5rem;
+    border: 1px solid #d7e4f2;
+    border-radius: 8px;
+    background: #f8fbff;
+  }
+
+  .rules-notice p {
+    margin-bottom: 1rem;
+  }
+
+  .rules-link {
+    display: inline-block;
+    padding: 0.75rem 1.25rem;
+    border: 2px solid #003f88;
+    border-radius: 8px;
+    color: #003f88;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .rules-link:hover {
+    background: #003f88;
+    color: #fff;
+  }
 
   .status-確認中 {
    background: #fabe00;

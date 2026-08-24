@@ -1,0 +1,147 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import OpinionSubmission from '../../components/OpinionSubmission.astro';
+import { getEntry, render } from 'astro:content';
+
+const entry = await getEntry('pages', 'opinions-rules');
+if (!entry) {
+  return Astro.redirect('/404');
+}
+
+const { Content } = await render(entry);
+---
+
+<Layout
+  title={`${entry.data.title}｜もっと住みやすい高槻へ`}
+  description="市民の声をどのように受け付け、整理し、政策につなげ、公開するかを定めた運用ルールです。"
+>
+  <Header />
+
+  <main class="opinion-rules-page page-content" id="main-content" tabindex="-1">
+    <div class="content-inner">
+      <div class="rules-markdown">
+        <Content />
+      </div>
+      <OpinionSubmission />
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<script>
+  const rulesContent = document.querySelector<HTMLElement>(".rules-markdown");
+
+  if (rulesContent) {
+    const sections = Array.from(rulesContent.querySelectorAll(":scope > h2"));
+
+    sections.forEach((heading) => {
+      const details = document.createElement("details");
+      const summary = document.createElement("summary");
+      const sectionNodes: Node[] = [];
+
+      summary.textContent = heading.textContent;
+      details.className = "rule-section";
+      details.append(summary);
+
+      let nextNode = heading.nextSibling;
+      while (nextNode && !(nextNode instanceof HTMLHeadingElement && nextNode.tagName === "H2")) {
+        sectionNodes.push(nextNode);
+        nextNode = nextNode.nextSibling;
+      }
+
+      sectionNodes.forEach((node) => details.append(node));
+      heading.replaceWith(details);
+    });
+  }
+</script>
+
+<style is:global>
+  .opinion-rules-page .content-inner {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: clamp(2rem, 5vw, 4rem) 1.5rem;
+    line-height: 1.8;
+    color: #333;
+  }
+
+  .opinion-rules-page h1 {
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    color: #003f88;
+    margin-bottom: 2rem;
+    text-align: center;
+    border-bottom: 3px solid #003f88;
+    padding-bottom: 1rem;
+  }
+
+  .opinion-rules-page h2 {
+    font-size: clamp(1.3rem, 4vw, 1.8rem);
+    color: #003f88;
+    margin: 3rem 0 1.5rem;
+    border-left: 6px solid #003f88;
+    padding: 0.5rem 0 0.5rem 1rem;
+    background: #f8fbff;
+  }
+
+  .opinion-rules-page .rule-section {
+    margin: 1rem 0;
+    border: 1px solid #d7e4f2;
+    border-radius: 8px;
+    background: #f8fbff;
+  }
+
+  .opinion-rules-page .rule-section summary {
+    display: flex;
+    align-items: center;
+    min-height: 3.5rem;
+    padding: 0.75rem 1rem;
+    color: #003f88;
+    cursor: pointer;
+    font-size: clamp(1.1rem, 3vw, 1.35rem);
+    font-weight: 700;
+    list-style-position: inside;
+  }
+
+  .opinion-rules-page .rule-section summary::marker {
+    color: #003f88;
+  }
+
+  .opinion-rules-page .rule-section[open] summary {
+    border-bottom: 1px solid #d7e4f2;
+  }
+
+  .opinion-rules-page .rule-section > :not(summary) {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+
+  .opinion-rules-page .rule-section > :first-child:not(summary) {
+    margin-top: 1.25rem;
+  }
+
+  .opinion-rules-page .rule-section > :last-child {
+    margin-bottom: 1.25rem;
+  }
+
+  .opinion-rules-page h3 {
+    font-size: 1.2rem;
+    color: #003f88;
+    margin: 2rem 0 1rem;
+  }
+
+  .opinion-rules-page p {
+    margin-bottom: 1.5rem;
+  }
+
+  .opinion-rules-page ul,
+  .opinion-rules-page ol {
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
+  }
+
+  .opinion-rules-page li {
+    margin-bottom: 0.5rem;
+  }
+</style>

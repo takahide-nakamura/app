@@ -1,0 +1,83 @@
+---
+import { opinionFormUrl } from "../data/opinionForm";
+
+const formId = `opinion-form-${Math.random().toString(36).slice(2)}`;
+---
+
+<div class="opinion-submission">
+  <label class="confirmation-label" for={formId}>
+    <input id={formId} type="checkbox" />
+    <span>市民の声の運用ルールを確認しました</span>
+  </label>
+
+  <a
+    class="submission-button is-disabled"
+    href={opinionFormUrl}
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-disabled="true"
+    tabindex="-1"
+  >
+    ご意見・困りごとを送る（Googleフォーム）
+  </a>
+</div>
+
+<script>
+  const submission = document.querySelector<HTMLElement>(".opinion-submission");
+  const checkbox = submission?.querySelector<HTMLInputElement>("input[type='checkbox']");
+  const button = submission?.querySelector<HTMLAnchorElement>(".submission-button");
+
+  checkbox?.addEventListener("change", () => {
+    const enabled = checkbox.checked;
+    button?.classList.toggle("is-disabled", !enabled);
+    button?.setAttribute("aria-disabled", String(!enabled));
+    button?.setAttribute("tabindex", enabled ? "0" : "-1");
+  });
+</script>
+
+<style>
+  .opinion-submission {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e5e7eb;
+  }
+
+  .confirmation-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    width: fit-content;
+    cursor: pointer;
+    font-weight: 600;
+  }
+
+  .confirmation-label input {
+    width: 1.25rem;
+    height: 1.25rem;
+    margin: 0.2rem 0 0;
+    flex: 0 0 auto;
+    accent-color: #003f88;
+  }
+
+  .submission-button {
+    display: inline-block;
+    margin-top: 1.5rem;
+    padding: 0.9rem 1.5rem;
+    border-radius: 8px;
+    background: #003f88;
+    color: #fff;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .submission-button:hover {
+    background: #002b5c;
+  }
+
+  .submission-button.is-disabled {
+    background: #d1d5db;
+    color: #4b5563;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+</style>
