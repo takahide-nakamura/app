@@ -5,18 +5,22 @@ const base = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
 const categories = [
   {
     title: "🏥 医療・介護",
+    slug: "medical-care",
     description: "医療・介護・福祉に関する政策"
   },
   {
     title: "👨‍👩‍👧 子育て",
+    slug: "childcare",
     description: "子育て・教育に関する政策"
   },
   {
     title: "🛡️ 防災",
+    slug: "disaster-prevention",
     description: "防災・防犯・安全に関する政策"
   },
   {
     title: "🏙️ 暮らし",
+    slug: "living",
     description: "道路・公園・交通などの政策"
   },
 ];
@@ -28,7 +32,7 @@ const categories = [
   <div class="category-cards">
     {
       categories.map((category) => (
-        <a href={`${base}policy/`} class="card-item">
+        <a href={`${base}policy/#${category.slug}`} class="card-item">
           <h3>{category.title}</h3>
           <p>{category.description}</p>
         </a>
@@ -58,21 +62,13 @@ const categories = [
 .card-item {
   display: flex;
   flex-direction: column;
-  text-decoration: none;
   color: inherit;
   border: 1px solid var(--color-border, #e5e7eb);
   border-radius: var(--radius, 12px);
   padding: 1.5rem;
   background: #ffffff;
-  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
   box-sizing: border-box;
   height: 100%; /* 横並び時の高さを自動整列 */
-}
-
-.card-item:hover {
-  transform: translateY(-3px);
-  border-color: var(--color-primary);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .card-item h3 {

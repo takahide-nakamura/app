@@ -10,7 +10,7 @@ import Footer from '../components/Footer.astro';
     >
   <Header />
 
-  <main class="profile-page" id="main-content" tabindex="-1">
+  <main class="profile-page page-content" id="main-content" tabindex="-1">
 
     <section class="hero">
       <h1>プロフィール</h1>
@@ -98,9 +98,7 @@ import Footer from '../components/Footer.astro';
 
 <style>
 .profile-page{
-  max-width:900px;
-  margin:0 auto;
-  padding:4rem 2rem;
+  padding: clamp(2rem, 4vw, 4rem) 0;
 }
 
 .hero{
@@ -119,8 +117,10 @@ import Footer from '../components/Footer.astro';
   margin-bottom:1.5rem;
 }
 
-.motivation{
-  margin-top:4rem;
+.motivation,
+.career,
+.current-activity {
+  margin-top: var(--space-lg);
 }
 
 .motivation p{
@@ -129,7 +129,7 @@ import Footer from '../components/Footer.astro';
 }
 
 .career{
-  margin-top:4rem;
+  margin-top: var(--space-lg);
 }
 
 .career-box{
@@ -150,7 +150,7 @@ import Footer from '../components/Footer.astro';
 }
 
 .current-activity{
-  margin-top:4rem;
+  margin-top: var(--space-lg);
 }
 
 .activity-box{

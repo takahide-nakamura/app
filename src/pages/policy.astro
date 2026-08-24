@@ -34,10 +34,21 @@ const allTags = Array.from(
   new Set(formattedPolicies.flatMap((policy) => policy.tags))
 ).sort((a, b) => a.localeCompare(b, "ja"));
 
+const categoryAnchorMap = {
+  "🏥 医療・介護": "medical-care",
+  "👨‍👩‍👧 子育て": "childcare",
+  "🛡️ 防災": "disaster-prevention",
+  "🏙️ 暮らし": "living",
+} as const;
+
+const getCategoryAnchor = (categoryName: string) =>
+  categoryAnchorMap[categoryName as keyof typeof categoryAnchorMap] ?? categoryName;
+
 // カテゴリーごとのグループ化
 const groupedPolicies = policyCategories.map((cat) => {
   return {
     categoryName: cat,
+    categoryAnchor: getCategoryAnchor(cat),
     items: formattedPolicies.filter((p) => p.category === cat)
   };
 });
@@ -97,7 +108,11 @@ const groupedPolicies = policyCategories.map((cat) => {
       groupedPolicies
         .filter((group) => group.items.length > 0)
         .map((group) => (
-          <section class="category-section" data-category={group.categoryName}>
+          <section
+            id={group.categoryAnchor}
+            class="category-section"
+            data-category={group.categoryName}
+          >
             <h2>{group.categoryName}</h2>
 
             <div class="cards-grid">

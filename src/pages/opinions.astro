@@ -240,7 +240,7 @@ try {
 
 <style>
   .hero {
-    padding: 3rem 1.5rem;
+    padding: clamp(2rem, 4vw, 3rem) 0 0;
     text-align: center;
   }
 
@@ -253,9 +253,10 @@ try {
   }
 
   .opinions-section {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 1rem 1.5rem 4rem;
+    width: min(100% - 2rem, var(--container-width));
+    max-width: var(--container-width);
+    margin-inline: auto;
+    padding: 0 0 4rem;
   }
 
   .opinions-section h2 {

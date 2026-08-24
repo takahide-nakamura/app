@@ -125,16 +125,29 @@ li:last-child {
   margin-inline: auto;
 }
 
+.page-shell {
+  width: min(100% - 2rem, var(--container-width));
+  max-width: var(--container-width);
+  margin-inline: auto;
+}
+
+.page-content {
+  width: min(100% - 2rem, var(--content-width));
+  max-width: var(--content-width);
+  margin-inline: auto;
+}
+
 main,
 article,
 .content,
 .policy-detail {
+  width: min(100% - 2rem, var(--content-width));
   max-width: var(--content-width);
   margin-inline: auto;
 }
 
 section {
-  padding: 3rem 0;
+  padding: clamp(2rem, 4vw, 3rem) 0;
 }
 
 @media (max-width: 768px) {
@@ -177,8 +190,9 @@ article:focus-within {
 }
 
 .social-media-inner {
-  max-width: 900px;
-  margin: 0 auto;
+  width: min(100% - 2rem, var(--container-width));
+  max-width: var(--container-width);
+  margin-inline: auto;
 }
 
 .social-media-inner p {

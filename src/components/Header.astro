@@ -8,7 +8,10 @@ import SocialLinks from "./SocialLinks.astro";
   <div class="header-inner container">
     <div class="brand">
       <a href={`${baseUrl}`} class="logo">もっと住みやすい高槻へ</a>
-      <p class="tagline">データと現場経験から考える市政</p>
+      <p class="tagline">
+        <span class="author-name">中村たかひで</span>
+        データと皆さまの声から考える市政を提案
+      </p>
     </div>
 
     <nav class="global-nav">
@@ -58,7 +61,16 @@ import SocialLinks from "./SocialLinks.astro";
 .tagline {
   margin: 0.35rem 0 0;
   font-size: 0.9rem;
-  color: #666;
+  color: #4b5563;
+  line-height: 1.5;
+}
+
+.author-name {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.1rem;
 }
 
 .global-nav {
