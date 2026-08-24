@@ -6,14 +6,16 @@ import SocialLinks from "./SocialLinks.astro";
 ---
 <footer class="site-footer">
   <div class="footer-inner container">
-    <p class="site-name">もっと住みやすい高槻へ</p>
+   
+   <span class="author-name">中村たかひで</span>
+   <p class="site-name">もっと住みやすい高槻へ</p>
 
     <p class="message">
       事実に向き合い、市民の皆さんとの対話を重ね、<br class="pc-br" />
       もっと住みやすい高槻をつくる。
     </p>
 
-    <nav class="footer-nav">
+    <nav class="footer-nav" aria-label="主要フッターリンク">
       <a href={`${base}policy/`}>政策</a>
       <a href={`${base}activity/`}>活動</a>
       <a href={`${base}profile/`}>プロフィール</a>
@@ -22,7 +24,12 @@ import SocialLinks from "./SocialLinks.astro";
     </nav>
     <SocialLinks />
 
-    <p class="copyright">© Nakamaura Takahide</p>
+    <nav class="legal-nav" aria-label="サイト情報">
+      <a href={`${base}privacy-policy/`}>プライバシーポリシー</a>
+      <a href={`${base}terms/`}>利用規約</a>
+    </nav>
+
+    <p class="copyright">Copyright © 2026 Nakamaura Takahide. All rights reserved.</p>
   </div>
 </footer>
 
@@ -67,6 +74,29 @@ import SocialLinks from "./SocialLinks.astro";
 }
 
 .footer-nav a:hover {
+  text-decoration: underline;
+}
+
+.legal-nav {
+  display: flex;
+  justify-content: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  margin: 0.5rem 0 1.5rem;
+}
+
+.legal-nav a {
+  min-height: 2.75rem;
+  display: inline-flex;
+  align-items: center;
+  color: #555;
+  font-size: 0.875rem;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+.legal-nav a:hover {
+  color: #003f88;
   text-decoration: underline;
 }
 

@@ -212,6 +212,23 @@ const sources = defineCollection({
 });
 
 
+
+/* =========================================================
+ * pages
+ * ======================================================= */
+
+const pages = defineCollection({
+  loader: glob({
+    pattern: "**/*.md",
+    base: "./src/content/pages",
+  }),
+  schema: z.object({
+    title: z.string(),
+    updated: dateSchema.optional(),
+  }),
+});
+
+
 /* =========================================================
  * Export
  * ======================================================= */
@@ -220,4 +237,5 @@ export const collections = {
   policies,
   activities,
   sources,
+  pages,
 };
