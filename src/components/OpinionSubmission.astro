@@ -5,6 +5,7 @@ const formId = `opinion-form-${Math.random().toString(36).slice(2)}`;
 ---
 
 <div class="opinion-submission">
+  <h2>ご意見を送る前に</h2>
   <label class="confirmation-label" for={formId}>
     <input id={formId} type="checkbox" />
     <span>市民の声の運用ルールを確認しました</span>
@@ -40,6 +41,12 @@ const formId = `opinion-form-${Math.random().toString(36).slice(2)}`;
     margin-top: 3rem;
     padding-top: 2rem;
     border-top: 1px solid #e5e7eb;
+  }
+
+  .opinion-submission h2 {
+    margin: 0 0 1.25rem;
+    color: #003f88;
+    font-size: 1.35rem;
   }
 
   .confirmation-label {

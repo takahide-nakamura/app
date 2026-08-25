@@ -21,42 +21,29 @@ const { Content } = await render(entry);
 
   <main class="opinion-rules-page page-content" id="main-content" tabindex="-1">
     <div class="content-inner">
-      <div class="rules-markdown">
-        <Content />
+      <div class="rules-intro" aria-labelledby="rules-intro-heading">
+        <p id="rules-intro-heading" class="rules-intro-heading">送信前に特にご確認ください</p>
+        <ul>
+          <li>匿名で投稿できます。</li>
+          <li>AIによる整理を補助的に利用します。</li>
+          <li>AIだけで自動公開することはありません。</li>
+          <li>公開前に人による確認を行います。</li>
+          <li>投稿内容は匿名化・整理・要約する場合があります。</li>
+          <li>投稿した意見が必ず政策として実現するわけではありません。</li>
+          <li>緊急通報等の窓口ではありません。</li>
+        </ul>
       </div>
+      <section class="terms-box" tabindex="0" aria-label="市民の声の運用ルール本文">
+        <div class="rules-markdown">
+          <Content />
+        </div>
+      </section>
       <OpinionSubmission />
     </div>
   </main>
 
   <Footer />
 </Layout>
-
-<script>
-  const rulesContent = document.querySelector<HTMLElement>(".rules-markdown");
-
-  if (rulesContent) {
-    const sections = Array.from(rulesContent.querySelectorAll(":scope > h2"));
-
-    sections.forEach((heading) => {
-      const details = document.createElement("details");
-      const summary = document.createElement("summary");
-      const sectionNodes: Node[] = [];
-
-      summary.textContent = heading.textContent;
-      details.className = "rule-section";
-      details.append(summary);
-
-      let nextNode = heading.nextSibling;
-      while (nextNode && !(nextNode instanceof HTMLHeadingElement && nextNode.tagName === "H2")) {
-        sectionNodes.push(nextNode);
-        nextNode = nextNode.nextSibling;
-      }
-
-      sectionNodes.forEach((node) => details.append(node));
-      heading.replaceWith(details);
-    });
-  }
-</script>
 
 <style is:global>
   .opinion-rules-page .content-inner {
@@ -76,6 +63,26 @@ const { Content } = await render(entry);
     padding-bottom: 1rem;
   }
 
+  .opinion-rules-page .rules-intro {
+    margin: 0 0 2.5rem;
+    padding: 1.25rem 1.5rem 0.75rem;
+    border: 2px solid #fabe00;
+    border-radius: 8px;
+    background: #fffdf2;
+  }
+
+  .opinion-rules-page .rules-intro-heading {
+    margin: 0 0 1rem;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    font-size: clamp(1.2rem, 3vw, 1.5rem);
+  }
+
+  .opinion-rules-page .rules-intro ul {
+    margin-bottom: 0.5rem;
+  }
+
   .opinion-rules-page h2 {
     font-size: clamp(1.3rem, 4vw, 1.8rem);
     color: #003f88;
@@ -85,44 +92,24 @@ const { Content } = await render(entry);
     background: #f8fbff;
   }
 
-  .opinion-rules-page .rule-section {
-    margin: 1rem 0;
-    border: 1px solid #d7e4f2;
+  .opinion-rules-page .terms-box {
+    margin: 2rem 0 0;
+    border: 2px solid #003f88;
     border-radius: 8px;
-    background: #f8fbff;
+    background: #fff;
+    max-height: min(70vh, 720px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
   }
 
-  .opinion-rules-page .rule-section summary {
-    display: flex;
-    align-items: center;
-    min-height: 3.5rem;
-    padding: 0.75rem 1rem;
-    color: #003f88;
-    cursor: pointer;
-    font-size: clamp(1.1rem, 3vw, 1.35rem);
-    font-weight: 700;
-    list-style-position: inside;
+  .opinion-rules-page .terms-box:focus-visible {
+    outline: 3px solid #fabe00;
+    outline-offset: 3px;
   }
 
-  .opinion-rules-page .rule-section summary::marker {
-    color: #003f88;
-  }
-
-  .opinion-rules-page .rule-section[open] summary {
-    border-bottom: 1px solid #d7e4f2;
-  }
-
-  .opinion-rules-page .rule-section > :not(summary) {
-    margin-left: 1rem;
-    margin-right: 1rem;
-  }
-
-  .opinion-rules-page .rule-section > :first-child:not(summary) {
-    margin-top: 1.25rem;
-  }
-
-  .opinion-rules-page .rule-section > :last-child {
-    margin-bottom: 1.25rem;
+  .opinion-rules-page .terms-box .rules-markdown {
+    padding: 1.25rem 1.5rem 0.5rem;
   }
 
   .opinion-rules-page h3 {
@@ -143,5 +130,15 @@ const { Content } = await render(entry);
 
   .opinion-rules-page li {
     margin-bottom: 0.5rem;
+  }
+
+  @media (max-width: 600px) {
+    .opinion-rules-page .terms-box {
+      max-height: 60vh;
+    }
+
+    .opinion-rules-page .terms-box .rules-markdown {
+      padding: 1rem 1rem 0.25rem;
+    }
   }
 </style>

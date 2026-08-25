@@ -11,7 +11,7 @@ updated: "2026-08-04"
 
 category: "🏙️ 暮らし"
 
-tags: ["生活騒音対策", "騒音", "夜間騒音", "健康", "暮らし", "くらし"]
+tags: ["生活騒音対策", "騒音", "夜間騒音", "暮らし"]
 
 relatedActivities:
   - nursing-care-visit
