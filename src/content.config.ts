@@ -170,10 +170,16 @@ const activities = defineCollection({
     base: "./src/content/activities",
   }),
   schema: z.object({
-    title: z.string(),
-    summary: z.string(),
-    updated: dateSchema,
+    title: z.string().min(1),
+    summary: z.string().min(1),
+    date: dateSchema,
     status: z.enum(["published", "draft"]),
+    relatedPolicies: z.array(reference("policies")).default([]),
+    thumbnail: z.string().optional(),
+    photos: z.array(z.string()).default([]),
+    xUrl: z.string().url().optional(),
+    instagramUrl: z.string().url().optional(),
+    youtubeUrl: z.string().url().optional(),
   }),
 });
 

@@ -1,0 +1,234 @@
+---
+import { getCollection, getEntries, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+const baseUrl = import.meta.env.BASE_URL;
+const base = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
+
+export async function getStaticPaths() {
+  const activities = await getCollection('activities');
+
+  return activities
+    .filter((activity) => activity.data.status === 'published')
+    .map((activity) => ({
+      params: { slug: activity.id.replace(/\.md$/, '') },
+      props: { activity },
+    }));
+}
+
+const { activity } = Astro.props;
+const { Content } = await render(activity);
+const relatedPolicies = await getEntries(activity.data.relatedPolicies);
+const hasSocialLinks = Boolean(
+  activity.data.xUrl || activity.data.instagramUrl || activity.data.youtubeUrl
+);
+---
+
+<Layout
+  title={`${activity.data.title}｜活動｜もっと住みやすい高槻へ`}
+  description={activity.data.summary}
+>
+  <Header />
+
+  <main class="activity-detail container" id="main-content" tabindex="-1">
+    <nav class="breadcrumb" aria-label="パンくずリスト">
+      <ol>
+        <li><a href={`${base}`}>ホーム</a></li>
+        <li aria-hidden="true">›</li>
+        <li><a href={`${base}activity/`}>活動</a></li>
+        <li aria-hidden="true">›</li>
+        <li aria-current="page">{activity.data.title}</li>
+      </ol>
+    </nav>
+
+    <header class="activity-hero">
+      <h1>{activity.data.title}</h1>
+      <time datetime={activity.data.date}>活動日：{activity.data.date}</time>
+      <p>{activity.data.summary}</p>
+    </header>
+
+    {activity.data.thumbnail && (
+      <figure class="main-photo">
+        <img src={activity.data.thumbnail} alt={activity.data.title} />
+      </figure>
+    )}
+
+    <article class="activity-body">
+      <Content />
+    </article>
+
+    {activity.data.photos.length > 0 && (
+      <section class="activity-section" aria-labelledby="photos-heading">
+        <h2 id="photos-heading">写真</h2>
+        <div class="photo-gallery">
+          {activity.data.photos.map((photo, index) => (
+            <img src={photo} alt={`${activity.data.title}の写真${index + 1}`} loading="lazy" />
+          ))}
+        </div>
+      </section>
+    )}
+
+    {relatedPolicies.length > 0 && (
+      <section class="activity-section" aria-labelledby="policies-heading">
+        <h2 id="policies-heading">関連する政策</h2>
+        <ul class="policy-list">
+          {relatedPolicies.map((policy) => (
+            <li>
+              <a href={`${base}policy/${policy.id}/`}>{policy.data.title}</a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    {hasSocialLinks && (
+      <section class="activity-section" aria-labelledby="social-heading">
+        <h2 id="social-heading">活動に関するSNS</h2>
+        <ul class="social-links">
+          {activity.data.xUrl && (
+            <li><a href={activity.data.xUrl} target="_blank" rel="noopener noreferrer">Xで活動報告を見る</a></li>
+          )}
+          {activity.data.instagramUrl && (
+            <li><a href={activity.data.instagramUrl} target="_blank" rel="noopener noreferrer">Instagramで活動報告を見る</a></li>
+          )}
+          {activity.data.youtubeUrl && (
+            <li><a href={activity.data.youtubeUrl} target="_blank" rel="noopener noreferrer">YouTubeで活動報告を見る</a></li>
+          )}
+        </ul>
+      </section>
+    )}
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+.activity-detail {
+  padding-top: 2rem;
+  padding-bottom: 3rem;
+}
+
+.breadcrumb {
+  margin-bottom: 2rem;
+  font-size: 0.9rem;
+}
+
+.breadcrumb ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.breadcrumb a,
+.activity-section a {
+  color: var(--color-primary, #003f88);
+}
+
+.activity-hero {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.activity-hero h1 {
+  margin-bottom: 1rem;
+}
+
+.activity-hero time {
+  display: block;
+  margin-bottom: 1rem;
+  color: #555;
+}
+
+.activity-hero p {
+  margin-bottom: 0;
+  color: #444;
+}
+
+.main-photo {
+  margin: 0 0 2.5rem;
+}
+
+.main-photo img {
+  display: block;
+  width: 100%;
+  max-height: 520px;
+  object-fit: cover;
+  border-radius: var(--radius, 12px);
+}
+
+.activity-body {
+  line-height: 1.8;
+}
+
+.activity-body :global(h2) {
+  margin-top: 3rem;
+  color: var(--color-primary, #003f88);
+  font-size: 1.35rem;
+}
+
+.activity-section {
+  margin-top: 3rem;
+}
+
+.activity-section h2 {
+  margin: 0 0 1.25rem;
+  padding-bottom: 0.75rem;
+  color: var(--color-primary, #003f88);
+  font-size: 1.35rem;
+  border-bottom: 2px solid var(--color-border, #e5e7eb);
+}
+
+.policy-list {
+  display: grid;
+  gap: 0.75rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.policy-list li {
+  margin: 0;
+}
+
+.policy-list a {
+  display: block;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--color-border, #e5e7eb);
+  border-radius: var(--radius, 12px);
+  background: #f8fbff;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.policy-list a:hover {
+  border-color: var(--color-primary, #003f88);
+  background: #fff;
+  text-decoration: underline;
+}
+
+.photo-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.photo-gallery img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--radius, 12px);
+}
+
+.social-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.5rem;
+}
+</style>
