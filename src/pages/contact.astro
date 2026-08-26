@@ -9,7 +9,7 @@ const base = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
 
 <Layout
   title="お問い合わせ・市民の声｜もっと住みやすい高槻へ"
-  description="高槻市での日常のお困りごとやご意見をお寄せください。"
+  description="サイトや活動についてのお問い合わせ、高槻市の暮らし・地域・市政についてのご意見をお寄せいただけます。"
 >
   <Header />
 
@@ -19,41 +19,49 @@ const base = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
       <h1>お問い合わせ・市民の声</h1>
 
       <p>
-        高槻市での日常の「困りごと」や「ご提案」をお寄せください。<br />
-        いただいた声は、今後の活動や政策づくりに活用させていただきます。
+        お問い合わせや、高槻市の暮らし・地域・市政についてのご意見をお寄せいただけます。
       </p>
     </section>
 
-    <!-- Googleフォームへの誘導 -->
-    <section class="contact-method">
-      <h2>ご意見・お困りごとの送信</h2>
+    <div class="intake-grid">
+      <section class="intake-card">
+        <h2>お問い合わせ</h2>
 
-      <p>
-          ご意見を送る前に、市民の声の運用ルールをご確認ください。<br />
-          お名前や連絡先の記入は任意です。
-      </p>
+        <p>
+          サイトや活動についてのご質問、取材・面談などのご連絡はこちらからお送りください。
+        </p>
 
-      <!-- ボタンリンク（Googleフォームを開く） -->
-      <div style="margin-top: 1.5rem;">
-          <a href={`${base}opinions/rules/`} class="form-btn">
-           ご意見・お困りごとの送信する
-        </a>
-      </div>
-    </section>
+        <a
+          href="https://docs.google.com/forms/d/e/1FAIpQLSfXDAjwfrAEvMAlWmqZOgG_8VhfAMFAV1ktnTBdeLRZajAe2g/viewform?usp=dialog"
+          class="form-btn"
+          target="_blank"
+          rel="noopener noreferrer"
+        >お問い合わせフォームを開く</a>
+      </section>
 
-    <!-- 市民の声・対応状況ページへの誘導カード -->
+      <section class="intake-card">
+        <h2>市民の声</h2>
+
+        <p>
+          高槻市での日常の困りごとや、地域・市政についてのご意見やご提案をお寄せください。
+        </p>
+
+        <p>送信前に「市民の声の運用ルール」をご確認ください。</p>
+
+        <a href={`${base}opinions/rules/`} class="form-btn">市民の声を送る</a>
+      </section>
+    </div>
+
     <section class="opinions-link-section">
-      <h2>市民の声・対応状況の公開</h2>
+      <h2>市民の声・対応状況</h2>
 
       <p>
         皆様から寄せられたご意見と、それに対する取り組みの進捗状況を公開しています。
       </p>
 
-      <div style="margin-top: 1.5rem;">
-        <a href={`${base}opinions/`} class="opinions-btn">
-          💬 「市民の声・対応状況一覧」を見る
-        </a>
-      </div>
+      <a href={`${base}opinions/`} class="opinions-btn">
+        市民の声・対応状況一覧を見る
+      </a>
     </section>
 
     <!-- SNS -->
@@ -68,16 +76,6 @@ const base = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
         <li>YouTube（準備中）</li>
         <li>X（準備中）</li>
       </ul>
-    </section>
-
-    <!-- 注意事項 -->
-    <section class="notice">
-      <h2>プライバシーとお願い</h2>
-
-      <p>
-        いただいたご意見は政策立案に活用させていただきます。<br />
-        詳しくは「市民の声の運用ルール」をご確認ください。
-      </p>
     </section>
 
   </main>
@@ -104,14 +102,34 @@ const base = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
   margin-bottom: 1rem;
 }
 
-.contact-method,
+.intake-card,
 .opinions-link-section,
-.sns,
-.notice {
+.sns {
   border: 1px solid #ddd;
   border-radius: 16px;
   padding: 2rem;
   background: #fff;
+}
+
+.intake-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.intake-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.intake-card p:last-of-type {
+  margin-bottom: 1.5rem;
+}
+
+.intake-card .form-btn {
+  align-self: flex-start;
+  margin-top: auto;
 }
 
 /* フォーム送信ボタンのスタイル */
@@ -124,6 +142,7 @@ const base = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
   font-weight: bold;
   text-decoration: none;
   transition: background 0.2s ease;
+  min-height: 2.75rem;
 }
 
 .form-btn:hover {
@@ -146,5 +165,11 @@ const base = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
 .opinions-btn:hover {
   background: #003f88;
   color: #fff;
+}
+
+@media (max-width: 700px) {
+  .intake-grid {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
