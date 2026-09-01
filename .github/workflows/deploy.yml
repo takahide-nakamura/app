@@ -2,13 +2,18 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main ] # ブランチ名が master の場合は master に書き換えてください
-    workflow_dispatch:
+    branches: [ main ]
+  workflow_dispatch:
 
 permissions:
   contents: read
   pages: write
   id-token: write
+
+# 同一グループ内での同時実行を制限（デプロイの競合を回避）
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
   build:
