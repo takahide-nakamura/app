@@ -47,9 +47,11 @@ export async function getStaticPaths() {
     {/* ① 問題提起 */}
     {data.problem?.paragraphs && (
       <PolicySection title="問題提起" icon="📍">
-        {data.problem.paragraphs.map((paragraph: string) => (
-          <p>{paragraph}</p>
-        ))}
+        <ul class="policy-list">
+          {data.problem.paragraphs.map((paragraph: string) => (
+            <li>{paragraph}</li>
+          ))}
+        </ul>
       </PolicySection>
     )}
 
@@ -60,9 +62,11 @@ export async function getStaticPaths() {
         {data.evaluation.subjective?.paragraphs && (
           <EvidenceBox type="subjective">
             {data.evaluation.subjective.heading && <h3>{data.evaluation.subjective.heading}</h3>}
-            {data.evaluation.subjective.paragraphs.map((paragraph: string) => (
-              <p>{paragraph}</p>
-            ))}
+            <ul class="policy-list">
+              {data.evaluation.subjective.paragraphs.map((paragraph: string) => (
+                <li>{paragraph}</li>
+              ))}
+            </ul>
           </EvidenceBox>
         )}
 
@@ -70,9 +74,11 @@ export async function getStaticPaths() {
         {data.evaluation.objective?.paragraphs && (
           <EvidenceBox type="objective">
             {data.evaluation.objective.heading && <h3>{data.evaluation.objective.heading}</h3>}
-            {data.evaluation.objective.paragraphs.map((paragraph: string) => (
-              <p>{paragraph}</p>
-            ))}
+            <ul class="policy-list">
+              {data.evaluation.objective.paragraphs.map((paragraph: string) => (
+                <li>{paragraph}</li>
+              ))}
+            </ul>
           </EvidenceBox>
         )}
       </PolicySection>
@@ -119,9 +125,11 @@ export async function getStaticPaths() {
     {data.limitations?.paragraphs && (
       <PolicySection title="政策の限界" icon="⚖️">
         <EvidenceBox type="limitation">
-          {data.limitations.paragraphs.map((paragraph: string) => (
-            <p>{paragraph}</p>
-          ))}
+          <ul class="policy-list">
+            {data.limitations.paragraphs.map((paragraph: string) => (
+              <li>{paragraph}</li>
+            ))}
+          </ul>
         </EvidenceBox>
       </PolicySection>
     )}
@@ -243,5 +251,21 @@ export async function getStaticPaths() {
 
   margin-bottom: 0;
 
+}
+
+/* 政策セクションのリスト（問題提起・評価・限界など） */
+.policy-list {
+  margin-top: var(--space-sm, 0.5rem);
+  margin-bottom: var(--space-md, 1rem);
+  padding-left: 1.25rem;
+}
+
+.policy-list li {
+  line-height: 1.7;
+  margin-bottom: 0.5rem;
+}
+
+.policy-list li:last-child {
+  margin-bottom: 0;
 }
 </style>
