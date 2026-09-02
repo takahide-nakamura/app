@@ -1,0 +1,6 @@
+---
+title: "「第三次高槻市子ども・子育て支援事業計画」（令和7年3月策定、令和8年3月改訂）"
+publisher: "高槻市"
+year: "2026"
+url: "https://www.city.takatsuki.osaka.jp/uploaded/attachment/63428.pdf"
+---
