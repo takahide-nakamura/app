@@ -7,7 +7,9 @@ import { policyCategories } from "../data/policyCategories";
 import { getCollection } from "astro:content";
 
 // Content Collections から全政策コンテンツを取得
-const allPolicies = await getCollection("policies");
+const allPolicies = await getCollection("policies", ({ data }) => {
+  return import.meta.env.PROD ? !data.draft : true;
+});
 
 // データ整理
 const formattedPolicies = allPolicies.map((entry) => {

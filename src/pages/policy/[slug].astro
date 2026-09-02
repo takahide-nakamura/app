@@ -20,10 +20,14 @@ const {
   references,
 } = await getPolicy(slug as string);
 
-const allActivities = await getCollection("activities");
+const allActivities = await getCollection("activities", ({ data }) => {
+  return import.meta.env.PROD ? !data.draft : true;
+});
 
 export async function getStaticPaths() {
-  const policies = await getCollection('policies');
+  const policies = await getCollection('policies', ({ data }) => {
+    return import.meta.env.PROD ? !data.draft : true;
+  });
   return policies.map((policy) => ({
     params: { slug: policy.id.replace(/\.md$/, '') },
     props: { policy },

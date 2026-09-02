@@ -1,7 +1,9 @@
 import { getCollection, getEntries } from "astro:content";
 
 export async function getPolicy(slug: string) {
-  const allPolicies = await getCollection("policies");
+  const allPolicies = await getCollection("policies", ({ data }) => {
+    return import.meta.env.PROD ? !data.draft : true;
+  });
 
   const entry = allPolicies.find(
     (p) => p.id === slug || p.id === `${slug}.md`

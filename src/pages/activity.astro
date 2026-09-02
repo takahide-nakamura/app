@@ -4,7 +4,9 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { getCollection } from 'astro:content';
 
-const allActivities = await getCollection("activities");
+const allActivities = await getCollection("activities", ({ data }) => {
+  return import.meta.env.PROD ? !data.draft : true;
+});
 
 // ベースURLの整形（末尾のスラッシュを担保）
 const baseUrl = import.meta.env.BASE_URL;

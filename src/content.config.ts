@@ -100,6 +100,12 @@ const policies = defineCollection({
     tags: z.array(z.string().min(1)).default([]),
 
     /**
+     * 下書きフラグ
+     * true の場合は本番環境では非公開となる
+     */
+    draft: z.boolean().optional().default(false),
+
+    /**
      * 最終更新日
      *
      * YYYY-MM-DD の形式に統一する。
@@ -173,6 +179,7 @@ const activities = defineCollection({
     title: z.string().min(1),
     summary: z.string().min(1),
     date: dateSchema,
+    draft: z.boolean().optional().default(false),
     status: z.enum(["published", "draft"]),
     relatedPolicies: z.array(reference("policies")).default([]),
     thumbnail: z.string().optional(),
@@ -214,6 +221,11 @@ const sources = defineCollection({
      * 資料URL
      */
     url: z.string().url(),
+
+    /**
+     * 下書きフラグ
+     */
+    draft: z.boolean().optional().default(false),
   }),
 });
 
@@ -230,6 +242,7 @@ const pages = defineCollection({
   }),
   schema: z.object({
     title: z.string(),
+    draft: z.boolean().optional().default(false),
     updated: dateSchema.optional(),
   }),
 });
