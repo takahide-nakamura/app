@@ -4,10 +4,10 @@ description: "武力攻撃やテロなど、自然災害とは異なる悪意を
 heroTitle: "有事でも市民の命を守る「市民保護」の強化"
 heroDescription: "有事が起きないことを願う。しかし、起きないとは誰にも保証できない。だからこそ、起きた場合に一人でも多くの命を救える準備を高槻市で進めます。"
 updated: "2026-09-10"
-category: "🏙️ 暮らし"
+category: "🛡️ 防災"
 tags:
   - "国民保護"
-  - "暮らし"
+  - "防災"
 
 relatedActivities: []
 references:
