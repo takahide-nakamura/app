@@ -3,7 +3,8 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import PolicyCard from '../components/PolicyCard.astro';
-import { policyCategories } from "../data/policyCategories";
+import { policyCategories, type PolicyCategory } from "../data/policyCategories";
+import { getPolicyTagMeta } from "../data/policyTags";
 import { getCollection } from "astro:content";
 
 // Content Collections から全政策コンテンツを取得
@@ -28,13 +29,52 @@ const formattedPolicies = allPolicies.map((entry) => {
     tags: tagsList,
     href: `policy/${cleanId}/`,
     status: "published",
-    category: data.category || policyCategories[0],
+    category: (data.category || policyCategories[0]) as PolicyCategory,
   };
 });
 
-const allTags = Array.from(
-  new Set(formattedPolicies.flatMap((policy) => policy.tags))
-).sort((a, b) => a.localeCompare(b, "ja"));
+// 実際に政策で使用されている全タグを抽出し、辞書からメタ情報を付与（未使用タグは除外）
+const usedTagsMap = new Map<
+  string,
+  { name: string; reading: string; category: PolicyCategory | "all"; featured?: boolean }
+>();
+
+formattedPolicies.forEach((policy) => {
+  policy.tags.forEach((tag) => {
+    if (!usedTagsMap.has(tag)) {
+      const meta = getPolicyTagMeta(tag, policy.category);
+      usedTagsMap.set(tag, {
+        name: tag,
+        reading: meta.reading,
+        category: meta.category,
+        featured: meta.featured,
+      });
+    }
+  });
+});
+
+// 注目タグ（featured: true かつ 実際に政策で使用されているもの）
+const featuredTags = Array.from(usedTagsMap.values())
+  .filter((t) => t.featured)
+  .sort((a, b) => a.reading.localeCompare(b.reading, "ja"));
+
+// カテゴリーごとにタグをグループ化
+// "all" カテゴリーのタグ（#重点政策）は全カテゴリーに含め、各カテゴリー内でも先頭に配置
+const categoryTagGroups = policyCategories.map((cat) => {
+  const tagsInCat = Array.from(usedTagsMap.values())
+    .filter((t) => t.category === "all" || t.category === cat)
+    .sort((a, b) => {
+      // 注目タグ（重点政策など）を先頭に、それ以外は読み仮名順
+      if (a.featured && !b.featured) return -1;
+      if (!a.featured && b.featured) return 1;
+      return a.reading.localeCompare(b.reading, "ja");
+    });
+
+  return {
+    categoryName: cat,
+    tags: tagsInCat,
+  };
+}).filter((group) => group.tags.length > 0);
 
 const categoryAnchorMap = {
   "🏥 医療・介護": "medical-care",
@@ -77,8 +117,9 @@ const groupedPolicies = policyCategories.map((cat) => {
         <p>キーワード検索とタグ絞り込みで、政策をすばやく見つけられます。</p>
       </div>
 
+      <!-- 1. キーワード検索バー -->
       <div class="search-bar">
-        <label class="search-label" for="policy-search-input">検索キーワード</label>
+        <label class="search-label" for="policy-search-input">キーワード検索</label>
         <div class="search-input-group">
           <input
             id="policy-search-input"
@@ -88,22 +129,109 @@ const groupedPolicies = policyCategories.map((cat) => {
           />
           <button id="policy-search-clear" type="button">クリア</button>
         </div>
-        <p class="policy-search-status" id="policy-search-status">
-          全 {formattedPolicies.length} 件
-        </p>
       </div>
 
-      <div class="tag-picker" aria-label="タグで絞り込み">
-        <label class="tag-picker-label" for="policy-tag-select">タグで絞り込む</label>
-        <div class="tag-select-wrapper">
-          <select id="policy-tag-select" class="tag-select">
-            <option value="">タグを選択</option>
-            {allTags.map((tag) => (
-              <option value={tag}>#{tag}</option>
-            ))}
-          </select>
+      <!-- 2. 🌟 注目の政策（真っ先に着目できるエリア：常時コンパクトに表示） -->
+      {
+        featuredTags.length > 0 && (
+          <div class="featured-tags-box" aria-label="注目の政策タグ">
+            <span class="featured-tags-label">
+              <span class="featured-icon" aria-hidden="true"></span> 注目の政策：
+            </span>
+            <div class="featured-tags-list">
+              {featuredTags.map((tag) => (
+                <button
+                  type="button"
+                  class="tag-button featured-tag-button"
+                  data-tag={tag.name}
+                  data-reading={tag.reading}
+                  aria-pressed="false"
+                >
+                  <span class="featured-pill-star" aria-hidden="true">★</span>
+                  #{tag.name}
+                </button>
+              ))}
+            </div>
+          </div>
+        )
+      }
+
+      <!-- 3. 選択中タグ表示バー（タグ選択時のみ動的表示。未選択時は完全に非表示） -->
+      <div class="active-filter-bar" id="active-filter-bar" hidden>
+        <div class="active-filter-header">
+          <span class="active-filter-label">絞り込み中のタグ（いずれかを含む政策を表示）：</span>
+          <button type="button" class="clear-all-button" id="clear-all-filters">
+            すべての絞り込みを解除
+          </button>
         </div>
+        <div class="active-chips-list" id="active-chips-list"></div>
       </div>
+
+      <!-- 4. テーマ・タグから探す（普段は小さく折りたたんで省スペース化） -->
+      <details class="tag-filter-accordion" id="tag-filter-accordion">
+        <summary class="tag-filter-summary">
+          <div class="summary-title-group">
+            <span class="summary-icon" aria-hidden="true">🏷️</span>
+            <span class="summary-title">カテゴリー・全タグから探す（複数選択可）</span>
+            <span class="active-tag-count-badge" id="active-tag-count-badge" hidden></span>
+          </div>
+          <span class="summary-toggle-indicator">
+            <span class="toggle-text">タグ一覧</span>
+            <span class="summary-arrow" aria-hidden="true">▼</span>
+          </span>
+        </summary>
+
+        <div class="tag-filter-panel">
+          <div class="tag-search-row">
+            <label class="sr-only" for="tag-search-input">タグを検索（名前または読み仮名）</label>
+            <input
+              id="tag-search-input"
+              type="search"
+              placeholder="タグを検索（例：介護、にんち、ほいく）"
+              autocomplete="off"
+            />
+          </div>
+
+          <!-- カテゴリー別折りたたみ (<details> / <summary>) -->
+          <div class="tag-categories-list" id="tag-categories-list">
+            {
+              categoryTagGroups.map((group) => (
+                <details class="tag-category-group" data-category={group.categoryName}>
+                  <summary class="tag-category-summary">
+                    <span class="category-summary-title">{group.categoryName}</span>
+                    <span class="category-summary-count">（{group.tags.length}）</span>
+                    <span class="category-summary-icon" aria-hidden="true">▼</span>
+                  </summary>
+                  <div class="tag-buttons-container">
+                    <div class="tag-buttons-list" role="group" aria-label={`${group.categoryName}のタグ一覧`}>
+                      {group.tags.map((tag) => (
+                        <button
+                          type="button"
+                          class:list={[
+                            "tag-button",
+                            tag.featured ? "category-featured-tag" : ""
+                          ]}
+                          data-tag={tag.name}
+                          data-reading={tag.reading}
+                          aria-pressed="false"
+                        >
+                          {tag.featured && <span class="featured-star-small" aria-hidden="true">★</span>}
+                          #{tag.name}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </details>
+              ))
+            }
+          </div>
+        </div>
+      </details>
+
+      <!-- 5. 検索ステータス -->
+      <p class="policy-search-status" id="policy-search-status" role="status" aria-live="polite">
+        全 {formattedPolicies.length} 件
+      </p>
     </section>
 
     {
@@ -149,71 +277,81 @@ const groupedPolicies = policyCategories.map((cat) => {
 
 <script type="module">
   const searchInput = document.getElementById('policy-search-input');
-  const clearButton = document.getElementById('policy-search-clear');
+  const clearKeywordButton = document.getElementById('policy-search-clear');
   const statusElement = document.getElementById('policy-search-status');
-  const tagSelect = document.getElementById('policy-tag-select');
+
+  const tagSearchInput = document.getElementById('tag-search-input');
+  const tagButtons = Array.from(document.querySelectorAll('.tag-button'));
+  const tagCategories = Array.from(document.querySelectorAll('.tag-category-group'));
+  const activeTagCountBadge = document.getElementById('active-tag-count-badge');
+
+  const activeFilterBar = document.getElementById('active-filter-bar');
+  const activeChipsList = document.getElementById('active-chips-list');
+  const clearAllFiltersButton = document.getElementById('clear-all-filters');
+
   const policyItems = Array.from(document.querySelectorAll('.policy-item'));
   const categorySections = Array.from(document.querySelectorAll('.category-section'));
 
-  let activeTag = '';
+  // 複数タグ選択管理用の Set（OR検索）
+  const activeTags = new Set();
 
-  const normalizeQuery = (value) => value.trim().toLowerCase();
+  const normalize = (value) => (value || '').trim().toLowerCase();
+
+  // カタカナをひらがなに変換（ひらがな・カタカナ両対応）
+  const toHiragana = (str) => {
+    return (str || '').replace(/[\u30a1-\u30f6]/g, (match) => {
+      const chr = match.charCodeAt(0) - 0x60;
+      return String.fromCharCode(chr);
+    });
+  };
 
   const updateStatus = () => {
     const visibleCount = policyItems.filter((item) => !item.hidden).length;
+    const query = normalize(searchInput.value);
+    const tagsArray = Array.from(activeTags);
 
-    if (activeTag) {
-      statusElement.textContent = `#${activeTag} の絞り込み：${visibleCount} 件`;
-      return;
-    }
-
-    const query = normalizeQuery(searchInput.value);
-    if (query.length === 0) {
+    if (query && tagsArray.length > 0) {
+      const tagsText = tagsArray.map((t) => `#${t}`).join(' または ');
+      statusElement.textContent = `「${searchInput.value.trim()}」かつ [${tagsText}] のいずれか：${visibleCount} 件`;
+    } else if (tagsArray.length > 0) {
+      const tagsText = tagsArray.map((t) => `#${t}`).join(' または ');
+      statusElement.textContent = `[${tagsText}] のいずれか：${visibleCount} 件`;
+    } else if (query) {
+      statusElement.textContent = `「${searchInput.value.trim()}」の検索結果：${visibleCount} 件`;
+    } else {
       statusElement.textContent = `全 ${policyItems.length} 件`;
-      return;
     }
-
-    statusElement.textContent = `${visibleCount} 件が見つかりました`;
   };
 
   const matchesQuery = (item, query) => {
-    if (!query) {
-      return true;
-    }
-
+    if (!query) return true;
     const terms = query
       .split(/\s+/)
       .map((value) => value.replace(/^#/, '').trim())
       .filter(Boolean);
-
-    if (terms.length === 0) {
-      return true;
-    }
+    if (terms.length === 0) return true;
 
     const searchText = item.dataset.search || '';
     return terms.every((term) => searchText.includes(term));
   };
 
-  const matchesTag = (item, tag) => {
-    if (!tag) {
-      return true;
+  // タグのOR検索判定：選択中のタグのいずれか1つでも持っていればマッチ
+  const matchesTags = (item, tagsSet) => {
+    if (tagsSet.size === 0) return true;
+    const itemTags = (item.dataset.tags || '').split('|').map((v) => v.trim());
+    for (const tag of tagsSet) {
+      if (itemTags.includes(tag)) {
+        return true;
+      }
     }
-
-    const tags = (item.dataset.tags || '').split('|').map((value) => value.trim());
-    return tags.includes(tag);
-  };
-
-  const resetTagSelect = () => {
-    if (tagSelect) {
-      tagSelect.value = '';
-    }
+    return false;
   };
 
   const filterPolicies = () => {
-    const query = normalizeQuery(searchInput.value);
+    const query = normalize(searchInput.value);
 
     policyItems.forEach((item) => {
-      const shouldShow = matchesQuery(item, query) && matchesTag(item, activeTag);
+      const shouldShow = matchesQuery(item, query) && matchesTags(item, activeTags);
       item.hidden = !shouldShow;
     });
 
@@ -227,29 +365,144 @@ const groupedPolicies = policyCategories.map((cat) => {
     updateStatus();
   };
 
-  const clearActiveTag = () => {
-    activeTag = '';
-    resetTagSelect();
+  // タグ選択状態のUI反映（複数チップの動的生成 ＆ ボタン状態の同期）
+  const renderActiveTagsUI = () => {
+    if (activeTags.size > 0) {
+      activeFilterBar.hidden = false;
+      activeChipsList.innerHTML = '';
+
+      activeTags.forEach((tag) => {
+        const chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = 'active-tag-chip';
+        chip.setAttribute('aria-label', `${tag}の絞り込みを解除`);
+        chip.title = `${tag}の絞り込みを解除`;
+        chip.innerHTML = `
+          <span class="chip-text">#${tag}</span>
+          <span class="chip-remove" aria-hidden="true">✕</span>
+        `;
+        chip.addEventListener('click', () => {
+          removeActiveTag(tag);
+        });
+        activeChipsList.appendChild(chip);
+      });
+
+      if (activeTagCountBadge) {
+        activeTagCountBadge.hidden = false;
+        activeTagCountBadge.textContent = `${activeTags.size}件選択中`;
+      }
+    } else {
+      activeFilterBar.hidden = true;
+      activeChipsList.innerHTML = '';
+
+      if (activeTagCountBadge) {
+        activeTagCountBadge.hidden = true;
+        activeTagCountBadge.textContent = '';
+      }
+    }
+
+    // 全タグボタンの選択状態を更新（最上部およびアコーディオン内すべて同期）
+    tagButtons.forEach((btn) => {
+      const isSelected = activeTags.has(btn.dataset.tag);
+      btn.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
+      btn.classList.toggle('is-selected', isSelected);
+    });
   };
 
-  searchInput.addEventListener('input', () => {
-    clearActiveTag();
+  const toggleActiveTag = (tag) => {
+    if (activeTags.has(tag)) {
+      activeTags.delete(tag);
+    } else {
+      activeTags.add(tag);
+    }
+    renderActiveTagsUI();
     filterPolicies();
+  };
+
+  const removeActiveTag = (tag) => {
+    activeTags.delete(tag);
+    renderActiveTagsUI();
+    filterPolicies();
+  };
+
+  const clearAll = () => {
+    searchInput.value = '';
+    activeTags.clear();
+    renderActiveTagsUI();
+    filterPolicies();
+    searchInput.focus();
+  };
+
+  // タグボタンのクリック（トグル：複数選択対応）
+  tagButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      toggleActiveTag(btn.dataset.tag);
+    });
   });
 
-  clearButton.addEventListener('click', () => {
+  // すべてクリアボタン
+  clearAllFiltersButton.addEventListener('click', () => {
+    clearAll();
+  });
+
+  // キーワード入力クリアボタン
+  clearKeywordButton.addEventListener('click', () => {
     searchInput.value = '';
-    clearActiveTag();
     filterPolicies();
     searchInput.focus();
   });
 
-  tagSelect.addEventListener('change', () => {
-    activeTag = tagSelect.value;
-    searchInput.value = '';
+  // キーワード検索（タグを解除しない：AND検索）
+  searchInput.addEventListener('input', () => {
     filterPolicies();
   });
 
+  // タグ検索（リアルタイム絞り込み）
+  tagSearchInput.addEventListener('input', () => {
+    const rawValue = tagSearchInput.value.trim();
+    const query = normalize(rawValue);
+    const queryHira = toHiragana(query);
+
+    if (!query) {
+      tagButtons.forEach((btn) => {
+        btn.hidden = false;
+      });
+      tagCategories.forEach((group) => {
+        group.hidden = false;
+      });
+      return;
+    }
+
+    tagCategories.forEach((group) => {
+      const buttonsInGroup = Array.from(group.querySelectorAll('.tag-button'));
+      let visibleCountInGroup = 0;
+
+      buttonsInGroup.forEach((btn) => {
+        const tagName = normalize(btn.dataset.tag || '');
+        const reading = normalize(btn.dataset.reading || '');
+        const tagNameHira = toHiragana(tagName);
+
+        const matched =
+          tagName.includes(query) ||
+          reading.includes(query) ||
+          reading.includes(queryHira) ||
+          tagNameHira.includes(queryHira);
+
+        btn.hidden = !matched;
+        if (matched) visibleCountInGroup++;
+      });
+
+      if (visibleCountInGroup > 0) {
+        group.hidden = false;
+        group.open = true; // マッチするタグがあるカテゴリーは自動展開
+      } else {
+        group.hidden = true;
+      }
+    });
+  });
+
+  // 初期化
+  renderActiveTagsUI();
   filterPolicies();
 </script>
 
@@ -273,32 +526,38 @@ const groupedPolicies = policyCategories.map((cat) => {
   margin-bottom: 2rem;
   border: 1px solid var(--color-border, #e5e7eb);
   border-radius: 16px;
-  padding: 1.5rem;
+  padding: 1.25rem 1.5rem;
   background: #fafbfc;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .policy-search-header {
-  margin-bottom: 1rem;
+  margin-bottom: 0;
 }
 
 .policy-search-header h2 {
-  margin: 0 0 0.5rem;
+  margin: 0 0 0.35rem;
   font-size: 1.25rem;
 }
 
 .policy-search-header p {
   margin: 0;
   color: #555;
+  font-size: 0.9rem;
 }
 
+/* キーワード検索バー */
 .search-bar {
   display: grid;
-  gap: 0.75rem;
+  gap: 0.4rem;
 }
 
 .search-label {
   font-weight: 700;
   color: var(--color-primary, #003f88);
+  font-size: 0.9rem;
 }
 
 .search-input-group {
@@ -310,63 +569,456 @@ const groupedPolicies = policyCategories.map((cat) => {
 #policy-search-input {
   flex: 1;
   min-width: 0;
-  padding: 0.85rem 1rem;
+  padding: 0.65rem 1rem;
   border: 1px solid #d1d5db;
   border-radius: 999px;
-  font-size: 1rem;
+  font-size: 0.95rem;
+  background: #fff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#policy-search-input:focus {
+  outline: none;
+  border-color: var(--color-primary, #003f88);
+  box-shadow: 0 0 0 3px rgba(0, 63, 136, 0.15);
 }
 
 #policy-search-clear {
-  padding: 0.85rem 1.25rem;
+  padding: 0.65rem 1.25rem;
   border: 1px solid transparent;
   border-radius: 999px;
   background: var(--color-accent, #f4f7fb);
   color: var(--color-primary, #003f88);
+  font-weight: 700;
+  font-size: 0.9rem;
   cursor: pointer;
+  transition: background 0.15s;
 }
 
 #policy-search-clear:hover {
   background: #e8eff9;
 }
 
-.policy-search-status {
-  margin: 0;
-  color: #555;
-}
-
-.tag-picker {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.75rem;
-  margin-top: 1rem;
-}
-
-.tag-picker-label {
-  font-weight: 700;
-  color: #333;
-}
-
-.tag-select-wrapper {
-  width: 100%;
-  max-width: 420px;
-}
-
-.tag-select {
-  width: 100%;
-  padding: 0.85rem 1rem;
-  border: 1px solid #d1d5db;
-  border-radius: 999px;
-  font-size: 1rem;
-  background: #fff;
-  color: #333;
-}
-
-.tag-select:focus {
+#policy-search-clear:focus-visible {
   outline: 2px solid var(--color-primary, #003f88);
   outline-offset: 2px;
 }
 
+/* 🌟 注目タグエリア（コンパクト＆真っ先に目立つ） */
+.featured-tags-box {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  background: #fffdf5;
+  border: 1px solid #f6e05e;
+  border-left: 4px solid var(--color-accent, #fabe00);
+  border-radius: 8px;
+  padding: 0.5rem 0.85rem;
+}
+
+.featured-tags-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #744210;
+  white-space: nowrap;
+}
+
+.featured-icon {
+  color: #d97706;
+  font-size: 0.9rem;
+}
+
+.featured-tags-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.featured-tag-button {
+  background: #ffffff;
+  border: 1.5px solid var(--color-accent, #fabe00);
+  color: var(--color-primary, #003f88);
+  font-weight: 700;
+  padding: 0.3rem 0.75rem;
+  font-size: 0.85rem;
+  box-shadow: 0 1px 2px rgba(250, 190, 0, 0.15);
+}
+
+.featured-tag-button:hover {
+  background: #fffbeb;
+  border-color: #d97706;
+}
+
+.featured-pill-star {
+  color: #d97706;
+  margin-right: 0.2rem;
+  font-size: 0.75rem;
+}
+
+.category-featured-tag {
+  border-color: #f6e05e;
+  background: #fffdfa;
+  font-weight: 700;
+  color: var(--color-primary, #003f88);
+}
+
+.featured-star-small {
+  color: #d97706;
+  margin-right: 0.2rem;
+  font-size: 0.75rem;
+}
+
+/* 絞り込み中タグの表示バー（未選択時は完全に非表示） */
+.active-filter-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background: #eef4fc;
+  border: 1px solid #bfdbfe;
+  border-radius: 8px;
+  padding: 0.65rem 0.85rem;
+}
+
+/* hidden属性がついているときは絶対に表示しない */
+.active-filter-bar[hidden] {
+  display: none !important;
+}
+
+.active-filter-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.active-filter-label {
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--color-primary, #003f88);
+}
+
+.active-chips-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+:global(.active-tag-chip) {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.75rem;
+  background: var(--color-primary, #003f88);
+  color: #ffffff;
+  border: 1px solid var(--color-primary, #003f88);
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+  line-height: 1.4;
+}
+
+:global(.active-tag-chip:hover) {
+  background: #002b5e;
+  border-color: #002b5e;
+}
+
+:global(.active-tag-chip:focus-visible) {
+  outline: 2px solid var(--color-accent, #fabe00);
+  outline-offset: 2px;
+}
+
+:global(.chip-text) {
+  font-size: 0.85rem;
+}
+
+:global(.chip-remove) {
+  font-size: 0.75rem;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  width: 1.15rem;
+  height: 1.15rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  margin-left: 0.15rem;
+  transition: background 0.15s;
+}
+
+:global(.active-tag-chip:hover .chip-remove) {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.clear-all-button {
+  background: none;
+  border: none;
+  color: #4b5563;
+  font-size: 0.8rem;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+}
+
+.clear-all-button:hover {
+  color: var(--color-primary, #003f88);
+}
+
+.clear-all-button:focus-visible {
+  outline: 2px solid var(--color-primary, #003f88);
+}
+
+/* 🏷️ テーマ・タグから探す（普段は小さく折りたたんで省スペース化） */
+.tag-filter-accordion {
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  background: #ffffff;
+  overflow: hidden;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.tag-filter-accordion[open] {
+  border-color: #94a3b8;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.tag-filter-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.65rem 0.9rem;
+  background: #f8fafc;
+  cursor: pointer;
+  user-select: none;
+  list-style: none;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #1f2937;
+  transition: background 0.15s;
+}
+
+.tag-filter-summary::-webkit-details-marker {
+  display: none;
+}
+
+.tag-filter-summary:hover {
+  background: #f1f5f9;
+}
+
+.tag-filter-summary:focus-visible {
+  outline: 2px solid var(--color-primary, #003f88);
+  outline-offset: -2px;
+}
+
+.summary-title-group {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.summary-icon {
+  font-size: 0.95rem;
+}
+
+.summary-title {
+  color: var(--color-primary, #003f88);
+}
+
+.active-tag-count-badge {
+  background: var(--color-primary, #003f88);
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+}
+
+.active-tag-count-badge[hidden] {
+  display: none !important;
+}
+
+.summary-toggle-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  color: #64748b;
+  font-weight: normal;
+}
+
+.summary-arrow {
+  font-size: 0.7rem;
+  transition: transform 0.2s ease;
+}
+
+.tag-filter-accordion[open] .summary-arrow {
+  transform: rotate(180deg);
+}
+
+.tag-filter-panel {
+  padding: 0.85rem 1rem 1rem;
+  border-top: 1px solid #f1f5f9;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.tag-search-row {
+  width: 100%;
+}
+
+#tag-search-input {
+  width: 100%;
+  padding: 0.55rem 0.9rem;
+  border: 1px solid #d1d5db;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  background: #fff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#tag-search-input:focus {
+  outline: none;
+  border-color: var(--color-primary, #003f88);
+  box-shadow: 0 0 0 3px rgba(0, 63, 136, 0.15);
+}
+
+/* カテゴリー別折りたたみ (<details> / <summary>) */
+.tag-categories-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.tag-category-group {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #ffffff;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+
+.tag-category-group[open] {
+  border-color: #cbd5e1;
+}
+
+.tag-category-summary {
+  display: flex;
+  align-items: center;
+  padding: 0.6rem 0.85rem;
+  font-weight: 700;
+  color: #333;
+  cursor: pointer;
+  user-select: none;
+  background: #f8fafc;
+  list-style: none;
+  transition: background 0.15s;
+}
+
+.tag-category-summary::-webkit-details-marker {
+  display: none;
+}
+
+.tag-category-summary:hover {
+  background: #f1f5f9;
+}
+
+.tag-category-summary:focus-visible {
+  outline: 2px solid var(--color-primary, #003f88);
+  outline-offset: -2px;
+}
+
+.category-summary-title {
+  font-size: 0.9rem;
+}
+
+.category-summary-count {
+  font-size: 0.8rem;
+  color: #64748b;
+  font-weight: normal;
+  margin-left: 0.25rem;
+}
+
+.category-summary-icon {
+  margin-left: auto;
+  font-size: 0.7rem;
+  color: #64748b;
+  transition: transform 0.2s ease;
+}
+
+.tag-category-group[open] .category-summary-icon {
+  transform: rotate(180deg);
+}
+
+.tag-buttons-container {
+  padding: 0.75rem 0.85rem 0.85rem;
+  border-top: 1px solid #f1f5f9;
+}
+
+.tag-buttons-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.tag-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #374151;
+  font-size: 0.825rem;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+  line-height: 1.4;
+}
+
+.tag-button:hover {
+  background: #f3f4f6;
+  border-color: #9ca3af;
+  color: #111827;
+}
+
+.tag-button:focus-visible {
+  outline: 2px solid var(--color-primary, #003f88);
+  outline-offset: 2px;
+}
+
+.tag-button.is-selected {
+  background: var(--color-primary, #003f88);
+  color: #ffffff;
+  border-color: var(--color-primary, #003f88);
+  font-weight: 700;
+}
+
+.tag-button.is-selected:hover {
+  background: #002b5e;
+}
+
+.tag-button.is-selected .featured-pill-star,
+.tag-button.is-selected .featured-star-small {
+  color: var(--color-accent, #fabe00);
+}
+
+/* 検索ステータス */
+.policy-search-status {
+  margin: 0;
+  font-weight: 700;
+  color: #4b5563;
+  font-size: 0.9rem;
+}
+
+/* 政策カード・カテゴリーセクション */
 .category-section {
   margin-top: 0 !important;
   margin-bottom: 0 !important;
@@ -388,6 +1040,19 @@ const groupedPolicies = policyCategories.map((cat) => {
 
 .pc-br {
   display: none;
+}
+
+/* スクリーンリーダー専用非表示 */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 @media (min-width: 768px) {
