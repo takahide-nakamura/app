@@ -2,93 +2,220 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+
+const birthDate = '1991-12-27';
+const profile = {
+  name: '中村たかひで',
+  birthDate,
+  birthplace: '大阪府',
+  residence: '高槻市',
+  qualification: '理学療法士',
+  degree: '兵庫医療大学大学院（修士課程修了）',
+};
+
+const getAge = (dateString: string, today = new Date()) => {
+  const birth = new Date(`${dateString}T00:00:00`);
+  let age = today.getFullYear() - birth.getFullYear();
+  const birthdayHasPassed =
+    today.getMonth() > birth.getMonth() ||
+    (today.getMonth() === birth.getMonth() && today.getDate() >= birth.getDate());
+
+  if (!birthdayHasPassed) age -= 1;
+  return age;
+};
+
+const initialAge = getAge(profile.birthDate);
 ---
 
 <Layout
      title="プロフィール｜もっと住みやすい高槻へ"
-     description="理学療法士としての現場経験を活かし、高槻市をもっと住みやすくするための政策と活動に取り組んでいます。"
+     description="中村たかひでのプロフィール。高槻とのつながり、理学療法士としての経験、目指す高槻、課題解決型の政治に対する考え方を紹介します。"
     >
   <Header />
 
-  <main class="profile-page page-content" id="main-content" tabindex="-1">
+  <main class="profile-page container" id="main-content" tabindex="-1">
+    <!-- ========================= Hero ========================== -->
+    <section class="profile-hero" aria-labelledby="profile-heading">
+      <div class="hero-copy">
+        <p class="eyebrow">プロフィール</p>
+        <h1 id="profile-heading">{profile.name}</h1>
+        <p class="lead">高槻で暮らす一人の市民として、<br />
+          もっと住みやすい高槻へ。
+        </p>
+        <p class="hero-description">
+          理学療法士として、病院から介護、地域・在宅まで現場を経験してきました。その経験を土台に、高槻の暮らしと市政について調べ、考え、政策として公開しています。
+        </p>
+      </div>
 
-    <section class="hero">
-      <h1>プロフィール</h1>
-
-      <p class="lead">
-        現場で感じた課題を、政策へ。
-      </p>
-
-      <p>
-        理学療法士として現場に向き合う中で、<!--
-        -->医療や介護だけでは解決できない課題があることを実感しました。
-      </p>
-
-      <p>
-        市民の皆さんの声、公開データ、現場経験をもとに、一つひとつ改善策を考え、「もっと住みやすい高槻へ」を目指して活動しています。
-      </p>
-
-    </section>
-
-    <section class="motivation">
-
-     <h2>なぜ活動するのか</h2>
-
-     <p>
-        私たちの暮らしは、生まれてから亡くなった後の手続きに至るまで、<!--
-        -->市の行政サービスと深く関わっています。
-     </p>
-     <p>
-        医療、介護、子育て、防災、ごみ、道路、公園など、<!--
-        -->暮らしに最も身近な行政が市役所です。
-     </p>
-     <p>
-        だからこそ、高槻市をもっと住みやすいまちにしたい。<!--
-        -->その思いから、市政について学び、情報発信や政策づくりに取り組んでいます。
-     </p>
-    </section>
-
-    <section class="career">
-
-        <h2>これまでの歩み</h2>
-
-        <div class="career-box">
-            
-            <h3>🏥 理学療法士として</h3>
-            <p>
-                高校時代、理系を選択し、<!--
-                -->人の役に立てる仕事に就きたいと考え、<!--
-                -->理学療法士の道を選びました。
-            </p>
-            <p>
-                現場では、病気やけがだけではなく、<!--
-                -->制度や地域の仕組みによって困っている方々と<!--
-                -->数多く出会いました。
-            </p>
-            <p>
-                「医療だけでは解決できない課題がある。」<!--
-                -->その経験が、現在の政策づくりにつながっています。
-            </p>
-
+      <figure class="portrait" aria-label="中村たかひでのプロフィール写真">
+        <div class="portrait-placeholder" aria-hidden="true">
+          <span>中村<br />たかひで</span>
         </div>
-
+        <figcaption>本プロフィール写真を掲載予定</figcaption>
+      </figure>
     </section>
 
-    <section class="current-activity">
+<!-- ========================= Basic Profile ========================== -->
+    <section class="basic-profile" aria-labelledby="basic-profile-heading">
+      <h2 id="basic-profile-heading">基本プロフィール</h2>
+      <dl class="profile-list">
+        <div><dt>氏名</dt><dd>{profile.name}</dd></div>
+        <div><dt>生年月日</dt><dd><time datetime={profile.birthDate}>1991年12月27日</time></dd></div>
+        <div><dt>年齢</dt><dd><span id="profile-age" data-birth-date={profile.birthDate}>{initialAge}歳</span></dd></div>
+        <div><dt>出身地</dt><dd>{profile.birthplace}</dd></div>
+        <div><dt>居住地</dt><dd>{profile.residence}</dd></div>
+        <div><dt>資格</dt><dd>{profile.qualification}</dd></div>
+        <div><dt>学位</dt><dd>{profile.degree}</dd></div>
+      </dl>
+    </section>
 
-        <h2>現在の活動</h2>
+<!-- ========================= Why Takatsuki ========================== -->
+    <section class="profile-section" aria-labelledby="why-takatsuki-heading">
+      <p class="section-label">暮らしとの接点</p>
+      <h2 id="why-takatsuki-heading">なぜ、高槻で活動するのか</h2>
+      <div class="reading-column">
+        <p>私と高槻とのご縁は、祖母から始まっています。</p>
+        <p>祖母が高槻で暮らしており、子どもの頃、祖母の家へ遊びに行くときは高槻が身近な場所でした。</p>
+        <p>父も高槻で育ちました。</p>
+        <p>そして今、私自身もご縁があり、高槻で暮らしています。</p>
+        <p>これからも暮らしていくこのまちだからこそ、もっと良いまちにしたい。</p>
+        <p>高槻が、活気のある、住みやすいまちであり続けてほしいと思っています。</p>
+        <p>自分自身もこのまちで暮らす一人だからこそ、高槻を良くすることには、人生をかける価値があると考えています。</p>
+        <p>そのために、市政について学び、情報を集め、政策を考え、発信する活動に取り組んでいます。</p>
 
-        <div class="activity-box">
+      </div>
+    </section>
 
-            <ul>
-                <li>YouTubeで市政や暮らしに関する情報を発信</li>
-                <li>X（旧Twitter）で最新情報や調査結果を紹介</li>
-                <li>高槻市・大阪府・国の公開資料を調査・整理</li>
-                <li>市民の皆さんの声を政策づくりに反映</li>
-            </ul>
+<!-- ========================= Professional Experience ========================== -->
+    <section class="profile-section" aria-labelledby="therapist-heading">
+      <p class="section-label">専門経験</p>
+      <h2 id="therapist-heading">理学療法士として見てきたこと</h2>
+      <div class="reading-column">
+        <p>理学療法士として、回復期・療養病院で3年、急性期病院で1年、通所リハ・デイサービスで3年、訪問リハで6年働いてきました。</p>
+        <p>病院から介護、地域・在宅まで、人が病気やけがをしてから、その後の生活に戻っていくまでのさまざまな現場を経験してきました。</p>
+        <p>そこで感じたのは、医療や介護の力だけでは解決できない問題が、暮らしの中には数多くあるということです。</p>
+        <p>必要なサービスがあっても、その存在を知らなければ利用できません。制度があっても、実際の生活の中で使いにくければ、必要な人に届きません。</p>
+        <p>こうした現場での経験を通じて、目の前の人を支えるだけでなく、制度や仕組みそのものをより良くすることにも目を向けるようになりました。</p>
+        <p>それが、私が現場の経験を政策につなげて考えるようになった原点です。</p>
+      </div>
+    </section>
 
+<!-- ========================= Why Municipal Politics ========================== -->
+    <section class="profile-section" aria-labelledby="why-municipal-heading">
+      <p class="section-label">市政に向き合う理由</p>
+      <h2 id="why-municipal-heading">なぜ、市政なのか</h2>
+      <h3>活気のある、住みやすいまち</h3>
+      <div class="reading-column">
+        <p>理学療法士として現場で人を支える中で、目の前の人への支援だけでは解決できない問題が、暮らしの中にはあることを実感してきました。</p>
+        <p>制度があっても、必要な人に届かなければ十分な支援にはなりません。個人の努力だけでは変えられない仕組みの問題もあります。</p>
+        <p>そうした問題をより広い視点から考えたとき、暮らしている地域の行政をより良くすることが、解決への一つの大切な手段になると考えるようになりました。</p>
+        <p>市政は、自分たちが暮らす地域の課題に向き合い、行政の仕組みやサービスをより良くしていくための、最も身近な場です。</p>
+        <p>だから私は、高槻で暮らす一人の市民として、このまちで何が起きているのかを調べ、何が課題なのかを確かめ、どうすれば改善できるのかを考えています。</p>
+        <p>「こうしてほしい」と願うだけではなく、根拠をもとに解決策を考え、実行した後も結果を確かめ、必要であれば見直していく。</p>
+        <p>そうした積み重ねによって、高槻をより良いまちにしていきたいと考えています。</p>
+      </div>
+    </section>
+
+<!-- ========================= Vision ========================== --> 
+    <section class="profile-section strengths-section" aria-labelledby="takatsuki-heading" > 
+      <p class="section-label">まちの可能性</p>
+      <h2 id="takatsuki-heading">目指す高槻</h2>
+      <h3>活気のある、住みやすいまち</h3>
+      <div class="reading-column">
+        <p>私は、高槻には大きな可能性があると考えています。</p>
+        <p>大阪と京都の間に位置し、鉄道や市営バスによる交通網があり、駅周辺には商業施設が集まっています。医療機関や歴史など、すでにある強みもあります。</p>
+        <p>今ある強みを伸ばし、弱いところを一つずつ改善していく。</p>
+        <p>子育てをする人にも、働く人にも、高齢者にも、これから高槻で暮らしたいと思う人にも、「ここで暮らしてよかった」と思ってもらえる。</p>
+        <p>そんな、活気のある住みやすいまちを目指します。</p>
+      </div>
+    </section>
+
+<!-- ========================= Policy Focus ========================== -->
+    <section class="profile-section focus-section" aria-labelledby="focus-heading" >
+      <p class="section-label">政策の方向性</p>
+      <h2 id="focus-heading">特に取り組みたいこと</h2>
+      <div class="focus-list">
+        <article class="focus-item">
+          <p class="focus-number">01</p>
+          <h3>必要な支援につながれるまち</h3>
+          <p> 病気や介護、生活上の困りごとなど、支援を必要とする人が、必要な制度やサービスにつながれる仕組みを考えます。 </p>
+        </article>
+        <article class="focus-item">
+           <p class="focus-number">02</p>
+           <h3>共働き世帯を前提とした子育て環境</h3>
+           <p>現代の家庭の生活実態を前提に、子育てと仕事を両立しやすい行政サービスを考えます。</p>
+        </article>
+        <article class="focus-item">
+          <p class="focus-number">03</p>
+          <h3>現役世代にも高齢者にも選ばれるまち</h3>
+          <p> 高齢化に伴う課題を丁寧に捉えながら、現役世代にとっても住みたいと思える高槻を目指します。 </p>
+        </article>
+      </div>
+    </section>
+
+<!-- ========================= Political Approach ========================== -->
+    <section class="profile-section approach-section" aria-labelledby="approach-heading">
+      <p class="section-label">判断の方法</p>
+      <h2 id="approach-heading">私が大切にする政治</h2>
+      <p class="approach-lead">現場の声を聞き、データで考え、実行し、結果を確かめる。</p>
+      <div class="reading-column">
+        <p> 私は、課題を解決するためには、目の前の声だけでも、数字だけでも不十分だと考えています。 </p>
+        <p> 現場で何が起きているのかを知り、客観的なデータや公的資料を確認し、課題を具体的に捉える。そのうえで解決策を考え、実行し、結果を確かめます。 </p>
+        <p> また、一部の声を市民全体の意見と決めつけたり、特定の立場や利益だけを優先したりしないことも大切にします。 </p>
+        <p> 政策を決める過程も、政治とお金についても、できる限り透明であることを大切にします。 </p>
+      </div>
+
+      <ol class="process-list" aria-label="課題解決の流れ">
+        <li><span>01</span><strong>現場の意見</strong></li>
+        <li><span>02</span><strong>客観的なデータ</strong></li>
+        <li><span>03</span><strong>課題の特定</strong></li>
+        <li><span>04</span><strong>解決案</strong></li>
+        <li><span>05</span><strong>実行</strong></li>
+        <li><span>06</span><strong>検証</strong></li>
+        <li><span>07</span><strong>改善</strong></li>
+      </ol>
+    </section>
+
+<!-- ========================= History ========================== -->
+    <section class="profile-section history-section" aria-labelledby="history-heading">
+      <p class="section-label">学びと専門経験</p>
+      <h2 id="history-heading">これまでの歩み</h2>
+      <div class="history-grid">
+        <div>
+          <h3>学歴</h3>
+          <ol class="timeline">
+            <li>吹田市立千里第一小学校</li>
+            <li>関西大倉中学校</li>
+            <li>関西大倉高等学校</li>
+            <li>兵庫医療大学</li>
+            <li>兵庫医療大学大学院（修士課程修了）</li>
+          </ol>
         </div>
+        <div>
+          <h3>職歴・専門経験</h3>
+          <ol class="timeline">
+            <li>理学療法士</li>
+            <li>回復期・療養病院：3年</li>
+            <li>急性期病院：1年</li>
+            <li>通所リハ・デイサービス：3年</li>
+            <li>訪問リハ：6年</li>
+          </ol>
+        </div>
+      </div>
+      <p class="history-note">兵庫医療大学は、現在の兵庫医科大学にあたります。</p>
+    </section>
 
+<!-- ========================= Current Activity ========================== -->
+    <section class="profile-section activity-section" aria-labelledby="activity-heading">
+      <p class="section-label">公開と対話</p>
+      <h2 id="activity-heading">現在の活動</h2>
+      <div class="activity-flow">
+        <div><strong>調査</strong><span>高槻市・大阪府・国などの公開資料を調査・整理</span></div>
+        <div><strong>政策化</strong><span>現場の意見とデータから課題と解決案を考える</span></div>
+        <div><strong>公開</strong><span>政策や市政に関する情報と、その根拠を発信する</span></div>
+        <div><strong>市民の声</strong><span>本サイトで意見を受け取り、政策づくりにつなげる</span></div>
+        <div><strong>改善</strong><span>活動を記録し、必要に応じて政策を見直す</span></div>
+      </div>
     </section>
 
   </main>
@@ -96,74 +223,120 @@ import Footer from '../components/Footer.astro';
   <Footer />
 </Layout>
 
+<script>
+  const ageElement = document.querySelector<HTMLElement>('#profile-age');
+
+  if (ageElement?.dataset.birthDate) {
+    const birthDate = new Date(`${ageElement.dataset.birthDate}T00:00:00`);
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const birthdayHasPassed =
+      today.getMonth() > birthDate.getMonth() ||
+      (today.getMonth() === birthDate.getMonth() && today.getDate() >= birthDate.getDate());
+
+    if (!birthdayHasPassed) age -= 1;
+    ageElement.textContent = `${age}歳`;
+  }
+</script>
+
 <style>
-.profile-page{
-  padding: clamp(2rem, 4vw, 4rem) 0;
+/* ========================= Page ========================== */
+.profile-page { padding: clamp(2rem, 5vw, 4.5rem) 1rem; }
+
+/* ========================= Hero ========================== */
+.profile-hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(220px, 320px); gap: clamp(2rem, 7vw, 6rem); align-items: center; padding-bottom: clamp(3rem, 7vw, 6rem); }
+.hero-copy { max-width: 620px; }
+.eyebrow, .section-label { margin: 0 0 0.75rem; color: var(--color-primary); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.08em; }
+.profile-hero h1 { margin: 0 0 1.25rem; line-height: 1.25; }
+.lead { margin: 0 0 1.5rem; color: var(--color-primary); font-size: clamp(1.15rem, 2.5vw, 1.5rem); font-weight: 700; line-height: 1.7; }
+.hero-description { max-width: 35rem; margin: 0; line-height: 1.9; }
+.portrait { width: 100%; max-width: 320px; margin: 0 auto; }
+.portrait-placeholder { display: grid; place-items: center; aspect-ratio: 4 / 5; border: 1px solid var(--color-primary); border-bottom: 0.6rem solid var(--color-accent); background: #f5f8fc; color: var(--color-primary); font-size: clamp(1.4rem, 4vw, 2rem); font-weight: 700; line-height: 1.55; text-align: center; }
+.portrait figcaption { margin-top: 0.75rem; color: #555; font-size: 0.8rem; line-height: 1.6; text-align: center; }
+
+/* ========================= Basic Profile ========================== */
+.basic-profile { padding: 2rem 0 clamp(3rem, 6vw, 5rem); border-top: 1px solid var(--color-border); }
+.basic-profile h2, .profile-section h2 { color: var(--color-primary); }
+.profile-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin: 0; border-top: 1px solid var(--color-border); }
+.profile-list div { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 1rem; padding: 0.85rem 0; border-bottom: 1px solid var(--color-border); }
+.profile-list dt { color: #555; font-weight: 700; } .profile-list dd { margin: 0; }
+
+/* ========================= Common Sections ========================== */
+.profile-section { padding: clamp(3rem, 6vw, 5rem) 0; border-top: 1px solid var(--color-border); }
+.profile-section h2 { margin: 0 0 1.5rem; }
+.reading-column { max-width: 47rem; }
+.reading-column p { margin: 0 0 1.35rem; line-height: 1.95; }
+.reading-column p:last-child { margin-bottom: 0; }
+
+/* ========================= Vision ========================== */
+.strengths-section { border-top: 0.35rem solid var(--color-accent); }
+.strengths-section h3 { margin: 0 0 1.25rem; color: var(--color-text); font-size: 1.35rem; } 
+
+/* ========================= Political Approach ========================== */
+.approach-lead { max-width: 47rem; margin: 0 0 1.5rem; color: var(--color-primary); font-size: 1.2rem; font-weight: 700; line-height: 1.7; }
+.process-list { display: grid; grid-template-columns: repeat(4, 1fr); margin: 2.5rem 0 0; padding: 0; list-style: none; border-top: 1px solid var(--color-primary); border-bottom: 1px solid var(--color-primary); }
+.process-list li { min-height: 6.5rem; margin: 0; padding: 1rem; border-right: 1px solid var(--color-border); border-bottom: 1px solid var(--color-border); }
+.process-list li:nth-child(4n) { border-right: 0; }
+/* 2行目（5番目以降）の要素だけに線を引かない設定に変更 */
+.process-list li:nth-child(n + 5) { border-bottom: 0; }
+.process-list span { display: block; margin-bottom: 0.45rem; color: #666; font-size: 0.78rem; line-height: 1.4; }
+.process-list strong { display: block; color: var(--color-primary); line-height: 1.6; }
+
+/* ========================= Policy Focus ========================== */
+.focus-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem; }
+.focus-item { padding-top: 1rem; border-top: 3px solid var(--color-primary); }
+.focus-number { margin: 0; color: var(--color-primary); font-weight: 700; }
+.focus-item h3 { margin: 0.5rem 0 1rem; font-size: 1.1rem; line-height: 1.6; }
+.focus-item p:last-child { margin: 0; line-height: 1.85; }
+
+/* ========================= History ========================== */
+.history-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(2rem, 7vw, 6rem); }
+.history-grid h3 { margin: 0 0 1rem; color: var(--color-primary); }
+.timeline { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--color-border); }
+.timeline li { margin: 0; padding: 0.8rem 0; border-bottom: 1px solid var(--color-border); line-height: 1.6; }
+.history-note { margin: 2rem 0 0; color: #555; font-size: 0.9rem; line-height: 1.7; }
+
+/* ========================= Current Activity ========================== */
+.activity-flow { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border-top: 1px solid var(--color-primary); border-bottom: 1px solid var(--color-primary); }
+.activity-flow div { min-height: 9rem; padding: 1.25rem 1rem; border-right: 1px solid var(--color-border); }
+.activity-flow div:last-child { border-right: 0; }
+.activity-flow strong { display: block; margin-bottom: 0.75rem; color: var(--color-primary); }
+.activity-flow span { display: block; font-size: 0.9rem; line-height: 1.7; }
+
+/* ========================= Responsive ========================== */
+@media (max-width: 900px) {
+  .focus-list { grid-template-columns: 1fr; gap: 2rem; }
+  .activity-flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .activity-flow div { border-bottom: 1px solid var(--color-border); }
+  .activity-flow div:nth-child(2n) { border-right: 0; }
+  .activity-flow div:nth-last-child(-n + 2) { border-bottom: 0; }
+  .activity-flow div:last-child { border-right: 0; border-bottom: 0; }
+}
+@media (max-width: 700px) {
+  .profile-page { padding-inline: 1rem; }
+  .profile-hero { grid-template-columns: 1fr; gap: 2rem; align-items: start; }
+  .portrait { order: -1; max-width: 17rem; }
+  .profile-hero h1 { margin-bottom: 1rem; }
+  .profile-list { grid-template-columns: 1fr; }
+  .profile-list div { grid-template-columns: 6rem minmax(0, 1fr); }
+  .history-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .process-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .process-list li { min-height: 6rem; border-right: 1px solid var(--color-border); }
+  .process-list li:nth-child(4n) { border-right: 1px solid var(--color-border); }
+  .process-list li:nth-child(2n) { border-right: 0; }
+  /* 2列レイアウトになるため、奇数・偶数や行数で制御 */
+  .process-list li { border-bottom: 1px solid var(--color-border); }
+  .process-list li:nth-last-child(1) { border-bottom: 0; }
+
+  .activity-flow { grid-template-columns: 1fr; }
+  .activity-flow div { min-height: auto; border-right: 0; border-bottom: 1px solid var(--color-border); }
+  .activity-flow div:nth-child(2n) { border-right: 0; }
+  .activity-flow div:nth-last-child(-n + 2) { border-bottom: 1px solid var(--color-border); }
+  .activity-flow div:last-child { border-bottom: 0; }
 }
 
-.hero{
-  text-align:center;
-}
-
-.lead{
-  font-size:1.5rem;
-  font-weight:bold;
-  color:#003f88;
-  margin:2rem 0;
-}
-
-.hero p{
-  line-height:1.9;
-  margin-bottom:1.5rem;
-}
-
-.motivation,
-.career,
-.current-activity {
-  margin-top: var(--space-lg);
-}
-
-.motivation p{
-  line-height:1.9;
-  margin-bottom:1.5rem;
-}
-
-.career{
-  margin-top: var(--space-lg);
-}
-
-.career-box{
-  background:#f8fbff;
-  border-left:5px solid #003f88;
-  border-radius:10px;
-  padding:2rem;
-}
-
-.career-box h3{
-  margin-top:0;
-  color:#003f88;
-}
-
-.career-box p{
-  line-height:1.9;
-  margin-bottom:1.2rem;
-}
-
-.current-activity{
-  margin-top: var(--space-lg);
-}
-
-.activity-box{
-  background:#f8fbff;
-  border-left:5px solid #003f88;
-  border-radius:10px;
-  padding:2rem;
-}
-
-.activity-box ul{
-  margin:0;
-  padding-left:1.3rem;
-  line-height:2;
+@media (prefers-reduced-motion: reduce) {
+   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
 }
 
 </style>
