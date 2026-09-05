@@ -50,6 +50,10 @@ export const policyTags: Record<string, PolicyTagMeta> = {
     reading: "こうれいしゃ",
     category: "🏥 医療・介護",
   },
+  "末期がん": {
+    reading: "まっきがん",
+    category: "🏥 医療・介護",
+  },
   "社会保障": {
     reading: "しゃかいほしょう",
     category: "🏥 医療・介護",
@@ -86,6 +90,22 @@ export const policyTags: Record<string, PolicyTagMeta> = {
   },
   "子育て": {
     reading: "こそだて",
+    category: "👨‍👩‍👧 子育て",
+  },
+  "待機児童": {
+    reading: "たいきじどう",
+    category: "👨‍👩‍👧 子育て",
+  },
+  "利用保留児": {
+    reading: "りようほりゅうじ",
+    category: "👨‍👩‍👧 子育て",
+  },
+  "保育園": {
+    reading: "ほいくえん",
+    category: "👨‍👩‍👧 子育て",
+  },
+  "こども園": {
+    reading: "こどもえん",
     category: "👨‍👩‍👧 子育て",
   },
   "病児送迎": {
