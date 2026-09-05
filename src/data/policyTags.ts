@@ -156,6 +156,14 @@ export const policyTags: Record<string, PolicyTagMeta> = {
     reading: "しえいばす",
     category: "🏙️ 暮らし",
   },
+  "福祉": {
+    reading: "ふくし",
+    category: "🏙️ 暮らし",
+  },
+  "無料乗車制度": {
+    reading: "むりょうじょうしゃせいど",
+    category: "🏙️ 暮らし",
+  },
   "生活騒音": {
     reading: "せいかつそうおん",
     category: "🏙️ 暮らし",
