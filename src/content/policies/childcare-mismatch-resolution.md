@@ -12,7 +12,6 @@ tags:
   - "保育園"
   - "こども園"
   - "子育て"
-  - "重点政策"
   
 relatedActivities: []
 references:

@@ -120,6 +120,10 @@ export const policyTags: Record<string, PolicyTagMeta> = {
     reading: "ほうもんしえん",
     category: "👨‍👩‍👧 子育て",
   },
+  "共働き": {
+    reading: "ともばたらき",
+    category: "👨‍👩‍👧 子育て",
+  },
 
   // ===== 🛡️ 防災 =====
   "国民保護": {
