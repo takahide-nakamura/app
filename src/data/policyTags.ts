@@ -148,8 +148,8 @@ export const policyTags: Record<string, PolicyTagMeta> = {
     reading: "くらし",
     category: "🏙️ 暮らし",
   },
-  "ごみ": {
-    reading: "ごみ",
+  "自治会": {
+    reading: "じちかい",
     category: "🏙️ 暮らし",
   },
   "ごみ問題": {
