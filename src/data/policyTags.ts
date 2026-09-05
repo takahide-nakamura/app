@@ -145,6 +145,26 @@ export const policyTags: Record<string, PolicyTagMeta> = {
     category: "🏙️ 暮らし",
   },
 
+  "富田": {
+    reading: "とんだ",
+    category: "🏙️ 暮らし",
+  },
+
+  "踏切": {
+    reading: "ふみきり",
+    category: "🏙️ 暮らし",
+  },
+
+  "渋滞": {
+    reading: "じゅうたい",
+    category: "🏙️ 暮らし",
+  },
+
+  "阪急京都線": {
+    reading: "はんきゅうきょうとせん",
+    category: "🏙️ 暮らし",
+  },
+
   // ===== 将来用・基本タグ（現時点で使用されていないタグはUIに非表示） =====
   "介護": {
     reading: "かいご",
