@@ -184,7 +184,10 @@ export const policyTags: Record<string, PolicyTagMeta> = {
     reading: "やかんそうおん",
     category: "🏙️ 暮らし",
   },
-
+  "行政サービス": {
+    reading: "ぎょうせいさーびす",
+    category: "🏙️ 暮らし",
+  },
   "富田": {
     reading: "とんだ",
     category: "🏙️ 暮らし",
