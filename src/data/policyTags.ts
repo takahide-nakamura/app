@@ -72,8 +72,12 @@ export const policyTags: Record<string, PolicyTagMeta> = {
     reading: "いじめ",
     category: "👨‍👩‍👧 子育て",
   },
-  "大雨臨時休業": {
-    reading: "おおあめりんじきゅうぎょう",
+  "大雨": {
+    reading: "おおあめ",
+    category: "👨‍👩‍👧 子育て",
+  },
+  "臨時休校": {
+    reading: "りんじきゅうこう",
     category: "👨‍👩‍👧 子育て",
   },
   "学校教育": {
