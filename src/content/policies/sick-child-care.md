@@ -14,6 +14,7 @@ references:
   - "sick-child-care-user-guide"
   - "private-sick-child-care-user-guide"
   - "recovering-child-care-user-guide"
+  - "sick-child-care-operation-report"
 
 problem:
   paragraphs:
