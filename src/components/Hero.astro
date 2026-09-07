@@ -51,13 +51,16 @@ const base = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
 }
 
 .title-main {
-  color: #ffffff;
-  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.18);
+  /* 白背景に対して抜群の視認性を誇る政党メインカラー（#043e80） */
+  color: var(--color-party-primary);
+  text-shadow: none;
 }
 
 .title-accent {
-  color: #7cd7ff;
-  text-shadow: 0 0 25px rgba(124, 215, 255, 0.4);
+  /* 中村たかひで パーソナルブランドカラー（#DC143C） */
+  color: var(--color-personal-brand);
+  /* ドロップシャドウを外すか、同色の薄いシャドウにしてくっきり見せる */
+  text-shadow: none; 
 }
 
 .hero-description {
