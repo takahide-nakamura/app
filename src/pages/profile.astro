@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { politicalAffiliation } from '../data/politicalAffiliation';
 
 const birthDate = '1991-12-27';
 const profile = {
@@ -39,6 +40,9 @@ const initialAge = getAge(profile.birthDate);
       <div class="hero-copy">
         <p class="eyebrow">プロフィール</p>
         <h1 id="profile-heading">{profile.name}</h1>
+        {politicalAffiliation.enabled && (
+          <p class="affiliation-line">{politicalAffiliation.displayName}</p>
+        )}
         <p class="lead">高槻で暮らす一人の市民として、<br />
           もっと住みやすい高槻へ。
         </p>

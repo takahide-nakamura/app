@@ -1,4 +1,6 @@
 ---
+import { politicalAffiliation } from "../data/politicalAffiliation";
+
 interface Props {
   description?: string;
 }
@@ -6,9 +8,6 @@ interface Props {
 const {
   description = "医療・介護・子育て・まちづくりなど、高槻市をもっと住みやすくするための政策を提案しています。"
 } = Astro.props;
-
-// OGP画像等の絶対URL生成用
-const logoURL = new URL("/ogp.png", Astro.site);
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -24,10 +23,15 @@ const jsonLd = {
     {
       "@type": "Person",
       "@id": `${Astro.site}#person`,
-      "name": "中村崇秀",
-      "jobTitle": "理学療法士",
+      "name": "中村たかひで",
+      "jobTitle": politicalAffiliation.enabled ? politicalAffiliation.displayName : "市民活動家",
       "url": Astro.site,
-    
+      "affiliation": politicalAffiliation.enabled ? {
+        "@type": "Organization",
+        "name": politicalAffiliation.partyName,
+        "url": politicalAffiliation.officialUrl || undefined,
+      } : undefined,
+       "sameAs": []
     }
   ]
 };

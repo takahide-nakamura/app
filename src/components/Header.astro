@@ -3,19 +3,26 @@
 const baseUrl = import.meta.env.BASE_URL;
 const base = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
 import SocialLinks from "./SocialLinks.astro";
+import { politicalAffiliation } from "../data/politicalAffiliation";
 ---
 <header class="site-header">
   <div class="header-inner container">
-    <div class="brand">
-      <span class="author-name">中村たかひで</span>
-      <a href={`${baseUrl}`} class="logo">もっと住みやすい高槻へ</a>
+    <div class="brand-group">
+      <div class="identity-row">
+        <span class="author-name">中村たかひで</span>
+        {politicalAffiliation.enabled && (
+          <span class="party-affiliation">{politicalAffiliation.displayName}</span>
+        )}
+      </div>
+      <a href={`${baseUrl}`} class="brand-link" aria-label="もっと住みやすい高槻へ ホーム">もっと住みやすい高槻へ</a>
       <p class="tagline">
         事実に向き合い、市民の皆さんとの対話を重ね、<br class="pc-br" />
         もっと住みやすい高槻をつくる。
       </p>
     </div>
 
-    <nav class="global-nav">
+
+    <nav class="global-nav" aria-label="主要ナビゲーション">
       <a href={`${base}`}>ホーム</a>
       <a href={`${base}policy/`}>政策</a>
       <a href={`${base}activity/`}>活動</a>
@@ -23,6 +30,12 @@ import SocialLinks from "./SocialLinks.astro";
       <a href={`${base}opinions/`}>市民の声</a>
       <a href={`${base}contact/`}>お問い合わせ</a>
     </nav>
+        {politicalAffiliation.enabled && (
+      <a class="party-logo-link" href={politicalAffiliation.officialUrl || `${base}`} target={politicalAffiliation.officialUrl ? "_blank" : undefined} rel={politicalAffiliation.officialUrl ? "noopener noreferrer" : undefined} aria-label={politicalAffiliation.logoAlt}>
+        <img src={politicalAffiliation.logoSrc} alt={politicalAffiliation.logoAlt} class="party-logo" />
+      </a>
+    )}
+
     <SocialLinks />
   </div>
 </header>
@@ -39,24 +52,49 @@ import SocialLinks from "./SocialLinks.astro";
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 2rem;
+  gap: 1.25rem;
+  flex-wrap: wrap;
 }
 
-.brand {
+.brand-group {
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 
-.logo {
-  color: #003f88;
-  font-size: 1.6rem;
+.brand-link {
+  color: var(--color-primary);
+  font-size: 1.5rem;
   font-weight: 700;
   text-decoration: none;
   line-height: 1.2;
+  margin-top: 0.2rem;
 }
 
-.logo:hover {
+.brand-link:hover {
   text-decoration: none;
+}
+
+.identity-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.author-name {
+  display: inline-block;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-personal-brand);
+}
+
+.party-affiliation {
+  display: inline-block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #374151;
 }
 
 .tagline {
@@ -66,18 +104,26 @@ import SocialLinks from "./SocialLinks.astro";
   line-height: 1.5;
 }
 
-.author-name {
+.party-logo-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 120px;
+}
+
+.party-logo {
   display: block;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: #374151;
-  margin-bottom: 0.1rem;
+  max-height: 56px;
+  width: auto;
+  max-width: 140px;
+  object-fit: contain;
 }
 
 .global-nav {
   display: flex;
-  gap: 2rem;
+  gap: 1.5rem;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .global-nav a {
@@ -89,7 +135,7 @@ import SocialLinks from "./SocialLinks.astro";
 }
 
 .global-nav a:hover {
-  color: #003f88;
+  color: var(--color-primary);
 }
 
 @media (max-width: 768px) {
@@ -98,15 +144,27 @@ import SocialLinks from "./SocialLinks.astro";
     align-items: center;
   }
 
-  .brand {
+  .brand-group {
     align-items: center;
     text-align: center;
   }
 
-  .global-nav {
-    flex-wrap: wrap;
+  .identity-row {
     justify-content: center;
-    gap: 1.25rem;
+  }
+
+  .global-nav {
+    justify-content: center;
+    gap: 1rem 1.25rem;
+  }
+
+  .party-logo-link {
+    min-width: 0;
+  }
+
+  .party-logo {
+    max-height: 44px;
+    max-width: 120px;
   }
 }
 </style>

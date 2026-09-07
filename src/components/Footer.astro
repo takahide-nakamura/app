@@ -3,16 +3,25 @@
 const baseUrl = import.meta.env.BASE_URL;
 const base = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
 import SocialLinks from "./SocialLinks.astro";
+import { politicalAffiliation } from "../data/politicalAffiliation";
 ---
 <footer class="site-footer">
   <div class="footer-inner container">
-   
-   <span class="author-name">中村たかひで</span>
-   <p class="site-name">もっと住みやすい高槻へ</p>
+    <span class="author-name">中村たかひで</span>
+    <p class="site-name">もっと住みやすい高槻へ</p>
+    {politicalAffiliation.enabled && (
+      <p class="party-affiliation">{politicalAffiliation.displayName}</p>
+    )}
+
+    {politicalAffiliation.enabled && (
+      <a class="party-logo-link" href={politicalAffiliation.officialUrl || `${base}`} target={politicalAffiliation.officialUrl ? "_blank" : undefined} rel={politicalAffiliation.officialUrl ? "noopener noreferrer" : undefined} aria-label={politicalAffiliation.logoAlt}>
+        <img src={politicalAffiliation.logoSrc} alt={politicalAffiliation.logoAlt} class="party-logo" />
+      </a>
+    )}
 
     <p class="message">
-      事実に向き合い、市民の皆さんとの対話を重ね、<br class="pc-br" />
-      もっと住みやすい高槻をつくる。
+      高槻市の現場と市民の声を丁寧に見つめ、<br class="pc-br" />
+      住みやすいまちを目指して政策と活動を発信しています。
     </p>
 
     <nav class="footer-nav" aria-label="主要フッターリンク">
@@ -45,11 +54,39 @@ import SocialLinks from "./SocialLinks.astro";
   text-align: center;
 }
 
+.author-name {
+  display: block;
+  color: var(--color-personal-brand);
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
 .site-name {
   font-size: 1.3rem;
   font-weight: 700;
-  color: #003f88;
-  margin-bottom: 0.5rem;
+  color: var(--color-primary);
+  margin-bottom: 0.25rem;
+}
+
+.party-affiliation {
+  margin: 0 0 1rem;
+  color: #4b5563;
+  font-weight: 600;
+}
+
+.party-logo-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.party-logo {
+  display: block;
+  max-height: 54px;
+  width: auto;
+  max-width: 160px;
+  object-fit: contain;
 }
 
 .message {
@@ -69,7 +106,7 @@ import SocialLinks from "./SocialLinks.astro";
 
 .footer-nav a {
   text-decoration: none;
-  color: #003f88;
+  color: var(--color-primary);
   font-weight: 600;
 }
 
@@ -96,7 +133,7 @@ import SocialLinks from "./SocialLinks.astro";
 }
 
 .legal-nav a:hover {
-  color: #003f88;
+  color: var(--color-primary);
   text-decoration: underline;
 }
 
