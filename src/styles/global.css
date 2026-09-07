@@ -1,22 +1,91 @@
+/* ==========================================================================
+   Design System & Global Styles
+   ==========================================================================
+   【非エンジニア向け・政党変更時の更新手順ガイド】
+   --------------------------------------------------------------------------
+   将来、所属政党が変更された場合は、下記【1. 政党カラー (Party Colors)】の
+   変数を新しい政党のカラーコード（HEX値）に書き換えてください。
+   サイト全体の政党依存UI（主要ボタン、リンク、見出し、アクセント枠線等）が
+   一括で連動して変更されます。
+
+   ※【2. パーソナルカラー】は中村たかひで個人のブランドカラーです。
+     政党が変わっても原則として変更しないでください。
+   ========================================================================== */
+
 :root {
-  --color-primary: #003f88;
-  --color-accent: #fabe00;
+  /* ------------------------------------------------------------------------
+     1. 政党カラー (Party Colors)
+     国民民主党 公式カラー: メイン #043e80 / アクセント #f5b500
+     ※政党変更時はここを変更してください
+     ------------------------------------------------------------------------ */
+  --color-party-primary: #043e80;
+  --color-party-primary-hover: #032f62;
+  --color-party-primary-subtle: #f0f6fc;
+  --color-party-accent: #f5b500;
+  --color-party-accent-hover: #db9f00;
+
+  /* ------------------------------------------------------------------------
+     2. パーソナルカラー (Personal Brand Color)
+     中村たかひで 個人のブランドカラー
+     ※政党が変更されても変更しません
+     ------------------------------------------------------------------------ */
   --color-personal-brand: #DC143C;
+  --color-personal-brand-hover: #b01030;
 
+  /* ------------------------------------------------------------------------
+     3. セマンティック・UIロールカラー (Role-based Tokens)
+     UI上の役割に色を割り当て（既存コードとの互換性エイリアスを含む）
+     ------------------------------------------------------------------------ */
+  --color-primary: var(--color-party-primary);
+  --color-primary-hover: var(--color-party-primary-hover);
+  --color-accent: var(--color-party-accent);
+  --color-accent-hover: var(--color-party-accent-hover);
+
+  /* テキスト色 */
   --color-text: #222222;
-  --color-background: #ffffff;
-  --color-border: #e5e7eb;
+  --color-text-muted: #4b5563;
+  --color-text-subtle: #6b7280;
+  --color-text-inverse: #ffffff;
 
+  /* 背景色 */
+  --color-background: #ffffff;
+  --color-background-subtle: #f8fafc;
+  --color-background-alt: #f1f5f9;
+
+  /* ボーダー・境界線色 */
+  --color-border: #e5e7eb;
+  --color-border-subtle: #f1f5f9;
+  --color-border-strong: #cbd5e1;
+
+  /* リンク色 */
+  --color-link: var(--color-party-primary);
+  --color-link-hover: var(--color-party-primary-hover);
+
+  /* 状態・ステータス色 */
+  --color-success: #198754;
+  --color-warning: #f5b500;
+  --color-danger: #dc2626;
+  --color-info: #0284c7;
+
+  /* WCAG 2.2 AA 適合フォーカスリング色（白背景に対してコントラスト比 10.5:1） */
+  --color-focus: var(--color-party-primary);
+
+  /* ------------------------------------------------------------------------
+     4. レイアウト・タイポグラフィ・余白トークン
+     ------------------------------------------------------------------------ */
   --container-width: 1000px;
   --content-width: 750px;
 
+  --radius-sm: 6px;
   --radius: 12px;
+  --radius-lg: 16px;
+  --radius-full: 999px;
 
   --font-base:
     "Noto Sans JP",
     "BIZ UDPゴシック",
     sans-serif;
-  
+
   --space-xxs: 0.5rem;
   --space-xs: 0.75rem;
   --space-sm: 1rem;
@@ -24,6 +93,10 @@
   --space-lg: 2rem;
   --space-xl: 3rem;
 }
+
+/* ==========================================================================
+   Base Styles
+   ========================================================================== */
 
 * {
   box-sizing: border-box;
@@ -38,7 +111,7 @@ body {
   line-height: 1.8;
 }
 
-/* ===== Typography ===== */
+/* ===== タイポグラフィ基本ルール ===== */
 
 h1 {
   color: var(--color-primary);
@@ -79,46 +152,9 @@ li:last-child {
   margin-bottom: 0;
 }
 
-/* ==========================
-   Buttons
-========================== */
-
-.btn{
-  display:inline-block;
-  padding:.9rem 1.6rem;
-  border-radius:999px;
-  text-decoration:none;
-  font-weight:700;
-  transition:.2s ease;
-}
-
-.btn-primary{
-  background:var(--color-primary);
-  color:#fff;
-}
-
-.btn-primary:hover{
-  background:#002d63;
-}
-
-.btn-secondary{
-  border:2px solid var(--color-primary);
-  color:var(--color-primary);
-  background:#fff;
-}
-
-.btn-secondary:hover{
-  background:#f5f8fc;
-}
-
-.btn-disabled{
-  background:#ddd;
-  color:#666;
-}
-
-/* ==========================
+/* ==========================================================================
    Layout (サイト全体の共通コンテナ・余白統一)
-========================== */
+   ========================================================================== */
 
 .container {
   width: min(100% - 2rem, var(--container-width));
@@ -161,31 +197,190 @@ section {
 }
 
 /* ==========================================================================
+   Common Components (共通UIコンポーネント)
+   ========================================================================== */
+
+/* --- ボタン --- */
+
+.btn {
+  display: inline-block;
+  padding: 0.9rem 1.6rem;
+  border-radius: var(--radius-full);
+  text-decoration: none;
+  font-weight: 700;
+  transition: 0.2s ease;
+  cursor: pointer;
+  border: 2px solid transparent;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.btn-primary {
+  background: var(--color-party-primary);
+  color: var(--color-text-inverse);
+  border-color: var(--color-party-primary);
+}
+
+.btn-primary:hover {
+  background: var(--color-party-primary-hover);
+  border-color: var(--color-party-primary-hover);
+  color: var(--color-text-inverse);
+}
+
+.btn-secondary {
+  border-color: var(--color-party-primary);
+  color: var(--color-party-primary);
+  background: var(--color-background);
+}
+
+.btn-secondary:hover {
+  background: var(--color-party-primary-subtle);
+  color: var(--color-party-primary);
+}
+
+.btn-disabled {
+  background: #e5e7eb;
+  color: #666666;
+  border-color: transparent;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* --- 共通カード基盤 --- */
+
+.card,
+.card-base {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-background);
+  padding: 1.5rem;
+  box-sizing: border-box;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.card:hover,
+.card-base:hover {
+  border-color: var(--color-border-strong);
+}
+
+/* --- バッジ・タグ --- */
+
+.tag,
+.badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.8rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-full);
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+.tag-primary {
+  background: var(--color-party-primary-subtle);
+  color: var(--color-party-primary);
+  border: 1px solid #d0e1f9;
+}
+
+.tag-accent {
+  background: #fff9e6;
+  color: #8a6500;
+  border: 1px solid #fce588;
+}
+
+/* ==========================================================================
+   Document / Legal Styles (利用規約・プライバシーポリシー・運用ルールの共通基盤)
+   ========================================================================== */
+
+.document-content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: clamp(2rem, 5vw, 4rem) 1.5rem;
+  line-height: 1.85;
+  color: var(--color-text);
+}
+
+.document-content h1 {
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
+  color: var(--color-party-primary);
+  margin-bottom: 2rem;
+  text-align: center;
+  border-bottom: 3px solid var(--color-party-primary);
+  padding-bottom: 1rem;
+}
+
+.document-content h2 {
+  font-size: clamp(1.3rem, 4vw, 1.8rem);
+  color: var(--color-party-primary);
+  margin: 3rem 0 1.5rem;
+  border-left: 6px solid var(--color-party-primary);
+  padding: 0.5rem 0 0.5rem 1rem;
+  background: var(--color-background-subtle);
+}
+
+.document-content h3 {
+  font-size: 1.2rem;
+  color: var(--color-party-primary);
+  margin: 2rem 0 1rem;
+}
+
+.document-content p {
+  margin-bottom: 1.5rem;
+}
+
+.document-content ul,
+.document-content ol {
+  margin-bottom: 1.5rem;
+  padding-left: 1.5rem;
+}
+
+.document-content li {
+  margin-bottom: 0.5rem;
+}
+
+.document-content strong {
+  color: var(--color-party-primary);
+}
+
+.document-content a {
+  color: var(--color-link);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.document-content a:hover {
+  color: var(--color-link-hover);
+}
+
+/* ==========================================================================
    WCAG 2.2 AA: キーボードフォーカス & ホバー体験の統一・視認性強化
    ========================================================================== */
 
-/* フォーカスリングの共通定義 */
+/* フォーカスリングの共通定義（白背景でコントラスト比 10.5:1 を確保） */
 :focus-visible {
-  outline: 3px solid var(--color-accent, #0056b3) !important;
+  outline: 3px solid var(--color-focus) !important;
   outline-offset: 2px !important;
 }
 
-/* ボタンやインタラクティブ要素の hover と focus-visible を同等化 */
+/* ボタンやインタラクティブ要素の focus-visible ボックスシャドウ */
 button:focus-visible,
 .btn:focus-visible,
 a.button:focus-visible {
-  box-shadow: 0 0 0 4px rgba(0, 86, 179, 0.25);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-party-primary) 25%, transparent);
 }
 
 /* カード型コンポーネント選択時の明確な視認性確保 */
 .card:focus-within,
 a.card:focus-visible,
 article:focus-within {
-  outline: 3px solid var(--color-accent, #0056b3);
+  outline: 3px solid var(--color-focus);
   outline-offset: 2px;
 }
 
-/* SNS・YouTube */
+/* ==========================================================================
+   SNS・YouTube 共通セクション
+   ========================================================================== */
+
 .social-media-section {
   text-align: center;
 }
@@ -210,16 +405,16 @@ article:focus-within {
   flex-wrap: wrap;
 }
 
-/* ==========================
-   Policy YouTube
-   ========================== */
+/* ==========================================================================
+   Policy YouTube セクション
+   ========================================================================== */
 
 .youtube-policy-section {
   text-align: left;
 }
 
 .youtube-policy-section h2 {
-  color: var(--color-primary);
+  color: var(--color-party-primary);
   margin-bottom: 1rem;
 }
 

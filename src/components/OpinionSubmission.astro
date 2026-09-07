@@ -45,7 +45,7 @@ const formId = `opinion-form-${Math.random().toString(36).slice(2)}`;
 
   .opinion-submission h2 {
     margin: 0 0 1.25rem;
-    color: #003f88;
+    color: var(--color-party-primary, #043e80);
     font-size: 1.35rem;
   }
 
@@ -63,7 +63,7 @@ const formId = `opinion-form-${Math.random().toString(36).slice(2)}`;
     height: 1.25rem;
     margin: 0.2rem 0 0;
     flex: 0 0 auto;
-    accent-color: #003f88;
+    accent-color: var(--color-party-primary, #043e80);
   }
 
   .submission-button {
@@ -71,14 +71,14 @@ const formId = `opinion-form-${Math.random().toString(36).slice(2)}`;
     margin-top: 1.5rem;
     padding: 0.9rem 1.5rem;
     border-radius: 8px;
-    background: #003f88;
+    background: var(--color-party-primary, #043e80);
     color: #fff;
     font-weight: 700;
     text-decoration: none;
   }
 
   .submission-button:hover {
-    background: #002b5c;
+    background: var(--color-party-primary-hover, #032f62);
   }
 
   .submission-button.is-disabled {

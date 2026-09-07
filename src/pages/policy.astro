@@ -556,7 +556,7 @@ const groupedPolicies = policyCategories.map((cat) => {
 
 .search-label {
   font-weight: 700;
-  color: var(--color-primary, #003f88);
+  color: var(--color-party-primary, #043e80);
   font-size: 0.9rem;
 }
 
@@ -579,16 +579,16 @@ const groupedPolicies = policyCategories.map((cat) => {
 
 #policy-search-input:focus {
   outline: none;
-  border-color: var(--color-primary, #003f88);
-  box-shadow: 0 0 0 3px rgba(0, 63, 136, 0.15);
+  border-color: var(--color-party-primary, #043e80);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-party-primary, #043e80) 15%, transparent);
 }
 
 #policy-search-clear {
   padding: 0.65rem 1.25rem;
   border: 1px solid transparent;
   border-radius: 999px;
-  background: var(--color-accent, #f4f7fb);
-  color: var(--color-primary, #003f88);
+  background: var(--color-party-primary-subtle, #f0f6fc);
+  color: var(--color-party-primary, #043e80);
   font-weight: 700;
   font-size: 0.9rem;
   cursor: pointer;
@@ -600,7 +600,7 @@ const groupedPolicies = policyCategories.map((cat) => {
 }
 
 #policy-search-clear:focus-visible {
-  outline: 2px solid var(--color-primary, #003f88);
+  outline: 2px solid var(--color-party-primary, #043e80);
   outline-offset: 2px;
 }
 
@@ -612,7 +612,7 @@ const groupedPolicies = policyCategories.map((cat) => {
   gap: 0.6rem;
   background: #fffdf5;
   border: 1px solid #f6e05e;
-  border-left: 4px solid var(--color-accent, #fabe00);
+  border-left: 4px solid var(--color-party-accent, #f5b500);
   border-radius: 8px;
   padding: 0.5rem 0.85rem;
 }
@@ -640,12 +640,12 @@ const groupedPolicies = policyCategories.map((cat) => {
 
 .featured-tag-button {
   background: #ffffff;
-  border: 1.5px solid var(--color-accent, #fabe00);
-  color: var(--color-primary, #003f88);
+  border: 1.5px solid var(--color-party-accent, #f5b500);
+  color: var(--color-party-primary, #043e80);
   font-weight: 700;
   padding: 0.3rem 0.75rem;
   font-size: 0.85rem;
-  box-shadow: 0 1px 2px rgba(250, 190, 0, 0.15);
+  box-shadow: 0 1px 2px color-mix(in srgb, var(--color-party-accent, #f5b500) 15%, transparent);
 }
 
 .featured-tag-button:hover {
@@ -663,7 +663,7 @@ const groupedPolicies = policyCategories.map((cat) => {
   border-color: #f6e05e;
   background: #fffdfa;
   font-weight: 700;
-  color: var(--color-primary, #003f88);
+  color: var(--color-party-primary, #043e80);
 }
 
 .featured-star-small {
@@ -699,7 +699,7 @@ const groupedPolicies = policyCategories.map((cat) => {
 .active-filter-label {
   font-weight: 700;
   font-size: 0.85rem;
-  color: var(--color-primary, #003f88);
+  color: var(--color-party-primary, #043e80);
 }
 
 .active-chips-list {
@@ -713,9 +713,9 @@ const groupedPolicies = policyCategories.map((cat) => {
   align-items: center;
   gap: 0.35rem;
   padding: 0.3rem 0.75rem;
-  background: var(--color-primary, #003f88);
+  background: var(--color-party-primary, #043e80);
   color: #ffffff;
-  border: 1px solid var(--color-primary, #003f88);
+  border: 1px solid var(--color-party-primary, #043e80);
   border-radius: 999px;
   font-size: 0.85rem;
   font-weight: 700;
@@ -725,12 +725,12 @@ const groupedPolicies = policyCategories.map((cat) => {
 }
 
 :global(.active-tag-chip:hover) {
-  background: #002b5e;
-  border-color: #002b5e;
+  background: var(--color-party-primary-hover, #032f62);
+  border-color: var(--color-party-primary-hover, #032f62);
 }
 
 :global(.active-tag-chip:focus-visible) {
-  outline: 2px solid var(--color-accent, #fabe00);
+  outline: 2px solid var(--color-party-accent, #f5b500);
   outline-offset: 2px;
 }
 
@@ -768,11 +768,11 @@ const groupedPolicies = policyCategories.map((cat) => {
 }
 
 .clear-all-button:hover {
-  color: var(--color-primary, #003f88);
+  color: var(--color-party-primary, #043e80);
 }
 
 .clear-all-button:focus-visible {
-  outline: 2px solid var(--color-primary, #003f88);
+  outline: 2px solid var(--color-party-primary, #043e80);
 }
 
 /* 🏷️ テーマ・タグから探す（普段は小さく折りたたんで省スペース化） */
@@ -813,7 +813,7 @@ const groupedPolicies = policyCategories.map((cat) => {
 }
 
 .tag-filter-summary:focus-visible {
-  outline: 2px solid var(--color-primary, #003f88);
+  outline: 2px solid var(--color-party-primary, #043e80);
   outline-offset: -2px;
 }
 
@@ -829,11 +829,11 @@ const groupedPolicies = policyCategories.map((cat) => {
 }
 
 .summary-title {
-  color: var(--color-primary, #003f88);
+  color: var(--color-party-primary, #043e80);
 }
 
 .active-tag-count-badge {
-  background: var(--color-primary, #003f88);
+  background: var(--color-party-primary, #043e80);
   color: #ffffff;
   font-size: 0.75rem;
   font-weight: 700;
@@ -887,8 +887,8 @@ const groupedPolicies = policyCategories.map((cat) => {
 
 #tag-search-input:focus {
   outline: none;
-  border-color: var(--color-primary, #003f88);
-  box-shadow: 0 0 0 3px rgba(0, 63, 136, 0.15);
+  border-color: var(--color-party-primary, #043e80);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-party-primary, #043e80) 15%, transparent);
 }
 
 /* カテゴリー別折りたたみ (<details> / <summary>) */
@@ -932,7 +932,7 @@ const groupedPolicies = policyCategories.map((cat) => {
 }
 
 .tag-category-summary:focus-visible {
-  outline: 2px solid var(--color-primary, #003f88);
+  outline: 2px solid var(--color-party-primary, #043e80);
   outline-offset: -2px;
 }
 
@@ -990,24 +990,24 @@ const groupedPolicies = policyCategories.map((cat) => {
 }
 
 .tag-button:focus-visible {
-  outline: 2px solid var(--color-primary, #003f88);
+  outline: 2px solid var(--color-party-primary, #043e80);
   outline-offset: 2px;
 }
 
 .tag-button.is-selected {
-  background: var(--color-primary, #003f88);
+  background: var(--color-party-primary, #043e80);
   color: #ffffff;
-  border-color: var(--color-primary, #003f88);
+  border-color: var(--color-party-primary, #043e80);
   font-weight: 700;
 }
 
 .tag-button.is-selected:hover {
-  background: #002b5e;
+  background: var(--color-party-primary-hover, #032f62);
 }
 
 .tag-button.is-selected .featured-pill-star,
 .tag-button.is-selected .featured-star-small {
-  color: var(--color-accent, #fabe00);
+  color: var(--color-party-accent, #f5b500);
 }
 
 /* 検索ステータス */
@@ -1025,8 +1025,8 @@ const groupedPolicies = policyCategories.map((cat) => {
 }
 
 .category-section h2 {
-  color: var(--color-primary);
-  border-left: 6px solid var(--color-accent);
+  color: var(--color-party-primary, var(--color-primary));
+  border-left: 6px solid var(--color-party-accent, var(--color-accent));
   padding-left: 1rem;
   margin-bottom: 1.5rem;
   font-size: 1.4rem;

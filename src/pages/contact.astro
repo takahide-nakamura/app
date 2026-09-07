@@ -98,14 +98,14 @@ const base = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
 }
 
 .contact-page h2 {
-  color: #003f88;
+  color: var(--color-party-primary, #043e80);
   margin-bottom: 1rem;
 }
 
 .intake-card,
 .opinions-link-section,
 .sns {
-  border: 1px solid #ddd;
+  border: 1px solid var(--color-border, #e5e7eb);
   border-radius: 16px;
   padding: 2rem;
   background: #fff;
@@ -135,7 +135,7 @@ const base = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
 /* フォーム送信ボタンのスタイル */
 .form-btn {
   display: inline-block;
-  background: #003f88;
+  background: var(--color-party-primary, #043e80);
   color: #fff;
   padding: 1rem 1.8rem;
   border-radius: 8px;
@@ -146,15 +146,15 @@ const base = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
 }
 
 .form-btn:hover {
-  background: #002b5c;
+  background: var(--color-party-primary-hover, #032f62);
 }
 
 /* 対応状況ページリンクボタンのスタイル */
 .opinions-btn {
   display: inline-block;
-  background: #f0f7ff;
-  color: #003f88;
-  border: 2px solid #003f88;
+  background: var(--color-party-primary-subtle, #f0f6fc);
+  color: var(--color-party-primary, #043e80);
+  border: 2px solid var(--color-party-primary, #043e80);
   padding: 0.8rem 1.5rem;
   border-radius: 8px;
   font-weight: bold;
@@ -163,7 +163,7 @@ const base = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
 }
 
 .opinions-btn:hover {
-  background: #003f88;
+  background: var(--color-party-primary, #043e80);
   color: #fff;
 }
 
