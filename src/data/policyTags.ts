@@ -211,6 +211,34 @@ export const policyTags: Record<string, PolicyTagMeta> = {
     reading: "はんきゅうきょうとせん",
     category: "🏙️ 暮らし",
   },
+  "交通渋滞": {
+    reading: "こうつうじゅうたい",
+    category: "🏙️ 暮らし",
+  },
+  "信号機": {
+    reading: "しんごうき",
+    category: "🏙️ 暮らし",
+  },
+  "交通安全": {
+    reading: "こうつうあんぜん",
+    category: "🏙️ 暮らし",
+  },
+  "道路": {
+    reading: "どうろ",
+    category: "🏙️ 暮らし",
+  },
+  "移動時間": {
+    reading: "いどうじかん",
+    category: "🏙️ 暮らし",
+  },
+  "大阪府警": {
+    reading: "おおさかふけい",
+    category: "🏙️ 暮らし",
+  },
+  "道路交通": {
+    reading: "どうろこうつう",
+    category: "🏙️ 暮らし",
+  },
 
   // ===== 将来用・基本タグ（現時点で使用されていないタグはUIに非表示） =====
   "介護": {
