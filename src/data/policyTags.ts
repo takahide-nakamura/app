@@ -66,6 +66,26 @@ export const policyTags: Record<string, PolicyTagMeta> = {
     reading: "にんちしょうしえん",
     category: "🏥 医療・介護",
   },
+  "子ども医療費": {
+    reading: "こどもいりょうひ",
+    category: "🏥 医療・介護",
+  },
+  "小児医療": {
+    reading: "しょうにいりょう",
+    category: "🏥 医療・介護",
+  },
+  "小児救急": {
+    reading: "しょうにきゅうきゅう",
+    category: "🏥 医療・介護",
+  },
+  "医療費助成": {
+    reading: "いりょうひじょせい",
+    category: "🏥 医療・介護",
+  },
+  "無償化": {
+    reading: "むしょうか",
+    category: "🏥 医療・介護",
+  },
 
   // ===== 👨‍👩‍👧 子育て =====
   "いじめ": {
