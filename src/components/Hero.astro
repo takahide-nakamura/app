@@ -5,7 +5,10 @@ const base = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
 
 <section class="hero-section container">
   <div class="hero-content">
-    <h1>もっと住みやすい高槻へ</h1>
+    <h1>
+      <span class="title-main">もっと住みやすい</span>
+      <span class="title-accent">高槻へ</span>
+    </h1>
     <p class="hero-description">
       データと現場経験をもとに、高槻市の政策を考え、<br class="pc-br" />市民の皆さまとともにつくる政策プラットフォームです。
     </p>
@@ -19,29 +22,54 @@ const base = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
 <style>
 .hero-section {
   text-align: center !important;
+  padding-top: clamp(2.5rem, 6vw, 5rem);
+  padding-bottom: clamp(1.5rem, 4vw, 2.5rem);
 }
 
 .hero-content {
-  max-width: 800px;
+  max-width: 980px;
   margin: 0 auto;
   text-align: center !important;
 }
 
 .hero-content h1 {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.15em;
+  margin: 0;
   text-align: center !important;
+  font-size: clamp(3.2rem, 7vw, 8rem);
+  line-height: 0.96;
+  letter-spacing: -0.06em;
+}
+
+.title-main,
+.title-accent {
+  display: inline-block;
+}
+
+.title-main {
+  color: #ffffff;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.18);
+}
+
+.title-accent {
+  color: #7cd7ff;
+  text-shadow: 0 0 25px rgba(124, 215, 255, 0.4);
 }
 
 .hero-description {
+  max-width: 760px;
+  margin: 1.75rem auto 2rem;
   font-size: 1.1rem;
   line-height: 1.8;
-  margin-bottom: 2rem;
   text-align: center !important;
-  /* 意味の区切りを意識した改行設定 */
   word-break: normal;
   overflow-wrap: break-word;
 }
 
-/* パソコン画面では読点（、）の後で自然に改行する */
 .pc-br {
   display: none;
 }
@@ -57,5 +85,22 @@ const base = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
   gap: 1rem;
   justify-content: center;
   flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .hero-content h1 {
+    gap: 0.08em;
+    font-size: clamp(2.4rem, 14vw, 4.6rem);
+    line-height: 1.02;
+  }
+
+  .title-main,
+  .title-accent {
+    display: block;
+  }
+
+  .hero-description {
+    font-size: 1rem;
+  }
 }
 </style>

@@ -139,9 +139,16 @@ import { politicalAffiliation } from "../data/politicalAffiliation";
 }
 
 @media (max-width: 768px) {
+  .site-header {
+    padding-top: 0.2rem;
+  }
+
   .header-inner {
     flex-direction: column;
     align-items: center;
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
+    gap: 0.8rem;
   }
 
   .brand-group {
@@ -151,11 +158,16 @@ import { politicalAffiliation } from "../data/politicalAffiliation";
 
   .identity-row {
     justify-content: center;
+    gap: 0.5rem 0.75rem;
+  }
+
+  .brand-link {
+    font-size: 1.28rem;
   }
 
   .global-nav {
     justify-content: center;
-    gap: 1rem 1.25rem;
+    gap: 0.65rem 1rem;
   }
 
   .party-logo-link {
