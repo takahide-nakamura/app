@@ -1,8 +1,9 @@
 ---
 import PolicyPreviewCard from "./PolicyPreviewCard.astro";
 
-const baseUrl = import.meta.env.BASE_URL;
-const base = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
+import { getBaseUrl } from "../lib/siteUrl";
+
+const base = getBaseUrl();
 ---
 
 <section class="policy-preview container">

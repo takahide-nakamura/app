@@ -180,7 +180,6 @@ const activities = defineCollection({
     summary: z.string().min(1),
     date: dateSchema,
     draft: z.boolean().optional().default(false),
-    status: z.enum(["published", "draft"]),
     relatedPolicies: z.array(reference("policies")).default([]),
     thumbnail: z.string().optional(),
     photos: z.array(z.string()).default([]),

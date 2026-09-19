@@ -1,6 +1,7 @@
 ---
-const baseUrl = import.meta.env.BASE_URL;
-const base = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
+import { getBaseUrl } from "../lib/siteUrl";
+
+const base = getBaseUrl();
 
 interface Props {
   title:string;
@@ -58,8 +59,8 @@ const safeTags = Array.isArray(tags) ? tags : [];
 .policy-card {
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--color-border, #e5e7eb);
-  border-radius: var(--radius, 12px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
   padding: 1.5rem;
   background: #fff;
   box-sizing: border-box;
@@ -69,7 +70,7 @@ const safeTags = Array.isArray(tags) ? tags : [];
 .policy-card h2 {
   margin-top: 0;
   margin-bottom: 0.75rem;
-  color: var(--color-party-primary, var(--color-primary, #043e80));
+  color: var(--color-party-primary);
   font-size: 1.25rem;
   line-height: 1.4;
 }
@@ -92,8 +93,8 @@ const safeTags = Array.isArray(tags) ? tags : [];
 .tag {
   font-size: 0.78rem;
   padding: 0.25rem 0.6rem;
-  background: var(--color-party-primary-subtle, #f0f6fc);
-  color: var(--color-party-primary, var(--color-primary, #043e80));
+  background: var(--color-party-primary-subtle);
+  color: var(--color-party-primary);
   border: 1px solid #d0e1f9;
   border-radius: 999px;
   font-weight: 500;

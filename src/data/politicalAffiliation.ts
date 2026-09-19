@@ -9,7 +9,7 @@ export const politicalAffiliation = {
   partyName: "国民民主党",
   role: "政策委員（高槻市担当）",
   officialUrl: "",
-  logoSrc: "/app/images/party/kokumin-logo.png",
+  logoSrc: "/images/party/kokumin-logo.png",
   get logoAlt() {
     return `${this.partyName} ロゴ`;
   },

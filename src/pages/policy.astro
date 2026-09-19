@@ -28,7 +28,7 @@ const formattedPolicies = allPolicies.map((entry) => {
     summary: data.description || "",
     tags: tagsList,
     href: `policy/${cleanId}/`,
-    status: "published",
+    available: !data.draft,
     category: (data.category || policyCategories[0]) as PolicyCategory,
   };
 });
@@ -266,7 +266,7 @@ const groupedPolicies = policyCategories.map((cat) => {
                       summary={policy.summary}
                       tags={policy.tags}
                       href={policy.href}
-                      available={policy.status === "published"}
+                      available={policy.available}
                     />
                   </div>
                 ))
@@ -529,7 +529,7 @@ const groupedPolicies = policyCategories.map((cat) => {
 
 .policy-search {
   margin-bottom: 2rem;
-  border: 1px solid var(--color-border, #e5e7eb);
+  border: 1px solid var(--color-border);
   border-radius: 16px;
   padding: 1.25rem 1.5rem;
   background: #fafbfc;
@@ -561,7 +561,7 @@ const groupedPolicies = policyCategories.map((cat) => {
 
 .search-label {
   font-weight: 700;
-  color: var(--color-party-primary, #043e80);
+  color: var(--color-party-primary);
   font-size: 0.9rem;
 }
 
@@ -584,16 +584,16 @@ const groupedPolicies = policyCategories.map((cat) => {
 
 #policy-search-input:focus {
   outline: none;
-  border-color: var(--color-party-primary, #043e80);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-party-primary, #043e80) 15%, transparent);
+  border-color: var(--color-party-primary);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-party-primary) 15%, transparent);
 }
 
 #policy-search-clear {
   padding: 0.65rem 1.25rem;
   border: 1px solid transparent;
   border-radius: 999px;
-  background: var(--color-party-primary-subtle, #f0f6fc);
-  color: var(--color-party-primary, #043e80);
+  background: var(--color-party-primary-subtle);
+  color: var(--color-party-primary);
   font-weight: 700;
   font-size: 0.9rem;
   cursor: pointer;
@@ -605,7 +605,7 @@ const groupedPolicies = policyCategories.map((cat) => {
 }
 
 #policy-search-clear:focus-visible {
-  outline: 2px solid var(--color-party-primary, #043e80);
+  outline: 2px solid var(--color-party-primary);
   outline-offset: 2px;
 }
 
@@ -617,7 +617,7 @@ const groupedPolicies = policyCategories.map((cat) => {
   gap: 0.6rem;
   background: #fffdf5;
   border: 1px solid #f6e05e;
-  border-left: 4px solid var(--color-party-accent, #f5b500);
+  border-left: 4px solid var(--color-party-accent);
   border-radius: 8px;
   padding: 0.5rem 0.85rem;
 }
@@ -645,12 +645,12 @@ const groupedPolicies = policyCategories.map((cat) => {
 
 .featured-tag-button {
   background: #ffffff;
-  border: 1.5px solid var(--color-party-accent, #f5b500);
-  color: var(--color-party-primary, #043e80);
+  border: 1.5px solid var(--color-party-accent);
+  color: var(--color-party-primary);
   font-weight: 700;
   padding: 0.3rem 0.75rem;
   font-size: 0.85rem;
-  box-shadow: 0 1px 2px color-mix(in srgb, var(--color-party-accent, #f5b500) 15%, transparent);
+  box-shadow: 0 1px 2px color-mix(in srgb, var(--color-party-accent) 15%, transparent);
 }
 
 .featured-tag-button:hover {
@@ -668,7 +668,7 @@ const groupedPolicies = policyCategories.map((cat) => {
   border-color: #f6e05e;
   background: #fffdfa;
   font-weight: 700;
-  color: var(--color-party-primary, #043e80);
+  color: var(--color-party-primary);
 }
 
 .featured-star-small {
@@ -704,7 +704,7 @@ const groupedPolicies = policyCategories.map((cat) => {
 .active-filter-label {
   font-weight: 700;
   font-size: 0.85rem;
-  color: var(--color-party-primary, #043e80);
+  color: var(--color-party-primary);
 }
 
 .active-chips-list {
@@ -718,9 +718,9 @@ const groupedPolicies = policyCategories.map((cat) => {
   align-items: center;
   gap: 0.35rem;
   padding: 0.3rem 0.75rem;
-  background: var(--color-party-primary, #043e80);
+  background: var(--color-party-primary);
   color: #ffffff;
-  border: 1px solid var(--color-party-primary, #043e80);
+  border: 1px solid var(--color-party-primary);
   border-radius: 999px;
   font-size: 0.85rem;
   font-weight: 700;
@@ -730,12 +730,12 @@ const groupedPolicies = policyCategories.map((cat) => {
 }
 
 :global(.active-tag-chip:hover) {
-  background: var(--color-party-primary-hover, #032f62);
-  border-color: var(--color-party-primary-hover, #032f62);
+  background: var(--color-party-primary-hover);
+  border-color: var(--color-party-primary-hover);
 }
 
 :global(.active-tag-chip:focus-visible) {
-  outline: 2px solid var(--color-party-accent, #f5b500);
+  outline: 2px solid var(--color-party-accent);
   outline-offset: 2px;
 }
 
@@ -773,11 +773,11 @@ const groupedPolicies = policyCategories.map((cat) => {
 }
 
 .clear-all-button:hover {
-  color: var(--color-party-primary, #043e80);
+  color: var(--color-party-primary);
 }
 
 .clear-all-button:focus-visible {
-  outline: 2px solid var(--color-party-primary, #043e80);
+  outline: 2px solid var(--color-party-primary);
 }
 
 /* 🏷️ テーマ・タグから探す（普段は小さく折りたたんで省スペース化） */
@@ -818,7 +818,7 @@ const groupedPolicies = policyCategories.map((cat) => {
 }
 
 .tag-filter-summary:focus-visible {
-  outline: 2px solid var(--color-party-primary, #043e80);
+  outline: 2px solid var(--color-party-primary);
   outline-offset: -2px;
 }
 
@@ -834,11 +834,11 @@ const groupedPolicies = policyCategories.map((cat) => {
 }
 
 .summary-title {
-  color: var(--color-party-primary, #043e80);
+  color: var(--color-party-primary);
 }
 
 .active-tag-count-badge {
-  background: var(--color-party-primary, #043e80);
+  background: var(--color-party-primary);
   color: #ffffff;
   font-size: 0.75rem;
   font-weight: 700;
@@ -892,8 +892,8 @@ const groupedPolicies = policyCategories.map((cat) => {
 
 #tag-search-input:focus {
   outline: none;
-  border-color: var(--color-party-primary, #043e80);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-party-primary, #043e80) 15%, transparent);
+  border-color: var(--color-party-primary);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-party-primary) 15%, transparent);
 }
 
 /* カテゴリー別折りたたみ (<details> / <summary>) */
@@ -937,7 +937,7 @@ const groupedPolicies = policyCategories.map((cat) => {
 }
 
 .tag-category-summary:focus-visible {
-  outline: 2px solid var(--color-party-primary, #043e80);
+  outline: 2px solid var(--color-party-primary);
   outline-offset: -2px;
 }
 
@@ -995,24 +995,24 @@ const groupedPolicies = policyCategories.map((cat) => {
 }
 
 .tag-button:focus-visible {
-  outline: 2px solid var(--color-party-primary, #043e80);
+  outline: 2px solid var(--color-party-primary);
   outline-offset: 2px;
 }
 
 .tag-button.is-selected {
-  background: var(--color-party-primary, #043e80);
+  background: var(--color-party-primary);
   color: #ffffff;
-  border-color: var(--color-party-primary, #043e80);
+  border-color: var(--color-party-primary);
   font-weight: 700;
 }
 
 .tag-button.is-selected:hover {
-  background: var(--color-party-primary-hover, #032f62);
+  background: var(--color-party-primary-hover);
 }
 
 .tag-button.is-selected .featured-pill-star,
 .tag-button.is-selected .featured-star-small {
-  color: var(--color-party-accent, #f5b500);
+  color: var(--color-party-accent);
 }
 
 /* 検索ステータス */
@@ -1030,8 +1030,8 @@ const groupedPolicies = policyCategories.map((cat) => {
 }
 
 .category-section h2 {
-  color: var(--color-party-primary, var(--color-primary));
-  border-left: 6px solid var(--color-party-accent, var(--color-accent));
+  color: var(--color-party-primary);
+  border-left: 6px solid var(--color-party-accent);
   padding-left: 1rem;
   margin-bottom: 1.5rem;
   font-size: 1.4rem;

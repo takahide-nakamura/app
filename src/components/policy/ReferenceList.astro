@@ -6,8 +6,6 @@ interface Source {
   title: string;
   publisher: string;
   year?: string;
-  checked?: string;
-  evidenceLevel?: string;
   url?: string;
 }
 
@@ -31,8 +29,6 @@ const { sources = [] } = Astro.props as Props;
             title={source.title}
             publisher={source.publisher}
             year={source.year}
-            checked={source.checked}
-            evidenceLevel={source.evidenceLevel}
             url={source.url}
           />
         ))

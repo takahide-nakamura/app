@@ -3,8 +3,6 @@ interface Props {
   title: string;
   publisher: string;
   year?: string;
-  checked?: string;
-  evidenceLevel?: string;
   url?: string;
 }
 
@@ -12,8 +10,6 @@ const {
   title,
   publisher,
   year,
-  checked,
-  evidenceLevel,
   url
 } = Astro.props;
 ---
@@ -34,24 +30,6 @@ const {
         <div>
           <dt>発行年</dt>
           <dd>{year}</dd>
-        </div>
-      )
-    }
-
-    {
-      checked && (
-        <div>
-          <dt>最終確認日</dt>
-          <dd>{checked}</dd>
-        </div>
-      )
-    }
-
-    {
-      evidenceLevel && (
-        <div>
-          <dt>エビデンス</dt>
-          <dd>{evidenceLevel}</dd>
         </div>
       )
     }
@@ -82,7 +60,7 @@ const {
 
 .source-card{
 
-  border:1px solid #ddd;
+  border:1px solid var(--color-border);
 
   border-radius:12px;
 

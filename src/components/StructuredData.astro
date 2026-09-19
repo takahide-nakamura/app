@@ -9,23 +9,25 @@ const {
   description = "医療・介護・子育て・まちづくりなど、高槻市をもっと住みやすくするための政策を提案しています。"
 } = Astro.props;
 
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": "WebSite",
-      "@id": `${Astro.site}#website`,
-      "url": Astro.site,
+      "@id": `${canonicalURL}#website`,
+      "url": canonicalURL,
       "name": "もっと住みやすい高槻へ",
       "description": description,
       "inLanguage": "ja"
     },
     {
       "@type": "Person",
-      "@id": `${Astro.site}#person`,
+      "@id": `${canonicalURL}#person`,
       "name": "中村たかひで",
       "jobTitle": politicalAffiliation.enabled ? politicalAffiliation.displayName : "市民活動家",
-      "url": Astro.site,
+      "url": canonicalURL,
       "affiliation": politicalAffiliation.enabled ? {
         "@type": "Organization",
         "name": politicalAffiliation.partyName,

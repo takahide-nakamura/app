@@ -1,6 +1,7 @@
 ---
-const baseUrl = import.meta.env.BASE_URL;
-const base = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
+import { getBaseUrl } from "../lib/siteUrl";
+
+const base = getBaseUrl();
 ---
 
 <section class="activity-preview container">
@@ -74,8 +75,8 @@ const base = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
 .card {
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--color-border, #e5e7eb);
-  border-radius: var(--radius, 12px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
   padding: 1.5rem;
   background: #fff;
   box-sizing: border-box;

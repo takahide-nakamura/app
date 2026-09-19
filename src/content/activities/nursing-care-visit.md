@@ -5,8 +5,6 @@ summary: "現場で働く皆さまから、介護保険制度や人材不足に�
 
 date: "2026-08-04"
 
-status: "published"
-
 relatedPolicies:
   - care-certification
   - dementia-support

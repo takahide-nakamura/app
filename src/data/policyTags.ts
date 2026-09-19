@@ -304,27 +304,20 @@ export const policyTags: Record<string, PolicyTagMeta> = {
 };
 
 /**
- * タグのメタデータを取得（未登録タグに対する安全なフォールバック付き）
+ * タグのメタデータを取得
  *
- * 辞書に未登録のタグがある場合でもビルドエラーにせず、
- * タグ名をそのまま読み仮名とし、指定の政策カテゴリー（またはデフォルトカテゴリー）に所属させます。
- * 開発環境（DEV）ではコンソールに警告を出力します。
+ * 辞書に未登録のタグがある場合はフォールバックで握り潰さず、
+ * 明示的にビルドエラー（例外）を発生させて辞書への登録を強制します。
  */
 export function getPolicyTagMeta(
   tagName: string,
-  fallbackCategory?: PolicyCategory
+  _fallbackCategory?: PolicyCategory
 ): PolicyTagMeta {
   const meta = policyTags[tagName];
-  if (meta) {
-    return meta;
+  if (!meta) {
+    throw new Error(
+      `[policyTags] 未登録の政策タグ "${tagName}" が使用されています。src/data/policyTags.ts の policyTags 辞書に定義を追加してください。`
+    );
   }
-
-  if (import.meta.env.DEV) {
-    console.warn(`[policyTags] 未登録のタグが使用されています: "${tagName}"（タグ辞書 src/data/policyTags.ts に追加を検討してください）`);
-  }
-
-  return {
-    reading: tagName,
-    category: fallbackCategory || policyCategories[0],
-  };
+  return meta;
 }

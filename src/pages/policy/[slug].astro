@@ -20,10 +20,6 @@ const {
   references,
 } = await getPolicy(slug as string);
 
-const allActivities = await getCollection("activities", ({ data }) => {
-  return import.meta.env.PROD ? !data.draft : true;
-});
-
 export async function getStaticPaths() {
   const policies = await getCollection('policies', ({ data }) => {
     return import.meta.env.PROD ? !data.draft : true;
@@ -41,7 +37,7 @@ export async function getStaticPaths() {
 >
   <Header />
 
-  <main class="policy-detail container">
+  <main class="policy-detail container" id="main-content" tabindex="-1">
     <PolicyHero
       title={data.heroTitle || data.title || ''}
       description={data.heroDescription || data.description || ''}
@@ -92,7 +88,7 @@ export async function getStaticPaths() {
     {data.issues && data.issues.length > 0 && (
       <PolicySection title="課題抽出" icon="⚠️">
         <div class="issue-grid">
-          {data.issues.map((issue: any) => (
+          {data.issues.map((issue) => (
             <article class="issue-card">
               {issue?.title && (
                 <h3>{issue.title}</h3>
@@ -112,7 +108,7 @@ export async function getStaticPaths() {
     {/* ①＆④ 政策提案 (PolicySection化 ＋ div.proposal-cardで不要な余白を防止) */}
     {data.proposals && data.proposals.length > 0 && (
       <PolicySection title="政策提案" icon="✅">
-        {data.proposals.map((proposal: any) => (
+        {data.proposals.map((proposal) => (
           <div class="proposal-card">
             {proposal.heading && (
               <h3>{proposal.heading}</h3>
@@ -168,11 +164,11 @@ export async function getStaticPaths() {
 
   padding: 1.25rem 1.5rem;
 
-  background: #f8fafc;
+  background: var(--color-background-subtle);
 
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--color-border-strong);
 
-  border-radius: 10px;
+  border-radius: var(--radius);
 
 }
 
@@ -180,7 +176,7 @@ export async function getStaticPaths() {
 
   margin: 0 0 0.6rem;
 
-  color: var(--color-party-primary, var(--color-primary, #043e80));
+  color: var(--color-party-primary);
 
   font-size: 1.1rem;
 
@@ -192,7 +188,7 @@ export async function getStaticPaths() {
 
   line-height: 1.75;
 
-  color: #444;
+  color: var(--color-text-muted);
 
 }
 
@@ -204,11 +200,11 @@ export async function getStaticPaths() {
 
   margin-bottom: 1rem;
 
-  background: #f8fafc;
+  background: var(--color-background-subtle);
 
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--color-border-strong);
 
-  border-radius: 10px;
+  border-radius: var(--radius);
 
 }
 
@@ -224,7 +220,7 @@ export async function getStaticPaths() {
 
   margin: 0 0 0.8rem;
 
-  color: var(--color-party-primary, var(--color-primary, #043e80));
+  color: var(--color-party-primary);
 
   font-size: 1.1rem;
 
@@ -259,8 +255,8 @@ export async function getStaticPaths() {
 
 /* 政策セクションのリスト（問題提起・評価・限界など） */
 .policy-list {
-  margin-top: var(--space-sm, 0.5rem);
-  margin-bottom: var(--space-md, 1rem);
+  margin-top: var(--space-sm);
+  margin-bottom: var(--space-md);
   padding-left: 1.25rem;
 }
 

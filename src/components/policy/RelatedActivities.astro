@@ -22,8 +22,9 @@ const visibleActivities = activities
   .slice(0, maxItems);
 
 // ベースURLの整形（末尾のスラッシュを担保）
-const baseUrl = import.meta.env.BASE_URL;
-const base = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
+import { getBaseUrl } from "../../lib/siteUrl";
+
+const base = getBaseUrl();
 ---
 
 {
@@ -62,7 +63,7 @@ const base = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
 }
 
 .activity-card {
-  border: 1px solid #ddd;
+  border: 1px solid var(--color-border);
   border-radius: 12px;
   padding: 1.25rem;
   background: #fff;
