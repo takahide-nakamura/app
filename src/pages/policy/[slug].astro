@@ -105,9 +105,9 @@ export async function getStaticPaths() {
       </PolicySection>
     )}
 
-    {/* ①＆④ 政策提案 (PolicySection化 ＋ div.proposal-cardで不要な余白を防止) */}
+    {/* この政策で取り組むこと */}
     {data.proposals && data.proposals.length > 0 && (
-      <PolicySection title="政策提案" icon="✅">
+      <PolicySection title="この政策で取り組むこと" icon="✅">
         {data.proposals.map((proposal) => (
           <div class="proposal-card">
             {proposal.heading && (
