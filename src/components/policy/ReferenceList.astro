@@ -7,6 +7,9 @@ interface Source {
   publisher: string;
   year?: string;
   url?: string;
+  type?: "official" | "statistics" | "law" | "research" | "meeting" | "other";
+  status?: "current" | "historical" | "archived";
+  checked?: string;
 }
 
 interface Props {
@@ -22,18 +25,21 @@ const { sources = [] } = Astro.props as Props;
       title="参考資料"
       icon="📚"
     >
-
       {
-        sources.map((source) => (
-          <SourceCard
-            title={source.title}
-            publisher={source.publisher}
-            year={source.year}
-            url={source.url}
-          />
-        ))
+        sources
+          .filter((source) => source.status !== "archived")
+          .map((source) => (
+            <SourceCard
+              title={source.title}
+              publisher={source.publisher}
+              year={source.year}
+              url={source.url}
+              type={source.type}
+              status={source.status}
+              checked={source.checked}
+            />
+          ))
       }
-
     </PolicySection>
   )
 }

@@ -213,6 +213,9 @@ const sources = defineCollection({
 
     /**
      * 発行年
+     *
+     * 制度ページ・法令・継続更新ページなど、
+     * 特定の発行年を持たない資料では省略する。
      */
     year: z.string().optional(),
 
@@ -220,6 +223,63 @@ const sources = defineCollection({
      * 資料URL
      */
     url: z.string().url(),
+
+    /**
+     * 資料の種類
+     *
+     * official:
+     *   行政機関等が公表する公式資料・制度ページ
+     *
+     * statistics:
+     *   統計・調査結果・数値資料
+     *
+     * law:
+     *   法令・条例・制度上の根拠
+     *
+     * research:
+     *   論文・研究・研究機関等の資料
+     *
+     * meeting:
+     *   審議会・委員会等の会議資料・議事録
+     *
+     * other:
+     *   上記に分類しにくい資料
+     */
+    type: z
+      .enum([
+        "official",
+        "statistics",
+        "law",
+        "research",
+        "meeting",
+        "other",
+      ])
+      .optional(),
+
+    /**
+     * 資料の現在性
+     *
+     * current:
+     *   現在の制度・状況を確認するための資料
+     *
+     * historical:
+     *   過去の制度・状況・経緯を確認するために残す資料
+     *
+     * archived:
+     *   現在は通常の根拠として使用しない資料
+     */
+    status: z
+      .enum(["current", "historical", "archived"])
+      .optional()
+      .default("current"),
+
+    /**
+     * 資料・URLを最後に確認した日
+     *
+     * 資料の「発行日」ではなく、
+     * このサイト側で内容・URLを確認した日を記録する。
+     */
+    checked: dateSchema.optional(),
 
     /**
      * 下書きフラグ

@@ -15,7 +15,6 @@ references:
   - garbage-action-plan-r8
   - takatsuki-waste-management-ordinance
   - garbage-guide
-  - garbage-page
 
 problem:
   paragraphs:

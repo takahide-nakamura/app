@@ -4,13 +4,19 @@ interface Props {
   publisher: string;
   year?: string;
   url?: string;
+  type?: "official" | "statistics" | "law" | "research" | "meeting" | "other";
+  status?: "current" | "historical" | "archived";
+  checked?: string;
 }
 
 const {
   title,
   publisher,
   year,
-  url
+  url,
+  type,
+  status,
+  checked
 } = Astro.props;
 ---
 

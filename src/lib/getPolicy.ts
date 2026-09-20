@@ -32,11 +32,14 @@ export async function getPolicy(slug: string) {
   );
 
   const references = sourceEntries.map((source) => ({
-    title: source.data.title,
-    publisher: source.data.publisher,
-    year: source.data.year,
-    url: source.data.url,
-  }));
+   title: source.data.title,
+   publisher: source.data.publisher,
+   year: source.data.year,
+   url: source.data.url,
+   type: source.data.type,
+   status: source.data.status,
+   checked: source.data.checked,
+}));
 
   return {
     content,
