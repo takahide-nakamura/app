@@ -11,17 +11,13 @@ const base = getBaseUrl();
 interface Opinion {
   id: string;
   date: string;
-  categoryInput: string;
+  category: string;
   area: string;
   text: string;
-  category: string;
-  policyId: string;
   status: string;
   summary: string;
   comment: string;
-  policyReview: string;
-  policyMemo: string;
-  isPublic: boolean;
+  policyId: string;
 }
 
 function getStatusIcon(status: string) {
@@ -101,20 +97,16 @@ try {
         return {
          id: cols[0] || '',
          date: cols[1] || '',
-         categoryInput: cols[2] || '',
+         category: cols[2] || 'その他',
          area: cols[3] || '高槻市内',
          text: cols[4] || '',
-         category: cols[5] || 'その他',
-         policyId: cols[6] || '',
-         status: cols[7] || '受付済み',
-         summary: cols[8] || '',
-         comment: cols[9] || '',
-         isPublic: cols[10]?.toUpperCase() === 'TRUE',
-         policyReview: cols[11] || '未検討',
-         policyMemo: cols[12] || ''
+         status: cols[5] || '受付済み',
+         summary: cols[6] || '',
+         comment: cols[7] || '',
+         policyId: cols[8] || ''
         };
       })
-      .filter(item => item.isPublic && item.text);
+      .filter(item => item.text);
   }
 } catch (e) {
   console.error('市民の声データ取得エラー:', e);
@@ -228,7 +220,7 @@ try {
                 </div>
               )}
 
-              {item.policyReview === '政策化' && item.policyId && (
+              {item.policyId && (
                 <div class="policy-link-box">
                   <a href={`${base}policy/${item.policyId}`}>
                    🔗 関連する政策を見る
