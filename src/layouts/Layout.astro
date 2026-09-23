@@ -35,7 +35,11 @@ const { title, description, image, noindex } = Astro.props;
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
-      gtag('config', 'G-VYLNP39YPT');
+      // ページごとの情報を送信
+      gtag('config', 'G-VYLNP39YPT', {
+        // ページタイトルやURLから自動判定させるか、LayoutのPropsとして渡した属性を設定
+       'policy_category': window.location.pathname.includes('/policy/') ? '政策ページ' : 'その他'
+       });
     </script>
 
     <!-- JSON-LD 構造化データ（WebSite / Person） -->
