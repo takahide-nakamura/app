@@ -28,6 +28,16 @@ const { title, description, image, noindex } = Astro.props;
       noindex={noindex}
     />
 
+    <!-- Google Analytics (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VYLNP39YPT"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-VYLNP39YPT');
+    </script>
+
     <!-- JSON-LD 構造化データ（WebSite / Person） -->
     <StructuredData description={description} />
 
