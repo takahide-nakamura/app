@@ -29,7 +29,12 @@ import { politicalAffiliation } from "../data/politicalAffiliation";
       <a href={`${base}activity/`}>活動</a>
       <a href={`${base}profile/`}>プロフィール</a>
       <a href={`${base}opinions/`}>市民の声</a>
-      <a href={`${base}contact/`}>お問い合わせ</a>
+      <a
+        href={`${base}contact/`}
+        onclick="gtag('event', 'click_contact', { link_location: 'footer' })"
+      >
+       お問い合わせ
+      </a>
     </nav>
     <SocialLinks />
 

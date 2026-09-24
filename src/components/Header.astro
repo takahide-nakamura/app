@@ -28,7 +28,12 @@ import { politicalAffiliation } from "../data/politicalAffiliation";
       <a href={`${base}activity/`}>活動</a>
       <a href={`${base}profile/`}>プロフィール</a>
       <a href={`${base}opinions/`}>市民の声</a>
-      <a href={`${base}contact/`}>お問い合わせ</a>
+      <a
+        href={`${base}contact/`}
+        onclick="gtag('event', 'click_contact', { link_location: 'header' })"
+      >
+       お問い合わせ
+      </a>
     </nav>
         {politicalAffiliation.enabled && (
       <a class="party-logo-link" href={politicalAffiliation.officialUrl || `${base}`} target={politicalAffiliation.officialUrl ? "_blank" : undefined} rel={politicalAffiliation.officialUrl ? "noopener noreferrer" : undefined} aria-label={politicalAffiliation.logoAlt}>

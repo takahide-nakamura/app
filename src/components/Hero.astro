@@ -17,7 +17,13 @@ const base = getBaseUrl();
     </p>
     <div class="hero-actions">
       <a href={`${base}policy/`} class="btn btn-primary">政策を見る</a>
-      <a href={`${base}contact/`} class="btn btn-secondary">ご意見はこちら</a>
+      <a
+        href={`${base}contact/`}
+        class="btn btn-secondary"
+        onclick="gtag('event', 'click_contact', { link_location: 'hero' })"
+      >
+       ご意見はこちら
+      </a>
     </div>
   </div>
 </section>

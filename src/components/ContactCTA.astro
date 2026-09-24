@@ -17,7 +17,11 @@ const base = getBaseUrl();
   </p>
 
   <div class="action">
-    <a href={`${base}opinions/rules/`}  class="btn btn-primary">
+    <a
+     href={`${base}opinions/rules/`}
+     class="btn btn-primary"
+     onclick="gtag('event', 'click_opinion_form', { link_location: 'contact_cta' })"
+    >
       市民の声を送る
     </a>
   </div>

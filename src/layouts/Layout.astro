@@ -8,9 +8,10 @@ interface Props {
   description?: string;
   image?: string;
   noindex?: boolean;
+  policyCategory?: string;
 }
 
-const { title, description, image, noindex } = Astro.props;
+const { title, description, image, noindex, policyCategory } = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -37,9 +38,8 @@ const { title, description, image, noindex } = Astro.props;
 
       // ページごとの情報を送信
       gtag('config', 'G-VYLNP39YPT', {
-        // ページタイトルやURLから自動判定させるか、LayoutのPropsとして渡した属性を設定
-       'policy_category': window.location.pathname.includes('/policy/') ? '政策ページ' : 'その他'
-       });
+       'policy_category': policyCategory || 'その他'
+      });
     </script>
 
     <!-- JSON-LD 構造化データ（WebSite / Person） -->

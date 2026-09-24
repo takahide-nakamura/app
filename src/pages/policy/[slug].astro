@@ -34,6 +34,7 @@ export async function getStaticPaths() {
 <Layout
   title={`${data.title || '政策詳細'}｜もっと住みやすい高槻へ`}
   description={data.description || ''}
+  policyCategory={data.category}
 >
   <Header />
 

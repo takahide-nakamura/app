@@ -36,7 +36,10 @@ const base = getBaseUrl();
           class="form-btn"
           target="_blank"
           rel="noopener noreferrer"
-        >お問い合わせフォームを開く</a>
+          onclick="gtag('event', 'click_contact', { link_location: 'contact_form' })"
+        >
+         お問い合わせフォームを開く
+        </a>
       </section>
 
       <section class="intake-card">
