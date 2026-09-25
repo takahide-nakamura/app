@@ -18,4 +18,9 @@ export const socials = {
     name: "note",
     url: "",
   },
+
+  line: {
+    name: "公式LINE",
+    url: "",
+  },
 };
