@@ -3,7 +3,9 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { politicalAffiliation } from '../data/politicalAffiliation';
+import { getBaseUrl } from '../lib/siteUrl';
 
+const baseUrl = getBaseUrl();
 const birthDate = '1991-12-27';
 const profile = {
   name: '中村たかひで',
@@ -51,11 +53,15 @@ const initialAge = getAge(profile.birthDate);
         </p>
       </div>
 
-      <figure class="portrait" aria-label="中村たかひでのプロフィール写真">
-        <div class="portrait-placeholder" aria-hidden="true">
-          <span>中村<br />たかひで</span>
-        </div>
-        <figcaption>本プロフィール写真を掲載予定</figcaption>
+      <figure class="portrait">
+        <img
+          src={`${baseUrl}images/profile/nakamura-takahide.png`}
+          alt="中村たかひでのプロフィール写真"
+          width="1050"
+          height="1498"
+          loading="eager"
+          decoding="async"
+        />
       </figure>
     </section>
 
@@ -94,7 +100,7 @@ const initialAge = getAge(profile.birthDate);
       <p class="section-label">専門経験</p>
       <h2 id="therapist-heading">理学療法士として見てきたこと</h2>
       <div class="reading-column">
-        <p>理学療法士として、回復期・療養病院で3年、急性期病院で1年、通所リハ・デイサービスで3年、訪問リハで6年働いてきました。</p>
+        <p>理学療法士として、回復期・療養病院で3年、急性期病院で1年、通所リハビリ・デイサービスで3年、訪問リハビリで6年働いてきました。</p>
         <p>病院から介護、地域・在宅まで、人が病気やけがをしてから、その後の生活に戻っていくまでのさまざまな現場を経験してきました。</p>
         <p>そこで感じたのは、医療や介護の力だけでは解決できない問題が、暮らしの中には数多くあるということです。</p>
         <p>必要なサービスがあっても、その存在を知らなければ利用できません。制度があっても、実際の生活の中で使いにくければ、必要な人に届きません。</p>
@@ -200,8 +206,8 @@ const initialAge = getAge(profile.birthDate);
             <li>理学療法士</li>
             <li>回復期・療養病院：3年</li>
             <li>急性期病院：1年</li>
-            <li>通所リハ・デイサービス：3年</li>
-            <li>訪問リハ：6年</li>
+            <li>通所リハビリ・デイサービス：3年</li>
+            <li>訪問リハビリ：6年</li>
           </ol>
         </div>
       </div>
@@ -219,6 +225,14 @@ const initialAge = getAge(profile.birthDate);
         <div><strong>市民の声</strong><span>本サイトで意見を受け取り、政策づくりにつなげる</span></div>
         <div><strong>改善</strong><span>活動を記録し、必要に応じて政策を見直す</span></div>
       </div>
+    </section>
+
+  <!-- ========================= Personal Interests ========================== -->
+    <section class="personal-interests" aria-labelledby="personal-interests-heading">
+      <h2 id="personal-interests-heading">好きなこと</h2>
+      <p>
+        ポッドキャストやラジオを聴くこと、アニメ・マンガを楽しむこと、美味しいお店を見つけて食べ歩くこと。
+      </p>
     </section>
 
   </main>
@@ -254,8 +268,7 @@ const initialAge = getAge(profile.birthDate);
 .lead { margin: 0 0 1.5rem; color: var(--color-primary); font-size: clamp(1.15rem, 2.5vw, 1.5rem); font-weight: 700; line-height: 1.7; }
 .hero-description { max-width: 35rem; margin: 0; line-height: 1.9; }
 .portrait { width: 100%; max-width: 320px; margin: 0 auto; }
-.portrait-placeholder { display: grid; place-items: center; aspect-ratio: 4 / 5; border: 1px solid var(--color-primary); border-bottom: 0.6rem solid var(--color-accent); background: #f5f8fc; color: var(--color-primary); font-size: clamp(1.4rem, 4vw, 2rem); font-weight: 700; line-height: 1.55; text-align: center; }
-.portrait figcaption { margin-top: 0.75rem; color: #555; font-size: 0.8rem; line-height: 1.6; text-align: center; }
+.portrait img { display: block; width: 100%; height: auto; }
 
 /* ========================= Basic Profile ========================== */
 .basic-profile { padding: 2rem 0 clamp(3rem, 6vw, 5rem); border-top: 1px solid var(--color-border); }
@@ -264,10 +277,15 @@ const initialAge = getAge(profile.birthDate);
 .profile-list div { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 1rem; padding: 0.85rem 0; border-bottom: 1px solid var(--color-border); }
 .profile-list dt { color: #555; font-weight: 700; } .profile-list dd { margin: 0; }
 
+/* ========================= Personal Interests ========================== */
+.personal-interests { padding: 0 0 clamp(3rem, 6vw, 5rem); }
+.personal-interests h2 { margin: 0 0 1rem; color: var(--color-primary); }
+.personal-interests p { max-width: 100%; margin: 0; line-height: 1.9; }
+
 /* ========================= Common Sections ========================== */
 .profile-section { padding: clamp(3rem, 6vw, 5rem) 0; border-top: 1px solid var(--color-border); }
 .profile-section h2 { margin: 0 0 1.5rem; }
-.reading-column { max-width: 47rem; }
+.reading-column { max-width: none; }
 .reading-column p { margin: 0 0 1.35rem; line-height: 1.95; }
 .reading-column p:last-child { margin-bottom: 0; }
 
