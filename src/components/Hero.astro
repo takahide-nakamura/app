@@ -60,9 +60,16 @@ const base = getBaseUrl();
 }
 
 .title-main {
-  /* 中村たかひで パーソナルブランドカラー（#DC143C） */
+  /* 中村たかひで パーソナルブランドカラー */
   color: var(--color-personal-brand);
-  text-shadow: none;
+  
+  /* 白背景でクッキリ浮き立たせる外枠＆影 */
+text-shadow:
+    -1px -1px 0 #111111,
+     1px -1px 0 #111111,
+    -1px  1px 0 #111111,
+     1px  1px 0 #111111,
+     0px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .title-accent {
