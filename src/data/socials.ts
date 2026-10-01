@@ -11,7 +11,7 @@ export const socials = {
 
   instagram: {
     name: "Instagram",
-    url: "https://www.instagram.com/takahide.pl/",
+    url: "",
   },
 
   note: {
