@@ -404,6 +404,74 @@ article:focus-within {
   margin-top: 1.5rem;
   flex-wrap: wrap;
 }
+/* ==========================================================================
+   ヘッダー用コンパクトSNS
+   ========================================================================== */
+
+.site-header .social-links--compact {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+  margin: 0;
+}
+
+.site-header .social-links--compact a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.site-header .social-links--compact a img {
+  display: block;
+  width: 1.35rem;
+  height: 1.35rem;
+  object-fit: contain;
+}
+
+.site-header .social-links--compact a:hover {
+  color: var(--color-personal-brand);
+}
+
+.social-links--compact {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin: 0;
+}
+
+.social-links--compact a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  color: inherit;
+  text-decoration: none;
+  border-radius: 0.375rem;
+}
+
+.social-links--compact a img {
+  display: block;
+  width: 1.5rem;
+  height: 1.5rem;
+  object-fit: contain;
+}
+
+.social-links--compact a:hover {
+  color: var(--color-personal-brand);
+}
+
+.social-links--compact a:focus-visible {
+  outline: 2px solid var(--color-personal-brand);
+  outline-offset: 2px;
+}
 
 /* ==========================================================================
    Policy YouTube セクション

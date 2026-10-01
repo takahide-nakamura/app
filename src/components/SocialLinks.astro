@@ -1,15 +1,37 @@
 ---
 import { socials } from "../data/socials";
+import { getBaseUrl } from "../lib/siteUrl";
+
+interface Props {
+  compact?: boolean;
+}
+
+const { compact = false } = Astro.props;
+const base = getBaseUrl();
 ---
 
-<nav class="social-links" aria-label="SNS">
+<nav
+  class:list={["social-links", { "social-links--compact": compact }]}
+  aria-label="SNS"
+>
   {socials.youtube.url && (
     <a
       href={socials.youtube.url}
       target="_blank"
       rel="noopener noreferrer"
+      aria-label={socials.youtube.name}
     >
-      YouTube
+      {
+        compact ? (
+          <img
+            src={`${base}images/social/youtube.svg`}
+            alt=""
+            aria-hidden="true"
+          />
+        ) : (
+          socials.youtube.name
+        )
+      }
     </a>
   )}
 
@@ -18,8 +40,19 @@ import { socials } from "../data/socials";
       href={socials.x.url}
       target="_blank"
       rel="noopener noreferrer"
+      aria-label={socials.x.name}
     >
-      X
+      {
+        compact ? (
+          <img
+            src={`${base}images/social/x.svg`}
+            alt=""
+            aria-hidden="true"
+          />
+        ) : (
+          socials.x.name
+        )
+      }
     </a>
   )}
 
@@ -28,8 +61,19 @@ import { socials } from "../data/socials";
       href={socials.instagram.url}
       target="_blank"
       rel="noopener noreferrer"
+      aria-label={socials.instagram.name}
     >
-      Instagram
+      {
+        compact ? (
+          <img
+            src={`${base}images/social/instagram.svg`}
+            alt=""
+            aria-hidden="true"
+          />
+        ) : (
+          socials.instagram.name
+        )
+      }
     </a>
   )}
 
@@ -38,8 +82,19 @@ import { socials } from "../data/socials";
       href={socials.note.url}
       target="_blank"
       rel="noopener noreferrer"
+      aria-label={socials.note.name}
     >
-      note
+      {
+        compact ? (
+          <img
+            src={`${base}images/social/note.svg`}
+            alt=""
+            aria-hidden="true"
+          />
+        ) : (
+          socials.note.name
+        )
+      }
     </a>
   )}
 
@@ -48,8 +103,19 @@ import { socials } from "../data/socials";
       href={socials.line.url}
       target="_blank"
       rel="noopener noreferrer"
+      aria-label={socials.line.name}
     >
-      公式LINE
+      {
+        compact ? (
+          <img
+            src={`${base}images/social/line.svg`}
+            alt=""
+            aria-hidden="true"
+          />
+        ) : (
+          socials.line.name
+        )
+      }
     </a>
   )}
 </nav>

@@ -37,7 +37,7 @@ import { politicalAffiliation } from "../data/politicalAffiliation";
       </a>
     </nav>
 
-    <SocialLinks />
+    <SocialLinks compact />
 
     <nav class="legal-nav" aria-label="サイト情報">
       <a href={`${base}privacy-policy/`}>プライバシーポリシー</a>
@@ -60,20 +60,13 @@ import { politicalAffiliation } from "../data/politicalAffiliation";
   text-align: center;
 }
 
-/* 個人名：細めのアウトラインとシャドウで白背景でもクッキリ見やすく */
-.author-name {
+.site-footer .author-name {
   display: block;
-  color: var(--color-personal-brand);
-  font-size: 1.1rem;
+  font-size: 0.92rem;
   font-weight: 700;
-  letter-spacing: 0.03em;
+  color: var(--color-personal-brand);
+  letter-spacing: 0.02em;
   margin-bottom: 0.25rem;
-  text-shadow:
-    -0.75px -0.75px 0 #111111,
-     0.75px -0.75px 0 #111111,
-    -0.75px  0.75px 0 #111111,
-     0.75px  0.75px 0 #111111,
-     0px 1px 3px rgba(0, 0, 0, 0.15);
 }
 
 .site-name {
