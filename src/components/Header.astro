@@ -2,7 +2,6 @@
 import { getBaseUrl } from "../lib/siteUrl";
 
 const base = getBaseUrl();
-import SocialLinks from "./SocialLinks.astro";
 import { politicalAffiliation } from "../data/politicalAffiliation";
 ---
 <header class="site-header">
@@ -21,27 +20,37 @@ import { politicalAffiliation } from "../data/politicalAffiliation";
       </p>
     </div>
 
-    <nav class="global-nav" aria-label="主要ナビゲーション">
-      <a href={`${base}`}>ホーム</a>
-      <a href={`${base}policy/`}>政策</a>
-      <a href={`${base}activity/`}>活動</a>
-      <a href={`${base}profile/`}>プロフィール</a>
-      <a href={`${base}opinions/`}>市民の声</a>
-      <a
-        href={`${base}contact/`}
-        onclick="gtag('event', 'click_contact', { link_location: 'header' })"
-      >
-        お問い合わせ
-      </a>
-    </nav>
+    <div class="header-right-group">
+        <nav class="global-nav" aria-label="主要ナビゲーション">
+          <a href={`${base}`}>ホーム</a>
+          <a href={`${base}policy/`}>政策</a>
+          <a href={`${base}activity/`}>活動</a>
+          <a href={`${base}profile/`}>プロフィール</a>
+          <a href={`${base}opinions/`}>市民の声</a>
+          <a
+            href={`${base}contact/`}
+            onclick="gtag('event', 'click_contact', { link_location: 'header' })"
+          >
+            お問い合わせ
+          </a>
+       </nav>
 
-    {politicalAffiliation.enabled && (
-      <a class="party-logo-link" href={politicalAffiliation.officialUrl || `${base}`} target={politicalAffiliation.officialUrl ? "_blank" : undefined} rel={politicalAffiliation.officialUrl ? "noopener noreferrer" : undefined} aria-label={politicalAffiliation.logoAlt}>
-        <img src={`${base}${politicalAffiliation.logoSrc.replace(/^\//, '')}`} alt={politicalAffiliation.logoAlt} class="party-logo" />
-      </a>
-    )}
-
-    <SocialLinks compact />
+      {politicalAffiliation.enabled && (
+        <a
+          class="party-logo-link"
+          href={politicalAffiliation.officialUrl || `${base}`}
+          target={politicalAffiliation.officialUrl ? "_blank" : undefined}
+          rel={politicalAffiliation.officialUrl ? "noopener noreferrer" : undefined}
+          aria-label={politicalAffiliation.logoAlt}
+        >
+          <img
+            src={`${base}${politicalAffiliation.logoSrc.replace(/^\//, '')}`}
+            alt={politicalAffiliation.logoAlt}
+            class="party-logo"
+          />
+       </a>
+     )}
+    </div>
   </div>
 </header>
 
@@ -129,7 +138,12 @@ import { politicalAffiliation } from "../data/politicalAffiliation";
   max-width: 120px;
   object-fit: contain;
 }
-
+.header-right-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-shrink: 0;
+}
 .global-nav {
   display: flex;
   gap: 1rem;

@@ -56,6 +56,27 @@ const base = getBaseUrl();
     </a>
   )}
 
+    {socials.threads.url && (
+    <a
+      href={socials.threads.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={socials.threads.name}
+    >
+      {
+        compact ? (
+          <img
+            src={`${base}images/social/threads.svg`}
+            alt=""
+            aria-hidden="true"
+          />
+        ) : (
+          socials.threads.name
+        )
+      }
+    </a>
+  )}
+
   {socials.instagram.url && (
     <a
       href={socials.instagram.url}

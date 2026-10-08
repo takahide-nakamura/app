@@ -9,9 +9,14 @@ export const socials = {
     url: "https://x.com/takahide_pl",
   },
 
+  threads: {
+    name: "Threads",
+    url: "https://www.threads.com/@takahide.pl",
+  },
+
   instagram: {
     name: "Instagram",
-    url: "",
+    url: "https://www.instagram.com/takahide.pl/",
   },
 
   note: {
