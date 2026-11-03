@@ -1,39 +1,40 @@
 ---
 import { politicalAffiliation } from "../data/politicalAffiliation";
+import { socials } from "../data/socials";
+import { getCanonicalUrl } from "../lib/siteUrl";
 
-interface Props {
-  description?: string;
-}
-
-const {
-  description = "医療・介護・子育て・まちづくりなど、高槻市をもっと住みやすくするための政策を提案しています。"
-} = Astro.props;
-
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const site = Astro.site ?? Astro.url;
+const websiteURL = getCanonicalUrl("/", site);
+const profileURL = getCanonicalUrl("profile/", site);
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": "WebSite",
-      "@id": `${canonicalURL}#website`,
-      "url": canonicalURL,
+      "@id": `${websiteURL}#website`,
+      "url": websiteURL,
       "name": "もっと住みやすい高槻へ",
-      "description": description,
+      "description": "高槻市の政策・活動・根拠を公開し、市民との対話につなげる情報プラットフォームです。",
       "inLanguage": "ja"
     },
     {
       "@type": "Person",
-      "@id": `${canonicalURL}#person`,
+      "@id": `${profileURL}#person`,
       "name": "中村たかひで",
-      "jobTitle": politicalAffiliation.enabled ? politicalAffiliation.displayName : "市民活動家",
-      "url": canonicalURL,
+      "jobTitle": politicalAffiliation.enabled ? politicalAffiliation.role : undefined,
+      "url": profileURL,
       "affiliation": politicalAffiliation.enabled ? {
         "@type": "Organization",
         "name": politicalAffiliation.partyName,
         "url": politicalAffiliation.officialUrl || undefined,
       } : undefined,
-       "sameAs": []
+      "sameAs": [
+        socials.youtube.url,
+        socials.x.url,
+        socials.instagram.url,
+        socials.note.url,
+      ]
     }
   ]
 };

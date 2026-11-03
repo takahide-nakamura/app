@@ -1,5 +1,5 @@
 ---
-import { getBaseUrl } from "../lib/siteUrl";
+import { getBaseUrl, getCanonicalUrl } from "../lib/siteUrl";
 interface Props {
   title: string;
   description?: string;
@@ -15,10 +15,11 @@ const {
 } = Astro.props;
 
 // 現在のページの完全な正規URL（Canonical URL）
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const site = Astro.site ?? Astro.url;
+const canonicalURL = getCanonicalUrl(Astro.url.pathname, site);
 
 // OGP画像URL
-const imageURL = new URL(image, Astro.site);
+const imageURL = getCanonicalUrl(image, site);
 
 const baseUrl = getBaseUrl();
 ---
