@@ -109,6 +109,13 @@ body {
   color: var(--color-text);
   background: var(--color-background);
   line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+
+img,
+video,
+iframe {
+  max-width: 100%;
 }
 
 /* ===== タイポグラフィ基本ルール ===== */

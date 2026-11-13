@@ -11,17 +11,30 @@ interface Props {
   policyCategory?: string;
 }
 
-const { title, description, image, noindex, policyCategory } = Astro.props;
+const {
+  title,
+  description,
+  image,
+  noindex,
+  policyCategory,
+} = Astro.props;
+
+const gaPolicyCategory = policyCategory ?? 'その他';
 ---
 
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" data-policy-category={gaPolicyCategory}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- ↓ ここに Search Console の確認タグを貼り付け ↓ -->
-    <meta name="google-site-verification" content="CGnDKTgq2fox61iB7NJ3RoB9rm89bZbyaC0Z1OpLs60" />
-    <!-- SEOコンポーネントにメタタグ・Canonical生成を一元化 -->
+
+    <!-- Google Search Console -->
+    <meta
+      name="google-site-verification"
+      content="CGnDKTgq2fox61iB7NJ3RoB9rm89bZbyaC0Z1OpLs60"
+    />
+
+    <!-- SEO -->
     <SEO
       title={title}
       description={description}
@@ -30,23 +43,33 @@ const { title, description, image, noindex, policyCategory } = Astro.props;
     />
 
     <!-- Google Analytics (GA4) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VYLNP39YPT"></script>
+    <script
+      is:inline
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-VYLNP39YPT"
+    ></script>
+
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
+
+      function gtag() {
+        window.dataLayer.push(arguments);
+      }
+
       gtag('js', new Date());
 
-      // ページごとの情報を送信
+      const policyCategory =
+        document.documentElement.dataset.policyCategory || 'その他';
+
       gtag('config', 'G-VYLNP39YPT', {
-       'policy_category': policyCategory || 'その他'
+        policy_category: policyCategory
       });
     </script>
 
-    <!-- JSON-LD 構造化データ（WebSite / Person） -->
+    <!-- JSON-LD 構造化データ -->
     <StructuredData />
 
     <style>
-      /* WCAG 2.2: スキップリンク（普段は画面外、キーボードフォーカス時のみ表示） */
       .skip-link {
         position: absolute;
         top: -100px;
@@ -61,15 +84,17 @@ const { title, description, image, noindex, policyCategory } = Astro.props;
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         transition: top 0.2s ease-in-out;
       }
+
       .skip-link:focus {
         top: 1rem;
       }
-
     </style>
   </head>
+
   <body>
-    <!-- WCAG 2.2: スキップリンク -->
-    <a href="#main-content" class="skip-link">メインコンテンツへスキップ</a>
+    <a href="#main-content" class="skip-link">
+      メインコンテンツへスキップ
+    </a>
 
     <slot />
   </body>
