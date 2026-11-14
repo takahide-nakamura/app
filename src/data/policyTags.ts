@@ -260,6 +260,23 @@ export const policyTags: Record<string, PolicyTagMeta> = {
     category: "🏙️ 暮らし",
   },
 
+  "デジタル行政": {
+    reading: "でじたるぎょうせい",
+    category: "🏙️ 暮らし" 
+  },
+  "情報アクセシビリティ": {
+    reading: "じょうほうあくせしびりてぃ",
+    category: "🏙️ 暮らし"
+  },
+  "オンライン手続き": {
+    reading: "おんらいんてつづき",
+    category: "🏙️ 暮らし" 
+  },
+  "オープンデータ": { 
+    reading: "おーぷんでーた", 
+    category: "🏙️ 暮らし" 
+  },
+
   // ===== 将来用・基本タグ（現時点で使用されていないタグはUIに非表示） =====
   "介護": {
     reading: "かいご",
