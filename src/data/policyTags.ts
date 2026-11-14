@@ -148,6 +148,30 @@ export const policyTags: Record<string, PolicyTagMeta> = {
     reading: "ともばたらき",
     category: "👨‍👩‍👧 子育て",
   },
+    "不登校": {
+    reading: "ふとうこう",
+    category: "👨‍👩‍👧 子育て",
+  },
+  "フリースクール": {
+    reading: "ふりーすくーる",
+    category: "👨‍👩‍👧 子育て",
+  },
+  "学習支援": {
+    reading: "がくしゅうしえん",
+    category: "👨‍👩‍👧 子育て",
+  },
+  "教育機会": {
+    reading: "きょういくきかい",
+    category: "👨‍👩‍👧 子育て",
+  },
+  "経済的支援": {
+    reading: "けいざいてきしえん",
+    category: "👨‍👩‍👧 子育て",
+  },
+  "進路支援": {
+    reading: "しんろしえん",
+    category: "👨‍👩‍👧 子育て",
+  },
 
   // ===== 🛡️ 防災 =====
   "国民保護": {
