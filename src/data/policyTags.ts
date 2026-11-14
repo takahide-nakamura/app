@@ -86,6 +86,15 @@ export const policyTags: Record<string, PolicyTagMeta> = {
     reading: "むしょうか",
     category: "🏥 医療・介護",
   },
+  "障害福祉": {
+  reading: "しょうがいふくし",
+  category: "🏥 医療・介護",
+ },
+  "ローカルルール": {
+  reading: "ろーかるるーる",
+  category: "🏥 医療・介護",
+  },
+
 
   // ===== 👨‍👩‍👧 子育て =====
   "いじめ": {
