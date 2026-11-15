@@ -321,6 +321,18 @@ export const policyTags: Record<string, PolicyTagMeta> = {
     reading: "ちいきこみゅにてぃ", 
     category: "🏙️ 暮らし" 
   },
+  "相談支援": { 
+    reading: "そうだんしえん", 
+    category: "🏙️ 暮らし" 
+  },
+  "情報発信": { 
+    reading: "じょうほうはっしん", 
+    category: "🏙️ 暮らし" 
+  },
+  "住民自治": { 
+    reading: "じゅうみんじち", 
+    category: "🏙️ 暮らし" 
+  },
 
   // ===== 将来用・基本タグ（現時点で使用されていないタグはUIに非表示） =====
   "介護": {
