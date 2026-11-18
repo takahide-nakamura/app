@@ -7,11 +7,11 @@ const base = getBaseUrl();
 ---
 
 <section class="policy-preview container">
-  <h2>重点政策</h2>
+  <h2>分野から政策を探す</h2>
 
   <p class="lead">
-    現在、重点的に取り組む政策を、4つの分野に分けて紹介しています。<br class="pc-br" />
-    それぞれの課題、提案、活動の記録をご覧いただけます。
+    政策を4つの分野に分けて紹介しています。<br class="pc-br" />
+    分野を選ぶと、その分野の政策一覧へ移動します。
   </p>
 
   <div class="cards">
@@ -20,23 +20,28 @@ const base = getBaseUrl();
        emoji="🏥"
        title="医療・介護"
        description="医療・介護の現場経験をもとに、安心して必要な支援を受けられる仕組みを考えます。"
+       href={`${base}policy/#medical-care`}
     />
 
     <PolicyPreviewCard
        emoji="👨‍👩‍👧"
        title="子育て"
        description="今は共働きの時代。共働きでも子育てしやすい環境づくりを考えます。"
+       href={`${base}policy/#childcare`}
     />
     <PolicyPreviewCard
        emoji="🛡️"
        title="防災"
        description="もしもの際に、ひとりでも多くの命を救い、生活再建を少しでも早く。一つずつ考えていきます。"
+       href={`${base}policy/#disaster-prevention`}
     />
     <PolicyPreviewCard
        emoji="🏙️"
        title="暮らし"
        description="暮らしやすさは住みやすさ。地域課題を一つずつ改善していきます。"
+       href={`${base}policy/#living`}
     />
+
   </div>
 
   <p class="more">
