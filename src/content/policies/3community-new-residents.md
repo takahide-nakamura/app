@@ -6,7 +6,7 @@ heroTitle: "引っ越してきた人も、地域とつながれる高槻へ"
 heroDescription: "転入時に『どこに連絡すればよいか』『何をするのか』が分かる案内を。自治会への加入を強制せず、希望する人と地域をつなぎます。"
 updated: "2026-11-14"
 category: "🏙️ 暮らし"
-tags: ["自治会", "地域コミュニティ", "転入者",  "市民協働", "防災", "暮らし"]
+tags: ["自治会", "地域コミュニティ", "転入者",  "市民協働", "暮らし"]
 relatedActivities: []
 references:
   - takatsuki-community-handbook

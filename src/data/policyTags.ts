@@ -122,6 +122,7 @@ export const policyTags: Record<string, PolicyTagMeta> = {
    reading: "こうどうへんよう",
    category: "🏥 医療・介護",
   },
+  
 
 
   // ===== 👨‍👩‍👧 子育て =====

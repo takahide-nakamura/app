@@ -20,6 +20,7 @@ references:
   - "takatsuki-childcare-vacancy-information"
   - "childcare-waiting-list-information"
   - "takatsuki-annual-childcare"
+  - "cfa-daredemo-tsuen"
 
 problem:
   paragraphs:

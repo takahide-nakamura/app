@@ -20,6 +20,8 @@ references:
 - takatsuki-care-electronic-applications
 - takatsuki-care-forms-2026
 - takatsuki-disability-forms-2026
+- takatsuki-disability-group-guidance-2026
+
 
 problem:
   paragraphs:
