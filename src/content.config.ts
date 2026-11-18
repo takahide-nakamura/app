@@ -106,6 +106,24 @@ const policies = defineCollection({
     draft: z.boolean().optional().default(false),
 
     /**
+     * 詳細公開の制御（概要版／詳細版の切り替え）
+     *
+     * auto（既定）:
+     *   src/data/policyDisplay.ts の全体設定に従う
+     * summary:
+     *   全体設定にかかわらず概要版のみ表示する
+     * full:
+     *   全体設定にかかわらず詳細まで表示する
+     *
+     * 開発環境（npm run dev）では、この設定にかかわらず
+     * 常に詳細が表示される。
+     */
+    detailRelease: z
+      .enum(["auto", "summary", "full"])
+      .optional()
+      .default("auto"),
+
+    /**
      * 最終更新日
      *
      * YYYY-MM-DD の形式に統一する。
