@@ -1,12 +1,26 @@
 ---
+import { getBaseUrl } from "../lib/siteUrl";
+
+const base = getBaseUrl();
 ---
 
 <section class="about-site container">
   <h2>このサイトについて</h2>
 
   <p>
+    理学療法士として約13年、病院、デイサービス、訪問リハビリなどの現場に立ってきました。
+    そこで見てきたのは、個人や家族の努力だけでは越えられない壁です。
+    要介護認定の結果が間に合わない、制度があることを知らない、介護のために仕事を辞めざるを得ない。
+    そうした壁を、社会の仕組みから少しずつ改善するために、このサイトで政策を公開しています。
+  </p>
+
+  <p>
     公開資料やデータをもとに地域の課題を整理し、改善策を政策として提案します。
     市民の皆さまとの対話を重ねながら、考えたことや実際の活動も公開していきます。
+  </p>
+
+  <p class="about-link">
+    <a href={`${base}profile/`}>中村たかひでのプロフィールを見る<span aria-hidden="true">→</span></a>
   </p>
 
   <p class="note">
@@ -33,6 +47,28 @@
   max-width: 800px;
   margin-inline: auto;
 }
+
+.about-link {
+  margin-top: 1.5rem;
+}
+
+.about-link a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--color-party-primary);
+  font-weight: 700;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  padding-bottom: 0.15rem;
+  transition: border-color 0.2s ease;
+}
+
+.about-link a:hover {
+  border-bottom-color: var(--color-party-primary);
+  text-decoration: none;
+}
+
 
 .note {
   font-size: .9rem;
