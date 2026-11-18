@@ -86,7 +86,7 @@ export const policyTags: Record<string, PolicyTagMeta> = {
     reading: "むしょうか",
     category: "🏥 医療・介護",
   },
-  "障害福祉": {
+  "障がい福祉": {
   reading: "しょうがいふくし",
   category: "🏥 医療・介護",
  },
