@@ -94,6 +94,34 @@ export const policyTags: Record<string, PolicyTagMeta> = {
   reading: "ろーかるるーる",
   category: "🏥 医療・介護",
   },
+  "健康寿命": {
+   reading: "けんこうじゅみょう",
+   category: "🏥 医療・介護",
+  },
+  "身体活動": {
+   reading: "しんたいかつどう",
+   category: "🏥 医療・介護",
+  },
+  "運動習慣": {
+   reading: "うんどうしゅうかん",
+   category: "🏥 医療・介護",
+  },
+  "高血圧": {
+   reading: "こうけつあつ",
+   category: "🏥 医療・介護",
+  },
+  "心疾患": {
+   reading: "しんしっかん",
+   category: "🏥 医療・介護",
+  },
+  "健幸ポイント": {
+   reading: "けんこうぽいんと",
+   category: "🏥 医療・介護",
+  },
+  "行動変容": {
+   reading: "こうどうへんよう",
+   category: "🏥 医療・介護",
+  },
 
 
   // ===== 👨‍👩‍👧 子育て =====
@@ -237,6 +265,10 @@ export const policyTags: Record<string, PolicyTagMeta> = {
     reading: "そうおん",
     category: "🏙️ 暮らし",
   },
+  "生活道路": {
+   reading: "せいかつどうろ",
+   category: "🏙️ 暮らし",
+  },
   "夜間騒音": {
     reading: "やかんそうおん",
     category: "🏙️ 暮らし",
@@ -297,6 +329,10 @@ export const policyTags: Record<string, PolicyTagMeta> = {
     reading: "でじたるぎょうせい",
     category: "🏙️ 暮らし" 
   },
+  "行政手続き": {
+    reading: "ぎょうせいてつづき",
+    category: "🏙️ 暮らし",
+  },
   "情報アクセシビリティ": {
     reading: "じょうほうあくせしびりてぃ",
     category: "🏙️ 暮らし"
@@ -332,6 +368,26 @@ export const policyTags: Record<string, PolicyTagMeta> = {
   "住民自治": { 
     reading: "じゅうみんじち", 
     category: "🏙️ 暮らし" 
+  },
+  "上下水道": {
+    reading: "じょうげすいどう",
+    category: "🏙️ 暮らし",
+  },
+  "生活インフラ": {
+    reading: "せいかつインフラ",
+    category: "🏙️ 暮らし",
+  },
+  "耐震化": {
+    reading: "たいしんか",
+    category: "🏙️ 暮らし",
+  },
+  "空き家": {
+    reading: "あきや",
+    category: "🏙️ 暮らし",
+  },
+  "住まい": {
+    reading: "すまい",
+    category: "🏙️ 暮らし",
   },
 
   // ===== 将来用・基本タグ（現時点で使用されていないタグはUIに非表示） =====

@@ -27,6 +27,16 @@ const base = getBaseUrl();
       </a>
     </div>
   </div>
+  <figure class="hero-banner">
+    <img
+     src={`${base}ogp.png`}
+     alt="医療・介護・福祉の現場経験から考える政策「もっと住みやすい高槻へ」。理学療法士・中村たかひで"
+     width="1200"
+     height="630"
+     fetchpriority="high"
+    />
+  </figure>
+
 </section>
 
 <style>
@@ -72,13 +82,13 @@ const base = getBaseUrl();
   /* 中村たかひで パーソナルブランドカラー */
   color: var(--color-personal-brand);
   
-  /* 白背景でクッキリ浮き立たせる外枠＆影 */
-text-shadow:
-    -1px -1px 0 #111111,
-     1px -1px 0 #111111,
-    -1px  1px 0 #111111,
-     1px  1px 0 #111111,
-     0px 2px 5px rgba(0, 0, 0, 0.2);
+  /* バナー導入に合わせて縁取りを薄くし、影を柔らかくした */
+  text-shadow:
+    -1px -1px 0 rgba(17, 17, 17, 0.45),
+     1px -1px 0 rgba(17, 17, 17, 0.45),
+    -1px  1px 0 rgba(17, 17, 17, 0.45),
+     1px  1px 0 rgba(17, 17, 17, 0.45),
+     0px 3px 8px rgba(0, 0, 0, 0.12);
 }
 
 .title-accent {
@@ -130,5 +140,17 @@ text-shadow:
   .hero-description {
     font-size: 1rem;
   }
+}
+.hero-banner {
+margin: 2.5rem auto 0;
+max-width: 880px;
+}
+
+.hero-banner img {
+display: block;
+width: 100%;
+height: auto;
+border-radius: 16px;
+box-shadow: 0 10px 34px rgba(0, 0, 0, 0.14);
 }
 </style>
