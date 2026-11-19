@@ -19,30 +19,30 @@ const {
 
 const styles = {
   subjective: {
-    color: "#2e8b57"
+    color: "var(--color-success)"
   },
   objective: {
     color: "var(--color-party-primary)"
   },
   limitation: {
-    color: "#666666"
+    color: "var(--color-text-subtle)"
   },
 
   // 後方互換
   field: {
-    color: "#2e8b57"
+    color: "var(--color-success)"
   },
   official: {
     color: "var(--color-party-primary)"
   },
   reason: {
-    color: "#8e44ad"
+    color: "var(--color-evidence-reason)"
   },
   improvement: {
-    color: "#f39c12"
+    color: "var(--color-evidence-improvement)"
   },
   effect: {
-    color: "#4caf50"
+    color: "var(--color-success)"
   }
 } as const;
 
@@ -73,13 +73,13 @@ const current = styles[type] ?? styles.objective;
 
   border-left:6px solid var(--accent);
 
-  background:#f8fbff;
+  background:var(--color-party-primary-subtle);
 
   padding:1.5rem 1.5rem;
 
   margin:1.75rem 0;
 
-  border-radius:10px;
+  border-radius: var(--radius);
 
 }
 

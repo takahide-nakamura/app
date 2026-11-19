@@ -29,6 +29,7 @@
   --color-party-primary-subtle: #f0f6fc;
   --color-party-accent: #f5b500;
   --color-party-accent-hover: #db9f00;
+  --color-party-primary-border: #d0e1f9; /* 政党色の淡い枠線（タグ等） */
 
   /* ------------------------------------------------------------------------
      2. パーソナルカラー (Personal Brand Color)
@@ -73,6 +74,10 @@
   --color-danger: #dc2626;
   --color-info: #0284c7;
 
+  /* 根拠ボックス（EvidenceBox）の種別色 ※現在は未使用の種別用。値は従来どおり */
+  --color-evidence-reason: #8e44ad;
+  --color-evidence-improvement: #f39c12;
+
   /* WCAG 2.2 AA 適合フォーカスリング色（白背景に対してコントラスト比 10.5:1） */
   --color-focus: var(--color-party-primary);
 
@@ -83,6 +88,7 @@
   --content-width: 750px;
 
   --radius-sm: 6px;
+  --radius-md: 8px;
   --radius: 12px;
   --radius-lg: 16px;
   --radius-full: 999px;

@@ -92,7 +92,7 @@ const base = getBaseUrl();
 }
 
 .title-accent {
-  /* 白背景に対して抜群の視認性を誇る政党メインカラー（#043e80） */
+  /* 白背景に対して抜群の視認性を誇る政党メインカラー（政党メインカラー） */
   color: var(--color-party-primary);
   /* ドロップシャドウを外すか、同色の薄いシャドウにしてくっきり見せる */
   text-shadow: none; 
@@ -150,7 +150,7 @@ max-width: 880px;
 display: block;
 width: 100%;
 height: auto;
-border-radius: 16px;
-box-shadow: 0 10px 34px rgba(0, 0, 0, 0.14);
+border-radius: var(--radius-lg);
+box-shadow: var(--shadow-lg);
 }
 </style>
