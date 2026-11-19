@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import SocialLinks from "../components/SocialLinks.astro";
 import { getBaseUrl } from "../lib/siteUrl";
+import { politicalAffiliation } from "../data/politicalAffiliation";
 
 const base = getBaseUrl();
 const title = "中村たかひで｜公式リンク集";
@@ -13,15 +14,17 @@ const description = "中村たかひでの公式サイト、各SNS（YouTube・X
     <header class="links-header">
       <div class="profile-mark">
         <img
-          src={`${base}favicon.svg`}
-          alt=""
-          width="72"
-          height="72"
-          aria-hidden="true"
+          src={`${base}images/profile/nakamura-takahide.png`}
+          alt="中村たかひでのプロフィール写真"
+          width="96"
+          height="96"
         />
       </div>
       <h1>中村たかひで</h1>
       <p>もっと住みやすい高槻へ</p>
+      {politicalAffiliation.enabled && (
+        <p class="links-affiliation">{politicalAffiliation.displayName}</p>
+      )}
     </header>
 
 <!-- 🟢 最上位：プロフィール & 公式サイト -->
@@ -98,17 +101,24 @@ const description = "中村たかひでの公式サイト、各SNS（YouTube・X
   .links-header {
     text-align: center;
     margin-bottom: 2.5rem;
+    padding: 2rem 1rem 1.75rem;
+    border-radius: var(--radius-lg);
+    background: radial-gradient(
+      ellipse 90% 110% at 50% 0%,
+      var(--color-accent-subtle) 0%,
+      transparent 72%
+    );
   }
 
   .profile-mark {
-    width: 72px;
-    height: 72px;
+    width: 96px;
+    height: 96px;
     margin: 0 auto 1rem;
-    display: grid;
-    place-items: center;
-    background: var(--color-background);
+    border: 3px solid var(--color-personal-brand);
+    border-radius: var(--radius-full);
+    box-shadow: var(--shadow-md);
     overflow: hidden;
-}
+  }
 
   .profile-mark img {
     width: 100%;
@@ -131,6 +141,12 @@ const description = "中村たかひでの公式サイト、各SNS（YouTube・X
     font-size: var(--text-base);
   }
 
+  .links-affiliation {
+    margin: 0.4rem 0 0;
+    color: var(--color-text-subtle);
+    font-size: var(--text-sm);
+  }
+
   .links-section {
     margin-top: 2.25rem;
   }
@@ -140,12 +156,25 @@ const description = "中村たかひでの公式サイト、各SNS（YouTube・X
   }
 
   .links-section h2 {
+    position: relative;
     margin: 0 0 0.75rem;
+    padding-bottom: 0.45rem;
     color: var(--color-text-muted);
     font-size: var(--text-sm);
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
+  }
+
+  .links-section h2::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 2rem;
+    height: 3px;
+    border-radius: var(--radius-full);
+    background: var(--color-personal-brand);
   }
 
   .link-list,
@@ -196,7 +225,11 @@ const description = "中村たかひでの公式サイト、各SNS（YouTube・X
   .link-card-primary {
     border-color: var(--color-personal-brand);
     border-width: 2px;
-    background: var(--color-accent-subtle); /* パーソナルカラーに調和する薄い背景 */
+    background: linear-gradient(
+      135deg,
+      var(--color-accent-subtle) 0%,
+      var(--color-background) 78%
+    );
   }
   .link-icon {
     display: inline-flex;
@@ -239,7 +272,7 @@ const description = "中村たかひでの公式サイト、各SNS（YouTube・X
     display: grid;
     /* SNSリンクの中身は「サービス名テキスト＋::afterの矢印」の2要素だけなので、
        アイコン列のある共通カードと列構成を分ける（テキストが2rem列に落ちて潰れるのを防ぐ） */
-    grid-template-columns: minmax(0, 1fr) 1.5rem;
+    grid-template-columns: 2rem minmax(0, 1fr) 1.5rem;
     align-items: center;
     min-height: 60px;
     padding: 0.85rem 1rem;
@@ -284,8 +317,8 @@ const description = "中村たかひでの公式サイト、各SNS（YouTube・X
     }
 
     .profile-mark {
-      width: 64px;
-      height: 64px;
+      width: 80px;
+      height: 80px;
     }
 
     .link-card,

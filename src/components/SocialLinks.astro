@@ -29,10 +29,20 @@ const base = getBaseUrl();
             alt=""
             aria-hidden="true"
           />
-        ) : descriptions?.youtube ? (
-          <span class="social-text">
-            <span class="social-name">{socials.youtube.name}</span>
-            <span class="social-desc">{descriptions.youtube}</span>
+        ) : descriptions ? (
+          <span class="social-main">
+            <img
+              class="social-icon"
+              src={`${base}images/social/youtube.svg`}
+              alt=""
+              aria-hidden="true"
+            />
+            <span class="social-text">
+              <span class="social-name">{socials.youtube.name}</span>
+              {descriptions.youtube && (
+                <span class="social-desc">{descriptions.youtube}</span>
+              )}
+            </span>
           </span>
         ) : (
           socials.youtube.name
@@ -55,10 +65,20 @@ const base = getBaseUrl();
             alt=""
             aria-hidden="true"
           />
-        ) : descriptions?.x ? (
-          <span class="social-text">
-            <span class="social-name">{socials.x.name}</span>
-            <span class="social-desc">{descriptions.x}</span>
+        ) : descriptions ? (
+          <span class="social-main">
+            <img
+              class="social-icon"
+              src={`${base}images/social/x.svg`}
+              alt=""
+              aria-hidden="true"
+            />
+            <span class="social-text">
+              <span class="social-name">{socials.x.name}</span>
+              {descriptions.x && (
+                <span class="social-desc">{descriptions.x}</span>
+              )}
+            </span>
           </span>
         ) : (
           socials.x.name
@@ -81,10 +101,20 @@ const base = getBaseUrl();
             alt=""
             aria-hidden="true"
           />
-        ) : descriptions?.threads ? (
-          <span class="social-text">
-            <span class="social-name">{socials.threads.name}</span>
-            <span class="social-desc">{descriptions.threads}</span>
+        ) : descriptions ? (
+          <span class="social-main">
+            <img
+              class="social-icon"
+              src={`${base}images/social/threads.svg`}
+              alt=""
+              aria-hidden="true"
+            />
+            <span class="social-text">
+              <span class="social-name">{socials.threads.name}</span>
+              {descriptions.threads && (
+                <span class="social-desc">{descriptions.threads}</span>
+              )}
+            </span>
           </span>
         ) : (
           socials.threads.name
@@ -107,10 +137,20 @@ const base = getBaseUrl();
             alt=""
             aria-hidden="true"
           />
-        ) : descriptions?.instagram ? (
-          <span class="social-text">
-            <span class="social-name">{socials.instagram.name}</span>
-            <span class="social-desc">{descriptions.instagram}</span>
+        ) : descriptions ? (
+          <span class="social-main">
+            <img
+              class="social-icon"
+              src={`${base}images/social/instagram.svg`}
+              alt=""
+              aria-hidden="true"
+            />
+            <span class="social-text">
+              <span class="social-name">{socials.instagram.name}</span>
+              {descriptions.instagram && (
+                <span class="social-desc">{descriptions.instagram}</span>
+              )}
+            </span>
           </span>
         ) : (
           socials.instagram.name
@@ -133,10 +173,20 @@ const base = getBaseUrl();
             alt=""
             aria-hidden="true"
           />
-        ) : descriptions?.note ? (
-          <span class="social-text">
-            <span class="social-name">{socials.note.name}</span>
-            <span class="social-desc">{descriptions.note}</span>
+        ) : descriptions ? (
+          <span class="social-main">
+            <img
+              class="social-icon"
+              src={`${base}images/social/note.svg`}
+              alt=""
+              aria-hidden="true"
+            />
+            <span class="social-text">
+              <span class="social-name">{socials.note.name}</span>
+              {descriptions.note && (
+                <span class="social-desc">{descriptions.note}</span>
+              )}
+            </span>
           </span>
         ) : (
           socials.note.name
@@ -159,10 +209,20 @@ const base = getBaseUrl();
             alt=""
             aria-hidden="true"
           />
-        ) : descriptions?.line ? (
-          <span class="social-text">
-            <span class="social-name">{socials.line.name}</span>
-            <span class="social-desc">{descriptions.line}</span>
+        ) : descriptions ? (
+          <span class="social-main">
+            <img
+              class="social-icon"
+              src={`${base}images/social/line.svg`}
+              alt=""
+              aria-hidden="true"
+            />
+            <span class="social-text">
+              <span class="social-name">{socials.line.name}</span>
+              {descriptions.line && (
+                <span class="social-desc">{descriptions.line}</span>
+              )}
+            </span>
           </span>
         ) : (
           socials.line.name
@@ -172,6 +232,17 @@ const base = getBaseUrl();
   )}
 </nav>
 <style>
+  .social-main {
+    display: contents;
+  }
+
+  .social-icon {
+    width: 22px;
+    height: 22px;
+    justify-self: center;
+    object-fit: contain;
+  }
+
   .social-text {
     display: flex;
     flex-direction: column;
