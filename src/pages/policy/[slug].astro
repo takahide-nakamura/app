@@ -10,12 +10,14 @@ import PolicySection from "../../components/PolicySection.astro";
 import EvidenceBox from "../../components/EvidenceBox.astro";
 import ProposalList from "../../components/policy/ProposalList.astro";
 import YouTubeLink from "../../components/policy/YouTubeLink.astro";
+import { getBaseUrl } from "../../lib/siteUrl";
 import {
   resolveDisplayMode,
   shouldShowDetail,
 } from "../../data/policyDisplay";
 
 const { slug } = Astro.params;
+const base = getBaseUrl();
 
 const {
   content: data,
@@ -27,6 +29,7 @@ const {
 const showDetail = shouldShowDetail(data.detailRelease);
 const isDev = import.meta.env.DEV;
 const prodDisplayMode = resolveDisplayMode(data.detailRelease);
+
 
 export async function getStaticPaths() {
   const policies = await getCollection('policies', ({ data }) => {
@@ -74,7 +77,7 @@ export async function getStaticPaths() {
     )}
 
     {/* ① 評価 (主観 / 客観) ※概要版では表示しない */}
-    {showDetail && data.evaluation && (
+    {(showDetail || data.evaluation?.subjective?.paragraphs) && data.evaluation && (
       <PolicySection title="評価" icon="📊">
         {/* 主観的評価 */}
         {data.evaluation.subjective?.paragraphs && (
@@ -89,7 +92,7 @@ export async function getStaticPaths() {
         )}
 
         {/* 客観的評価 */}
-        {data.evaluation.objective?.paragraphs && (
+        {showDetail && data.evaluation.objective?.paragraphs && (
           <EvidenceBox type="objective">
             {data.evaluation.objective.heading && <h3>{data.evaluation.objective.heading}</h3>}
             <ul class="policy-list">
@@ -112,8 +115,8 @@ export async function getStaticPaths() {
                 <h3>{issue.title}</h3>
               )}
 
-              {/* 課題の説明文は詳細のみ（概要版では見出しだけ出す） */}
-              {showDetail && issue?.description && (
+              {/* 課題の説明文は概要版でも表示する（問題の分析は公開し、対策の設計は詳細に残す） */}
+              {issue?.description && (
                 <p>{issue.description}</p>
               )}
             </article>
@@ -125,7 +128,7 @@ export async function getStaticPaths() {
     )}
 
     {/* この政策で取り組むこと */}
-    {data.proposals && data.proposals.length > 0 && (
+    {showDetail && data.proposals && data.proposals.length > 0 && (
       <PolicySection title="この政策で取り組むこと" icon="✅">
         {data.proposals.map((proposal) => (
           <div class="proposal-card">
@@ -143,10 +146,20 @@ export async function getStaticPaths() {
 
     {/* 概要版のときだけ出す案内（詳細では表示しない） */}
     {!showDetail && (
-      <PolicySection title="詳細について" icon="📝">
+      <PolicySection title="ご意見をお聞かせください" icon="✉️">
         <p>
-          この政策の具体的な提案内容、根拠となる資料、政策の限界などの詳細は、順次公開します。
-          現在は、課題と取り組む方向の概要のみを掲載しています。
+          具体的な提案は、根拠と実現可能性を確認しながら、いま磨き上げているところです。
+          この課題について現場で感じていることやご意見があれば、ぜひお寄せください。
+          いただいた声は、提案をより良いものにするための大切な材料になります。
+        </p>
+        <p class="policy-cta">
+          <a
+            href={`${base}opinions/rules/`}
+            class="btn btn-primary"
+            onclick="gtag('event', 'click_opinion_form', { link_location: 'policy_summary' })"
+          >
+            市民の声を送る
+          </a>
         </p>
       </PolicySection>
     )}
@@ -291,6 +304,11 @@ export async function getStaticPaths() {
 
   margin-bottom: 0;
 
+}
+
+/* 概要版の案内セクション内のボタン */
+.policy-cta {
+  margin-top: 1.25rem;
 }
 
 /* 政策セクションのリスト（問題提起・評価・限界など） */

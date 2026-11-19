@@ -130,7 +130,10 @@ export const policyTags: Record<string, PolicyTagMeta> = {
   reading: "せいねんこうけん",
   category: "🏥 医療・介護",
   },
-
+  "予防接種": {
+  reading: "よぼうせっしゅ",
+  category: "🏥 医療・介護",
+  },
 
   // ===== 👨‍👩‍👧 子育て =====
   "いじめ": {
