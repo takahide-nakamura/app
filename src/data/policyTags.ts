@@ -221,6 +221,15 @@ export const policyTags: Record<string, PolicyTagMeta> = {
   reading: "きょういくそうだん",
   category: "👨‍👩‍👧 子育て",
   },
+  "医療的ケア児": {
+  reading: "いりょうてきけあじ",
+  category: "👨‍👩‍👧 子育て",
+  },
+  "学童保育": {
+  reading: "がくどうほいく",
+  category: "👨‍👩‍👧 子育て",
+  },
+
 
   // ===== 🛡️ 防災 =====
   "国民保護": {
