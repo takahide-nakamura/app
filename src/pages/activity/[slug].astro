@@ -170,6 +170,20 @@ const hasSocialLinks = Boolean(
   margin-top: 3rem;
   color: var(--color-party-primary);
   font-size: var(--text-2xl);
+  padding-bottom: 0.6rem;
+  border-bottom: 2px solid var(--color-border);
+  position: relative;
+}
+
+.activity-body :global(h2)::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 3.5rem;
+  height: 3px;
+  background: var(--color-party-accent);
+  border-radius: var(--radius-full);
 }
 
 .activity-section {
@@ -182,6 +196,18 @@ const hasSocialLinks = Boolean(
   color: var(--color-party-primary);
   font-size: var(--text-2xl);
   border-bottom: 2px solid var(--color-border);
+  position: relative;
+}
+
+.activity-section h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 3.5rem;
+  height: 3px;
+  background: var(--color-party-accent);
+  border-radius: var(--radius-full);
 }
 
 .policy-list {

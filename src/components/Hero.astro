@@ -49,7 +49,6 @@ const base = getBaseUrl();
 .hero-content {
   max-width: 980px;
   margin: 0 auto;
-  text-align: center !important;
 }
 
 .hero-content h1 {
@@ -59,10 +58,9 @@ const base = getBaseUrl();
   flex-wrap: wrap;
   gap: 0.15em;
   margin: 0;
-  text-align: center !important;
-  font-size: clamp(3.2rem, 7vw, 8rem);
+  font-size: clamp(3.2rem, 7vw, 6rem);
   line-height: 0.96;
-  letter-spacing: -0.06em;
+  letter-spacing: -0.03em;
 }
 
 .hero-person-name {
@@ -81,21 +79,14 @@ const base = getBaseUrl();
 .title-main {
   /* 中村たかひで パーソナルブランドカラー */
   color: var(--color-personal-brand);
-  
-  /* バナー導入に合わせて縁取りを薄くし、影を柔らかくした */
-  text-shadow:
-    -1px -1px 0 rgba(17, 17, 17, 0.45),
-     1px -1px 0 rgba(17, 17, 17, 0.45),
-    -1px  1px 0 rgba(17, 17, 17, 0.45),
-     1px  1px 0 rgba(17, 17, 17, 0.45),
-     0px 3px 8px rgba(0, 0, 0, 0.12);
+  /* 縁取りはやめ、同色の柔らかい影だけにする */
+  text-shadow: 0 4px 18px color-mix(in srgb, var(--color-personal-brand) 35%, transparent);
 }
 
 .title-accent {
-  /* 白背景に対して抜群の視認性を誇る政党メインカラー（政党メインカラー） */
+  /* 政党メインカラー */
   color: var(--color-party-primary);
-  /* ドロップシャドウを外すか、同色の薄いシャドウにしてくっきり見せる */
-  text-shadow: none; 
+  text-shadow: none;
 }
 
 .hero-description {
@@ -103,7 +94,6 @@ const base = getBaseUrl();
   margin: 1.75rem auto 2rem;
   font-size: var(--text-lg);
   line-height: 1.8;
-  text-align: center !important;
   word-break: normal;
   overflow-wrap: break-word;
 }
