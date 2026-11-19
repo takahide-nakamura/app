@@ -75,9 +75,6 @@
   --color-danger: #dc2626;
   --color-info: #0284c7;
 
-  /* 根拠ボックス（EvidenceBox）の種別色 ※現在は未使用の種別用。値は従来どおり */
-  --color-evidence-reason: #8e44ad;
-  --color-evidence-improvement: #f39c12;
 
   /* WCAG 2.2 AA 適合フォーカスリング色（白背景に対してコントラスト比 10.5:1） */
   --color-focus: var(--color-party-primary);
@@ -202,12 +199,6 @@ li:last-child {
   margin-inline: auto;
 }
 
-.page-shell {
-  width: min(100% - 2rem, var(--container-width));
-  max-width: var(--container-width);
-  margin-inline: auto;
-}
-
 .page-content {
   width: min(100% - 2rem, var(--content-width));
   max-width: var(--content-width);
@@ -283,9 +274,8 @@ section {
 }
 
 /* --- 共通カード基盤 --- */
-
-.card,
-.card-base {
+/* ActivityPreview（活動の再開時に使用）が使う共通カード */
+.card {
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
   background: var(--color-background);
@@ -294,8 +284,7 @@ section {
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
-.card:hover,
-.card-base:hover {
+.card:hover {
   border-color: var(--color-border-strong);
 }
 

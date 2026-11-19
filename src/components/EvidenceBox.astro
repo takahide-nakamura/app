@@ -4,12 +4,7 @@ interface Props {
   type?:
     | "subjective"
     | "objective"
-    | "limitation"
-    | "field"
-    | "official"
-    | "reason"
-    | "improvement"
-    | "effect";
+    | "limitation";
 }
 
 const {
@@ -28,22 +23,6 @@ const styles = {
     color: "var(--color-text-subtle)"
   },
 
-  // 後方互換
-  field: {
-    color: "var(--color-success)"
-  },
-  official: {
-    color: "var(--color-party-primary)"
-  },
-  reason: {
-    color: "var(--color-evidence-reason)"
-  },
-  improvement: {
-    color: "var(--color-evidence-improvement)"
-  },
-  effect: {
-    color: "var(--color-success)"
-  }
 } as const;
 
 const current = styles[type] ?? styles.objective;
