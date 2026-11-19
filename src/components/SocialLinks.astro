@@ -4,9 +4,10 @@ import { getBaseUrl } from "../lib/siteUrl";
 
 interface Props {
   compact?: boolean;
+  descriptions?: Partial<Record<"youtube" | "x" | "threads" | "instagram" | "note" | "line", string>>;
 }
 
-const { compact = false } = Astro.props;
+const { compact = false, descriptions } = Astro.props;
 const base = getBaseUrl();
 ---
 
@@ -28,6 +29,11 @@ const base = getBaseUrl();
             alt=""
             aria-hidden="true"
           />
+        ) : descriptions?.youtube ? (
+          <span class="social-text">
+            <span class="social-name">{socials.youtube.name}</span>
+            <span class="social-desc">{descriptions.youtube}</span>
+          </span>
         ) : (
           socials.youtube.name
         )
@@ -49,6 +55,11 @@ const base = getBaseUrl();
             alt=""
             aria-hidden="true"
           />
+        ) : descriptions?.x ? (
+          <span class="social-text">
+            <span class="social-name">{socials.x.name}</span>
+            <span class="social-desc">{descriptions.x}</span>
+          </span>
         ) : (
           socials.x.name
         )
@@ -70,6 +81,11 @@ const base = getBaseUrl();
             alt=""
             aria-hidden="true"
           />
+        ) : descriptions?.threads ? (
+          <span class="social-text">
+            <span class="social-name">{socials.threads.name}</span>
+            <span class="social-desc">{descriptions.threads}</span>
+          </span>
         ) : (
           socials.threads.name
         )
@@ -91,6 +107,11 @@ const base = getBaseUrl();
             alt=""
             aria-hidden="true"
           />
+        ) : descriptions?.instagram ? (
+          <span class="social-text">
+            <span class="social-name">{socials.instagram.name}</span>
+            <span class="social-desc">{descriptions.instagram}</span>
+          </span>
         ) : (
           socials.instagram.name
         )
@@ -112,6 +133,11 @@ const base = getBaseUrl();
             alt=""
             aria-hidden="true"
           />
+        ) : descriptions?.note ? (
+          <span class="social-text">
+            <span class="social-name">{socials.note.name}</span>
+            <span class="social-desc">{descriptions.note}</span>
+          </span>
         ) : (
           socials.note.name
         )
@@ -133,6 +159,11 @@ const base = getBaseUrl();
             alt=""
             aria-hidden="true"
           />
+        ) : descriptions?.line ? (
+          <span class="social-text">
+            <span class="social-name">{socials.line.name}</span>
+            <span class="social-desc">{descriptions.line}</span>
+          </span>
         ) : (
           socials.line.name
         )
@@ -140,3 +171,18 @@ const base = getBaseUrl();
     </a>
   )}
 </nav>
+<style>
+  .social-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    min-width: 0;
+  }
+
+  .social-desc {
+    font-size: 0.82rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--color-text-muted);
+  }
+</style>

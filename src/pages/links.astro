@@ -52,7 +52,15 @@ const description = "中村たかひでの公式サイト、各SNS（YouTube・X
     <section class="links-section" aria-labelledby="sns-heading">
       <h2 id="sns-heading">SNS・公式LINE</h2>
       <div class="social-links-wrapper">
-        <SocialLinks />
+        <SocialLinks
+          descriptions={{
+            youtube: "制度や政策を、5〜10分の動画で解説など",
+            x: "日々の活動（リアルタイム）、日常の発信など",
+            threads: "高槻の御当地情報、歴史、イベンド情報など",
+            instagram: "高槻の御当地情報、歴史、イベンド情報など",
+            note: "トクする情報、高槻市の制度情報、政策の解説など",
+          }}
+        />
       </div>
     </section>
 
@@ -229,7 +237,9 @@ const description = "中村たかひでの公式サイト、各SNS（YouTube・X
 
   .social-links-wrapper :global(.social-links a) {
     display: grid;
-    grid-template-columns: 2rem 1fr 1.5rem;
+    /* SNSリンクの中身は「サービス名テキスト＋::afterの矢印」の2要素だけなので、
+       アイコン列のある共通カードと列構成を分ける（テキストが2rem列に落ちて潰れるのを防ぐ） */
+    grid-template-columns: minmax(0, 1fr) 1.5rem;
     align-items: center;
     min-height: 60px;
     padding: 0.85rem 1rem;
