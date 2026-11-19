@@ -71,14 +71,14 @@ const safeTags = Array.isArray(tags) ? tags : [];
   margin-top: 0;
   margin-bottom: 0.75rem;
   color: var(--color-party-primary);
-  font-size: 1.25rem;
+  font-size: var(--text-xl);
   line-height: 1.4;
 }
 
 .summary {
   line-height: 1.7;
   color: var(--color-text);
-  font-size: 0.95rem;
+  font-size: var(--text-base);
   margin-bottom: 1rem;
   flex-grow: 1;
 }
@@ -91,7 +91,7 @@ const safeTags = Array.isArray(tags) ? tags : [];
 }
 
 .tag {
-  font-size: 0.78rem;
+  font-size: var(--text-xs);
   padding: 0.25rem 0.6rem;
   background: var(--color-party-primary-subtle);
   color: var(--color-party-primary);
@@ -112,7 +112,7 @@ const safeTags = Array.isArray(tags) ? tags : [];
   background: var(--color-border);
   color: var(--color-text-subtle);
   border-radius: var(--radius-sm);
-  font-size: 0.9rem;
+  font-size: var(--text-sm);
   cursor: not-allowed;
 }
 </style>

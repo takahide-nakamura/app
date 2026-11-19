@@ -46,8 +46,8 @@ const { Content } = await render(entry);
     margin: 0 0 2.5rem;
     padding: 1.25rem 1.5rem 0.75rem;
     border: 2px solid var(--color-party-accent);
-    border-radius: 8px;
-    background: #fffdf2;
+    border-radius: var(--radius-md);
+    background: var(--color-accent-subtle);
   }
 
   .opinion-rules-page .rules-intro-heading {
@@ -55,7 +55,7 @@ const { Content } = await render(entry);
     padding: 0;
     border: 0;
     background: transparent;
-    font-size: clamp(1.2rem, 3vw, 1.5rem);
+    font-size: var(--text-2xl);
     font-weight: 700;
     color: var(--color-text);
   }
@@ -67,8 +67,8 @@ const { Content } = await render(entry);
   .opinion-rules-page .terms-box {
     margin: 2rem 0 0;
     border: 2px solid var(--color-party-primary);
-    border-radius: 8px;
-    background: #fff;
+    border-radius: var(--radius-md);
+    background: var(--color-background);
     max-height: min(70vh, 720px);
     overflow-y: auto;
     overscroll-behavior: contain;

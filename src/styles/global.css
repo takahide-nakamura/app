@@ -29,6 +29,7 @@
   --color-party-primary-subtle: #f0f6fc;
   --color-party-accent: #f5b500;
   --color-party-accent-hover: #db9f00;
+  --color-accent-subtle: #fff9e6; /* アクセント色の淡い背景（注意喚起ボックス等） */
   --color-party-primary-border: #d0e1f9; /* 政党色の淡い枠線（タグ等） */
 
   /* ------------------------------------------------------------------------
@@ -113,6 +114,7 @@
   --text-xl: 1.25rem;   /* 小見出し（h3） */
   --text-2xl: clamp(1.45rem, 3.5vw, 1.9rem); /* 中見出し（h2） */
   --text-3xl: clamp(2.2rem, 6vw, 4rem);      /* 大見出し（h1） */
+  --text-policy-title: clamp(1.8rem, 4.5vw, 2.2rem); /* 政策ページの題名（長い題名でも収まるよう h1 より小さめ） */
 
   /* 影（カード等。3段階だけ） */
   --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.04);
@@ -156,6 +158,7 @@ h1 {
 h2 {
   font-size: var(--text-2xl);
   font-weight: 700;
+  color: var(--color-primary);
   margin: 3rem 0 1.5rem;
   line-height: 1.3;
 }

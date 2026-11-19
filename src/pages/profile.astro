@@ -263,7 +263,7 @@ const initialAge = getAge(profile.birthDate);
 /* ========================= Hero ========================== */
 .profile-hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(220px, 320px); gap: clamp(2rem, 7vw, 6rem); align-items: center; padding-bottom: clamp(3rem, 7vw, 6rem); }
 .hero-copy { max-width: 620px; }
-.eyebrow, .section-label { margin: 0 0 0.75rem; color: var(--color-primary); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.08em; }
+.eyebrow, .section-label { margin: 0 0 0.75rem; color: var(--color-primary); font-size: var(--text-sm); font-weight: 700; letter-spacing: 0.08em; }
 .profile-hero h1 { margin: 0 0 1.25rem; line-height: 1.25; }
 .lead { margin: 0 0 1.5rem; color: var(--color-primary); font-size: clamp(1.15rem, 2.5vw, 1.5rem); font-weight: 700; line-height: 1.7; }
 .hero-description { max-width: 35rem; margin: 0; line-height: 1.9; }
@@ -275,7 +275,7 @@ const initialAge = getAge(profile.birthDate);
 .basic-profile h2, .profile-section h2 { color: var(--color-primary); }
 .profile-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin: 0; border-top: 1px solid var(--color-border); }
 .profile-list div { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 1rem; padding: 0.85rem 0; border-bottom: 1px solid var(--color-border); }
-.profile-list dt { color: #555; font-weight: 700; } .profile-list dd { margin: 0; }
+.profile-list dt { color: var(--color-text-muted); font-weight: 700; } .profile-list dd { margin: 0; }
 
 /* ========================= Personal Interests ========================== */
 .personal-interests { padding: 0 0 clamp(3rem, 6vw, 5rem); }
@@ -291,7 +291,7 @@ const initialAge = getAge(profile.birthDate);
 
 /* ========================= Vision ========================== */
 .strengths-section { border-top: 0.35rem solid var(--color-accent); }
-.strengths-section h3 { margin: 0 0 1.25rem; color: var(--color-text); font-size: 1.35rem; } 
+.strengths-section h3 { margin: 0 0 1.25rem; color: var(--color-text); font-size: var(--text-xl); } 
 
 /* ========================= Political Approach ========================== */
 .approach-lead { max-width: 47rem; margin: 0 0 1.5rem; color: var(--color-primary); font-size: 1.2rem; font-weight: 700; line-height: 1.7; }
@@ -300,14 +300,14 @@ const initialAge = getAge(profile.birthDate);
 .process-list li:nth-child(4n) { border-right: 0; }
 /* 2行目（5番目以降）の要素だけに線を引かない設定に変更 */
 .process-list li:nth-child(n + 5) { border-bottom: 0; }
-.process-list span { display: block; margin-bottom: 0.45rem; color: #666; font-size: 0.78rem; line-height: 1.4; }
+.process-list span { display: block; margin-bottom: 0.45rem; color: var(--color-text-subtle); font-size: var(--text-xs); line-height: 1.4; }
 .process-list strong { display: block; color: var(--color-primary); line-height: 1.6; }
 
 /* ========================= Policy Focus ========================== */
 .focus-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem; }
 .focus-item { padding-top: 1rem; border-top: 3px solid var(--color-primary); }
 .focus-number { margin: 0; color: var(--color-primary); font-weight: 700; }
-.focus-item h3 { margin: 0.5rem 0 1rem; font-size: 1.1rem; line-height: 1.6; }
+.focus-item h3 { margin: 0.5rem 0 1rem; font-size: var(--text-lg); line-height: 1.6; }
 .focus-item p:last-child { margin: 0; line-height: 1.85; }
 
 /* ========================= History ========================== */
@@ -315,14 +315,14 @@ const initialAge = getAge(profile.birthDate);
 .history-grid h3 { margin: 0 0 1rem; color: var(--color-primary); }
 .timeline { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--color-border); }
 .timeline li { margin: 0; padding: 0.8rem 0; border-bottom: 1px solid var(--color-border); line-height: 1.6; }
-.history-note { margin: 2rem 0 0; color: #555; font-size: 0.9rem; line-height: 1.7; }
+.history-note { margin: 2rem 0 0; color: var(--color-text-muted); font-size: var(--text-sm); line-height: 1.7; }
 
 /* ========================= Current Activity ========================== */
 .activity-flow { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border-top: 1px solid var(--color-primary); border-bottom: 1px solid var(--color-primary); }
 .activity-flow div { min-height: 9rem; padding: 1.25rem 1rem; border-right: 1px solid var(--color-border); }
 .activity-flow div:last-child { border-right: 0; }
 .activity-flow strong { display: block; margin-bottom: 0.75rem; color: var(--color-primary); }
-.activity-flow span { display: block; font-size: 0.9rem; line-height: 1.7; }
+.activity-flow span { display: block; font-size: var(--text-sm); line-height: 1.7; }
 
 /* ========================= Responsive ========================== */
 @media (max-width: 900px) {
