@@ -132,7 +132,6 @@ export const policyTags: Record<string, PolicyTagMeta> = {
   },
 
 
-
   // ===== 👨‍👩‍👧 子育て =====
   "いじめ": {
     reading: "いじめ",
@@ -217,6 +216,10 @@ export const policyTags: Record<string, PolicyTagMeta> = {
   "進路支援": {
     reading: "しんろしえん",
     category: "👨‍👩‍👧 子育て",
+  },
+  "教育相談": {
+  reading: "きょういくそうだん",
+  category: "👨‍👩‍👧 子育て",
   },
 
   // ===== 🛡️ 防災 =====
@@ -397,6 +400,10 @@ export const policyTags: Record<string, PolicyTagMeta> = {
   "住まい": {
     reading: "すまい",
     category: "🏙️ 暮らし",
+  },
+  "福祉避難所": {
+  reading: "ふくしひなんじょ",
+  category: "🛡️ 防災",
   },
 
   // ===== 将来用・基本タグ（現時点で使用されていないタグはUIに非表示） =====
