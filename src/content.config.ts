@@ -124,6 +124,24 @@ const policies = defineCollection({
       .default("auto"),
 
     /**
+     * 表示上の優先度（非公開の内部管理用）
+     *
+     * 1: 最も優先して見せたい政策
+     * 2: 標準（既定）
+     * 3: 補完的な政策
+     *
+     * 政策一覧ページで、カテゴリー内の表示順を決めるためだけに使う。
+     * ページ上には表示しない。
+     */
+    priority: z
+      .number()
+      .int()
+      .min(1)
+      .max(3)
+      .optional()
+      .default(2),
+
+    /**
      * 最終更新日
      *
      * YYYY-MM-DD の形式に統一する。
