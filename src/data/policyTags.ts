@@ -122,7 +122,15 @@ export const policyTags: Record<string, PolicyTagMeta> = {
    reading: "こうどうへんよう",
    category: "🏥 医療・介護",
   },
-  
+  "終活": {
+  reading: "しゅうかつ",
+  category: "🏥 医療・介護",
+  },
+  "成年後見": {
+  reading: "せいねんこうけん",
+  category: "🏥 医療・介護",
+  },
+
 
 
   // ===== 👨‍👩‍👧 子育て =====
