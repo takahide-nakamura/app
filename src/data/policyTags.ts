@@ -397,6 +397,14 @@ export const policyTags: Record<string, PolicyTagMeta> = {
     reading: "じょうげすいどう",
     category: "🏙️ 暮らし",
   },
+  "物価高対策": {
+    reading: "ぶっかだかたいさく",
+    category: "🏙️ 暮らし",
+  },
+  "地域経済": {
+    reading: "ちいきけいざい",
+    category: "🏙️ 暮らし",
+  },
   "生活インフラ": {
     reading: "せいかつインフラ",
     category: "🏙️ 暮らし",
