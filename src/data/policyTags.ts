@@ -148,6 +148,10 @@ export const policyTags: Record<string, PolicyTagMeta> = {
     reading: "りんじきゅうこう",
     category: "👨‍👩‍👧 子育て",
   },
+  "部活動": {
+    reading: "ぶかつどう",
+    category: "👨‍👩‍👧 子育て",
+  },
   "学校教育": {
     reading: "がっこうきょういく",
     category: "👨‍👩‍👧 子育て",
