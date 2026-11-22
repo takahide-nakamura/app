@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { getCollection } from 'astro:content';
 import { opinionPublicCsvUrl } from '../data/opinionForm';
 import { getBaseUrl } from '../lib/siteUrl';
 
@@ -18,6 +19,37 @@ interface Opinion {
   summary: string;
   comment: string;
   policyId: string;
+  policyLink: { href: string; label: string } | null;
+}
+
+// 公開中の政策スラッグ一覧（関連政策IDが実在する政策を指す場合の判定用）
+const publishedPolicies = await getCollection('policies', ({ data }) => !data.draft);
+const publishedPolicySlugs = new Set(
+  publishedPolicies.map((entry) => entry.id.replace(/\.md$/, ''))
+);
+
+// 市民の声システムが出力するカテゴリID → 政策一覧のカテゴリセクションへのリンク
+const categoryPolicyLinks: Record<string, { href: string; label: string }> = {
+  'policy-life': { href: 'policy#living', label: '🔗 暮らしの政策を見る' },
+  'policy-medical': { href: 'policy#medical-care', label: '🔗 医療・介護の政策を見る' },
+  'policy-disaster': { href: 'policy#disaster-prevention', label: '🔗 防災の政策を見る' },
+  'policy-childcare': { href: 'policy#childcare', label: '🔗 子育ての政策を見る' },
+  'policy-other': { href: 'policy', label: '🔗 政策一覧を見る' },
+};
+
+// 関連政策IDをリンクに解決する。
+// 実在する政策スラッグならその政策ページへ、カテゴリIDなら政策一覧の該当カテゴリへ。
+// どちらでもない場合はリンクを出さない（リンク切れ防止）。
+function resolvePolicyLink(policyId: string): { href: string; label: string } | null {
+  if (!policyId) {
+    return null;
+  }
+
+  if (publishedPolicySlugs.has(policyId)) {
+    return { href: `policy/${policyId}`, label: '🔗 関連する政策を見る' };
+  }
+
+  return categoryPolicyLinks[policyId] ?? null;
 }
 
 function getStatusIcon(status: string) {
@@ -103,7 +135,8 @@ try {
          status: cols[5] || '受付済み',
          summary: cols[6] || '',
          comment: cols[7] || '',
-         policyId: cols[8] || ''
+         policyId: cols[8] || '',
+         policyLink: resolvePolicyLink(cols[8] || '')
         };
       })
       .filter(item => item.text);
@@ -220,10 +253,10 @@ try {
                 </div>
               )}
 
-              {item.policyId && (
+              {item.policyLink && (
                 <div class="policy-link-box">
-                  <a href={`${base}policy/${item.policyId}`}>
-                   🔗 関連する政策を見る
+                  <a href={`${base}${item.policyLink.href}`}>
+                   {item.policyLink.label}
                   </a>
                 </div>
               )}
