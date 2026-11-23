@@ -277,6 +277,14 @@ export const policyTags: Record<string, PolicyTagMeta> = {
     reading: "しえいばす",
     category: "🏙️ 暮らし",
   },
+  "デマンド交通": {
+    reading: "でまんどこうつう",
+    category: "🏙️ 暮らし",
+  },
+  "オンデマンド": {
+    reading: "おんでまんど",
+    category: "🏙️ 暮らし",
+  },
   "福祉": {
     reading: "ふくし",
     category: "🏙️ 暮らし",
