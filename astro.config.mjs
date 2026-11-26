@@ -9,4 +9,10 @@ export default defineConfig({
   base: '/app',
   
   integrations: [sitemap()],
+  server: {
+  allowedHosts: [
+    'mixer-premises-literacy-cooking.trycloudflare.com',
+  ],
+},
 });
+
