@@ -26,6 +26,6 @@ export const socials = {
 
   line: {
     name: "公式LINE",
-    url: "",
+    url: "https://lin.ee/SCWJGnV",
   },
 };
